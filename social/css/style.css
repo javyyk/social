@@ -1,0 +1,117 @@
+*{
+	font-family: Tahoma, Verdana;
+}
+
+body{
+	background-color:#3869A0;
+	min-height:600px;
+}
+
+/* LOGIN */
+#main{
+	text-align:center;
+}
+
+h1#logo{
+	font-size:80px;
+	color: #F0F0F0;
+	text-shadow: 2px 5px 20px black;
+}
+
+#form{
+	/*text-align:left;*/
+	padding: 15px;
+	width:270px;
+	margin: 0px auto 0 auto;
+	background-color:white;
+	border-radius: 10px 10px 10px 10px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:5px 5px 5px black;
+	line-height:30px;
+}
+
+
+#form button {
+	background-color:#59A5E3;
+	border-radius: 5px 5px 5px 5px;
+	height: 34px;
+	color: #FFFFFF;
+	font-size: 14px;
+	width: 90px;
+	border: 0 none;
+	margin: 5px 5px 5px 5px;
+	cursor: pointer;
+	font-family: "Lucida Grande",Arial,Helvetica,sans-serif;
+}
+
+button.login_registrarse{
+	float:right;
+}
+
+#creditos{
+	z-index:-1;
+	position: absolute;
+	bottom: 0;
+	width: 98%;
+	min-width:400px;
+	text-align:center;
+}
+
+#creditos div{
+	display:inline;
+	border-top: 1px solid black;
+	text-align:center;
+	background-color:white;
+	border-radius: 10px 10px 0 0;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
+}
+
+#creditos p{
+	display:inline;
+	margin-right: 50px;
+	margin-left: 50px;
+	font-size:12px;
+}
+
+
+
+#encabezado {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 56px;
+	font-weight: bold;
+	letter-spacing: 10px;
+	color: white;
+	text-shadow: 2px 2px 4px #000000;
+	font-style: normal;
+}
+
+
+
+#barra_sup{
+	font-family: 'Open Sans',Arial,Helvetica,sans-serif;
+	min-width: 790px;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+#barra_sup a{
+	margin-right: 10px;
+}
+
+#barra_izq{
+	width: 200px;
+	float:left;
+}
+
+#estado{
+		margin-left: 210px;
+}
+
+#cuerpo{
+		margin-left: 210px;
+	
+}
+
