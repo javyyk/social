@@ -1,4 +1,0 @@
-social
-======
-
-Proyecto Red Social
