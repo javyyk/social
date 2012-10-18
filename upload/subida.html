@@ -1,0 +1,61 @@
+
+	<div id="html5_uploader" style="height: 330px;">
+		<div id="html4_uploader" style="height: 330px;">
+			<div id="flash_uploader" style="height: 330px;">
+				¿Pero que coño soporta tu navegador?
+			</div>
+		</div>
+	</div>
+<br />
+
+<script type="text/javascript">
+$(function() {
+	// Setup flash version
+	$("#flash_uploader").pluploadQueue({
+		// General settings
+		runtimes : 'flash',
+		url : './upload/upload.php',
+		max_file_size : '10mb',
+		chunk_size : '1mb',
+		unique_names : true,
+		filters : [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip"}
+		],
+
+		// Resize images on clientside if we can
+		//resize : {width : 320, height : 240, quality : 90},
+
+		// Flash settings
+		flash_swf_url : './upload/js/plupload.flash.swf'
+	});
+
+	// Setup html5 version
+	$("#html5_uploader").pluploadQueue({
+		// General settings
+		runtimes : 'html5',
+		url : './upload/upload.php',
+		max_file_size : '10mb',
+		chunk_size : '1mb',
+		unique_names : true,
+		filters : [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip,txt"}
+		],
+
+		// Resize images on clientside if we can
+		//resize : {width : 320, height : 240, quality : 90}
+	});
+	// Setup html4 version
+	$("#html4_uploader").pluploadQueue({
+		// General settings
+		runtimes : 'html4',
+		url : './upload/upload.php',
+		unique_names : true,
+		filters : [
+			{title : "Image files", extensions : "jpg,gif,png"},
+			{title : "Zip files", extensions : "zip"}
+		]
+	});
+});
+</script>
