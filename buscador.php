@@ -11,6 +11,13 @@
 </form>
 <?php
 	if($_GET['agregar']){//ENVIAR PETICION AMISTAD
+		$query=mysql_query("SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");	
+		if(mysql_errno()!=0){
+			error_mysql("exit");
+		}
+		if(mysql_num_rows($query)>0){
+			header("Location: inicio.php?yasoisamigos");
+		}
 		mysql_query("INSERT INTO peticiones VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
 	}
 	if($_GET['busqueda']){//REALIZAR BUSQUEDA

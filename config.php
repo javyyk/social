@@ -40,7 +40,10 @@
 	}
 	
 	//ERROR MYSQL
-	function error_mysql(){
+	function error_mysql($p1){
 		echo "No error: ".mysql_errno()." -> ".mysql_error()."<br>";
+		if($p1=="exit"){
+			die("Script detenido por fallo PHP");
+		}
 	}
 ?>
