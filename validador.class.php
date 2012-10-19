@@ -105,39 +105,32 @@ class Validador{
 
 		print "
 				<script type='text/javascript'>
-				var ayuda = {}; /* DECLARAMOS VARIABLE GLOBAL */
-				var validado = 0;
-				array_campos = new Array();
 				
-				function validador(option){ /* FUNCION VALIDADOR */
-					for(i=0;i<=array_campos.length;i++){ // LIMPIAMOS ARRAY
+				var ayuda = {};	//Declaro objeto global
+				var validado = 0; //
+				array_campos = new Array(); //Lista de campos validables
+				
+				//FUNCION VALIDADOR
+				function validador(option){
+
+					//Limpiamos la lista de campos para evitar duplicidades
+					for(i=0;i<=array_campos.length;i++){
 						array_campos.pop();
 					}
 					validado = 1;
 		";
-		/*foreach($this->campos as $t){
-			
-			$this->SetFromArray($t);
-			if($this->campos){
-				print "
-					
-					ayuda_".$this->name.".mensaje = ''
-				";
-			}else{
-				echo "<h3>Debes introducir el nombre del campo</h3>";
-			}
-		}*/
-		//print "function validador(){";
 		
 		foreach($this->campos as $t){
 			
 			$this->SetFromArray($t);
 			if($this->campos){
-				print(
-					"ayuda.".$this->name." = {};
+				print("
+					//Seteamos los objetos js
+					ayuda.".$this->name." = {};
 					ayuda.".$this->name.".mensaje = '';
-					array_campos.push('".$this->name."');
-					$(\"input[name='".$this->name."']\").css({'background-color':'green'}); /* RESETEAMOS EL COLOR */\n
+					array_campos.push('".$this->name."'); //Para posterior validacion
+					
+					$(\"input[name='".$this->name."']\").css({'background-color':'green'}); //Reseteamos el color \n
 				");
 				$help_div = "ayuda.".$this->name.".mensaje";
 				//print_r($this->campos);
@@ -216,27 +209,39 @@ class Validador{
 			}
 		}
 		print "
+					// Se ha pulsado un boton, no la validacion auto
 					if(option == 'submit'){
-						//alert(array_campos);
+						//Comprobamos que no haya errores en los inputs
 						form_ok = 1;
 						for(i=0;i<array_campos.length;i++){
-							help_div = eval('ayuda.' + array_campos[i] + '.mensaje'); /* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
+							var help_div; //fix ie
+							help_div = eval('ayuda.' + array_campos[i] + '.mensaje');
 							if(help_div.length > 0){
 								form_ok = 0;
 							}
 						}
-						if(form_ok == 1){ //Si no ha errores enviar
+						
+						//Si no ha errores enviar
+						if(form_ok == 1){
 							$('#form_login').submit();
 						}
 					}
-				} /* FIN VALIDADOR */		
+				}
+				//Fin funcion Validador()
+				
 					$(document).ready(function(){
-						if($(\"#help_div\").length<1){/* SI NO EXISTE EL DIV DE AYUDA LO INSERTAMOS */
-							$('body').append(\"<div id='help_div' style='display:none;position:absolute;border:1px solid red;padding:4px;background-color:red;'></div>\");
+							
+						// Si no existe el help_div se inserta
+						if($(\"#help_div\").length<1){
+							$('body').append(\"<div id='help_div'></div>\");
 						}
 						
-						$(\"input\").hover(/* AL PONER CURSOR SOBRE UN INPUT */
-							function(){/* MOSTRAR DIV */
+						// Al poner y quitar el raton sobre los input
+						$(\"input\").hover(
+							function(){
+								
+								//$(this).css({'border':'1px solid #3869A0'});
+								
 								help_div = eval('ayuda.' + $(this).attr('name') + '.mensaje'); /* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
 								if(help_div.length>0){ /* LA VARIABLE NO ESTA VACIA */
 									$('#help_div').html(help_div);
@@ -244,7 +249,10 @@ class Validador{
 									help_div =	'';
 								}
 							},
-							function(){/* OCULTAR DIV */
+							
+							function(){
+								//$(this).css({'border':'1px solid blue'});
+								
 								//if(help_div.length>0){	
 									$('#help_div').html(\"\");
 									$('#help_div').hide();
@@ -273,9 +281,9 @@ class Validador{
 									$('#help_div').show();
 								}
 							}
-							/*if (event.which == 13) {
-								event.preventDefault();
-							}*/
+							if (event.which == 13) {
+								validador('submit');
+							}
 						});
 
 					});

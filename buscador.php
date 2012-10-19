@@ -7,7 +7,7 @@
 <div id="cuerpo" class="">
 <form method="GET" action="buscador.php">
 	<input type="text" name="busqueda" value="<?php echo $_GET['busqueda']; ?>"/>
-	<button type="button">Buscar</button>
+	<button type="submit">Buscar</button>
 </form>
 <?php
 	if($_GET['agregar']){//ENVIAR PETICION AMISTAD
@@ -17,6 +17,7 @@
 		}
 		if(mysql_num_rows($query)>0){
 			header("Location: inicio.php?yasoisamigos");
+			die(); //evitamos enviar peticion
 		}
 		mysql_query("INSERT INTO peticiones VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
 	}
