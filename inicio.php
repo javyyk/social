@@ -29,7 +29,7 @@ WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_id
 			//echo "Tienes ".mysql_num_rows($query)." peticion(es) de amistad:<br>";
 			while($row=mysql_fetch_assoc($query)){
 				//print_r($row);
-				echo $row['nombre']." ".$row['apellidos']." <a href='post.php?aceptarpeticion=1&emisor=".$row['idusuarios']."'>Ver perfil***</a><br>";
+				echo $row['nombre']." ".$row['apellidos']." <a href='gente.php?id=".$row['idusuarios']."'>Ver perfil</a><br>";
 				
 			}
 		}

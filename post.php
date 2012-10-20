@@ -31,4 +31,17 @@
 		header("Location: inicio.php");
 	}
 	
+	if($_POST['comentario_tablon']!=""){
+		mysql_query("INSERT INTO tablon (emisor,receptor,comentario) VALUES ('".$global_idusuarios."','".$_POST['receptor']."','".$_POST['comentario_tablon']."')");
+		if(mysql_errno()!=0){
+			error_mysql("exit");
+		}else{
+			header("Location: gente.php?id=".$_POST['receptor']);
+		}
+	}
+	echo "<pre>";
+	print_r($_POST);
+	echo "<br>";
+	print_r($_GET);
+	echo "</pre>";
 ?>

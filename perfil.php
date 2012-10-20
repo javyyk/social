@@ -27,8 +27,17 @@
 		<button type="submit" form="cambio_estado" value="Submit">Cambiar</button>
 	</form>
 </div>
-<div id="cuerpo" class="">
-las cosas dle tablon<br>
-los comentarios del personal
-</div>
 
+<div id="cuerpo" class="">
+	<h2>Comentarios</h2>
+	<?php
+	$query=mysql_query("SELECT * FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor");
+	if(mysql_num_rows($query)>0){
+		while($comentarios=mysql_fetch_assoc($query)){
+			echo "<div>".$comentarios['nombre']." dijo: ".$comentarios['comentario']."</div>";
+		}
+	}else{
+		echo "<div>Aun no tienes comentarios en tu tablon</div>";
+	}
+	?>
+</div>
