@@ -1,8 +1,6 @@
 <?php
 	require("verify_login.php");
-	head("Gente - Social");
-	require("estructura.php");
-
+	
 	//Comprueba amistad
 	$query=mysql_query("SELECT count(*) FROM amigos WHERE user1='".$_GET['id']."' AND user2='".$global_idusuarios."' OR user2='".$_GET['id']."' AND user1='".$global_idusuarios."'");
 	if(mysql_num_rows($query)!=1){
@@ -12,6 +10,10 @@
 		$query=mysql_query("SELECT * FROM usuarios WHERE idusuarios='".$_GET['id']."'");
 		$usuario=mysql_fetch_assoc($query);
 	}
+	head($usuario['nombre']." - Social");
+	require("estructura.php");
+
+
 ?>
 <div id="barra_izq" class="">
 	<h2>Datos</h2>
@@ -22,7 +24,8 @@
 			echo "<img alt='foto principal' height='300' width='300' src='".$foto['archivo']."' />";
 		}
 		echo $usuario['nombre']." ".$usuario['apellidos'];
-		echo "<br>Edad: ".$usuario['edad'];
+		echo "<br>Edad: ".$usuario['edad']."<br>";
+		echo "<a href='mp.php?enviar=1&receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a>"
 	?>
 </div>
 <div id="estado" class="">

@@ -39,6 +39,15 @@
 			header("Location: gente.php?id=".$_POST['receptor']);
 		}
 	}
+	
+	if($_POST['mensaje_privado']!=""){
+		mysql_query("INSERT INTO mps (emisor,receptor,mp) VALUES ('".$global_idusuarios."','".$_POST['receptor']."','".$_POST['mensaje_privado']."')");
+		if(mysql_errno()!=0){
+			error_mysql("exit");
+		}else{
+			header("Location: gente.php?id=".$_POST['receptor']."&mp_enviado");
+		}
+	}
 	echo "<pre>";
 	print_r($_POST);
 	echo "<br>";
