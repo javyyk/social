@@ -1,3 +1,18 @@
+.desplegable {
+	display:inline-block;
+	width:200px;
+}
+
+
+.desplegable .submenus{
+	display:none;
+  position: fixed;
+}
+
+.desplegable div{
+	display:none;
+}
+
 *{
 	font-family: Tahoma, Verdana;
 }
@@ -99,6 +114,8 @@ button.login_registrarse{
 
 #barra_sup a{
 	margin-right: 10px;
+	vertical-align:top;
+	height:100px;
 }
 
 #barra_izq{
