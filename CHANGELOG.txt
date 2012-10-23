@@ -1,9 +1,3 @@
 PENDIENTE:
 	alias para campos
 	id de formulario o multiples forms en una pagina
-
-v2 /10
-	al llamar validador('submit') si no hay errores se envia
-	
-v1 17/10
-	validador login con eventos al pulsar boton, teclas, no envia form

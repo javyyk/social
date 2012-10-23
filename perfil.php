@@ -14,16 +14,16 @@
 		echo "<br>Edad: ".$usuario['edad'];
 	?>
 </div>
-<div id="estado" class="">
+<div id="cuerpo">
 	<form method="POST" action="post.php" id="cambio_estado">
-		<textarea name="estado" cols="60" rows="2">
+		
 		<?php
 			if($usuario['estado']){
-				echo $usuario['estado'];
+				echo "<textarea name='estado' cols='60' rows='2'>".$usuario['estado']."</textarea>";
 			}else{
-				echo "Pon un estado huevon";
+				echo "<textarea name='estado' cols='60' rows='2'>Pon un estado huevon</textarea>";
 			}
-		?></textarea>
+		?>
 		<button type="submit" form="cambio_estado" value="Submit">Cambiar</button>
 	</form>
 </div>

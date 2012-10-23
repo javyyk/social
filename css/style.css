@@ -1,18 +1,3 @@
-.desplegable {
-	display:inline-block;
-	width:200px;
-}
-
-
-.desplegable .submenus{
-	display:none;
-  position: fixed;
-}
-
-.desplegable div{
-	display:none;
-}
-
 *{
 	font-family: Tahoma, Verdana;
 }
@@ -20,6 +5,142 @@
 body{
 	background-color:#3869A0;
 	/*min-height:600px;*/
+	width:1023px;
+}
+
+
+
+
+
+
+
+
+#menudrop, #menudrop ul, #menudrop ul li, #menudrop ul li ul, #menudrop ul li ul li {
+	margin:0;
+	padding:0;
+}
+
+#menudrop{
+	list-style:none;
+	font-weight:bold;
+	margin-bottom:10px;
+	float:left;
+	width:1022px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	/* Forzar superposición del menú
+	position:relative;
+	z-index:5;
+	Quitar el comentario si se necesita
+	*/
+}
+
+#menudrop li{
+	float:left;
+	margin-left:10px;
+	position:relative;
+}
+
+#menudrop a{
+	display:block;
+	padding:5px;
+	color:#3869A0;
+	text-decoration:none;
+}
+
+#menudrop a:hover{
+	color:white;
+	background-color:#3869A0 !important;
+	text-decoration:none;
+}
+
+#menudrop ul{
+	/* Color de fondo de la web -para IE- */
+	background:white;
+	/* Idem transparente para navegadores que lo soporten */
+	/*background:rgba(255,255,255,0);*/
+	list-style:none;
+	position:absolute;
+	left:-9999px; /* Escondemos inicialmente los submenús */
+}
+
+#menudrop ul li{
+	padding-top:1px; /* Separación vertical entre elementos */
+	float:none;
+}
+
+#menudrop li ul{
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+}
+
+#menudrop ul a{
+	white-space:nowrap; /* Separa los elementos en diferentes líneas */
+}
+
+#menudrop li:hover ul{
+	left:0; /* Submenús visibles */
+}
+
+/* Para que cuando se mueva el cursor por los elementos del submenú los elementos permanecen visibles */
+#menudrop li:hover a{
+	/*background-color:white; /* Aprovechamos para cambiar de color los señalados */
+	text-decoration:none;
+}
+
+#menudrop li:hover ul a{
+	text-decoration:none;
+}
+
+#menudrop li:hover ul li a:hover{
+	/*background-color:#3869A0;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#barra_izq{
+
+	width: 200px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	float:left;
+}
+
+#cuerpo{
+	float:right;
+	width:780px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	margin:0 0 10px;
 }
 
 /* LOGIN */
@@ -105,32 +226,12 @@ button.login_registrarse{
 
 
 
-#barra_sup{
-	font-family: 'Open Sans',Arial,Helvetica,sans-serif;
-	min-width: 790px;
-	width: 100%;
-	margin-bottom: 5px;
-}
-
-#barra_sup a{
-	margin-right: 10px;
-	vertical-align:top;
-	height:100px;
-}
-
-#barra_izq{
-	width: 200px;
-	float:left;
-}
 
 #estado{
 		margin-left: 210px;
 }
 
-#cuerpo{
-		margin-left: 210px;
-	
-}
+
 
 #help_div{
 	display:none;

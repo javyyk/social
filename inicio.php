@@ -3,7 +3,7 @@
 	head("Inicio - Social");
 	require("estructura.php");
 ?>
-<div id="barra_izq" class="">
+<div id="barra_izq">
 	<?php
 		if($usuario['idfotos_princi']){
 			$foto=mysql_query("SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
