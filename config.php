@@ -9,18 +9,22 @@
 		<!DOCTYPE html>
 		<html lang="es">
 			<head>
+				<!-- METAS -->
 				<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+				<meta name="Keywords" content="Social,red social,gratuito,asir">
+				<meta name="Description" content="Proyecto de Red Social de 2 ASIR">
+				<!-- FAVICON -->
 				<link rel='shortcut icon' href='css/favicon.ico' />
 				<link rel='icon' href='css/favicon.ico' type='image/x-ico' />
 				<link rel="shortcut icon" href="css/favicon.ico" type="image/x-icon">
-				<meta name="Keywords" content="Social,red social,gratuito,asir">
-				<meta name="Description" content="Proyecto de Red Social de 2� ASIR">
+				<!-- CSS -->
 				<link rel='stylesheet' href='css/style.css' type='text/css' />
-				<script type="text/javascript" src="jscripts/jquery.metadata.js"></script>
+				<link rel='stylesheet' href='jscripts/jquery-ui/css/redmond/jquery-ui-1.9.0.custom.css' type='text/css' />
+				<!-- JS -->
+				<script type="text/javascript" src="jscripts/jquery-1.8.2.min.js"></script>
+				<script type="text/javascript" src="jscripts/jquery-ui/jquery-ui-1.9.0.js"></script>
 				<script type="text/javascript" src="jscripts/general.js"></script>
 				<title><?php echo $title; ?></title>
-			</head>
-			<body>
 	<?php			
 	}
 	

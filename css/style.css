@@ -1,11 +1,13 @@
 *{
-	font-family: Tahoma, Verdana;
+	font-family: Verdana;
 }
 
 body{
 	background-color:#3869A0;
 	/*min-height:600px;*/
 	width:1023px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 
@@ -23,7 +25,7 @@ body{
 #menudrop{
 	list-style:none;
 	font-weight:bold;
-	margin-bottom:10px;
+	margin:0 0 10px 0;
 	float:left;
 	width:1022px;
 	background-color:white;
@@ -142,16 +144,38 @@ body{
 	padding:7px;
 	margin:0 0 10px;
 }
+div.main_center{
+	text-align:center;
+}
+div.marco{
+	width:780px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:15px;
+	margin:0 auto 0 auto;
+}
 
 /* LOGIN */
 #main{
-	text-align:center;
+	
 }
 
 h1#logo{
 	font-size:80px;
 	color: #F0F0F0;
 	text-shadow: 2px 5px 20px black;
+	margin-bottom:90px;
+}
+
+h2.encabezado{
+	text-align:center;
+	font-size:36px;
+	color: #F0F0F0;
+	text-shadow: 2px 5px 20px black;
+	margin:10px;
 }
 
 #form{
@@ -181,16 +205,12 @@ h1#logo{
 	font-family: "Lucida Grande",Arial,Helvetica,sans-serif;
 }
 
-button.login_registrarse{
-	float:right;
-}
-
 #creditos{
 	z-index:-1;
 	position: fixed;
 	bottom: 0;
 	width: 98%;
-	min-width:400px;
+	width:1023px;
 	text-align:center;
 }
 

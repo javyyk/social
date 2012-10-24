@@ -9,6 +9,7 @@
 class Validador{
 	
 	public $name;
+	public $alias;
 	public $obligatorio;
 	public $min;
 	public $max;
@@ -27,6 +28,9 @@ class Validador{
    
     public function setName($name){
 		$this->name = $name;
+	}
+    public function setAlias($alias){
+		$this->alias = $alias;
 	}
 	public function setObligatorio($obligatorio){
 		$this->obligatorio = $obligatorio;
@@ -54,6 +58,7 @@ class Validador{
 	public function SetFromArray($arr){
 		//Destruimos los atributos de un campo ya generado
 		unset($this->name);
+		unset($this->alias);
 		unset($this->obligatorio);
 		unset($this->min);
 		unset($this->max);
@@ -66,6 +71,9 @@ class Validador{
 			switch ($key) {
 				case 'name':
 					$this->setName($value);
+					break;
+				case 'alias':
+					$this->setAlias($value);
 					break;
 				case 'obligatorio':
 					$this->setObligatorio($value);
@@ -105,14 +113,13 @@ class Validador{
 
 		print "
 				<script type='text/javascript'>
-				
 				var ayuda = {};	//Declaro objeto global
 				var validado = 0; //
 				array_campos = new Array(); //Lista de campos validables
 				
 				//FUNCION VALIDADOR
 				function validador(option){
-
+				
 					//Limpiamos la lista de campos para evitar duplicidades
 					for(i=0;i<=array_campos.length;i++){
 						array_campos.pop();
@@ -133,6 +140,12 @@ class Validador{
 					$(\"input[name='".$this->name."']\").css({'background-color':'green'}); //Reseteamos el color \n
 				");
 				$help_div = "ayuda.".$this->name.".mensaje";
+				
+				//Si no hay alias, se asigna a este el name
+				if(!$this->alias){
+					$this->alias=$this->name;
+				}
+				
 				//print_r($this->campos);
 				$campo="if($(\"input[name='".$this->name."']\")";
 				$check = array();
@@ -141,7 +154,7 @@ class Validador{
 				if($this->obligatorio){	
 					array_push($check,
 						$campo.".val().length<1){\n\t\t\t\t\t".
-						$help_div." += 'El campo \"".$this->name."\" es obligatorio<br>';
+						$help_div." += 'El campo \"".$this->alias."\" es obligatorio<br>';
 						$(\"input[name='".$this->name."']\").css({'background-color':'red'});
 					}\n\n");
 				}
@@ -149,7 +162,7 @@ class Validador{
 				//Min
 				if($this->min){	
 					array_push($check, $campo.".val().length<".$this->min."){\n".
-							$help_div." += 'El campo \"".$this->name."\" debe contener al menos ".$this->min." caracteres<br>';\n
+							$help_div." += 'El campo \"".$this->alias."\" debe contener al menos ".$this->min." caracteres<br>';\n
 							$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
 
 						}\n");
@@ -161,44 +174,50 @@ class Validador{
 				}*/
 				
 				//Radio
-				/*if($this->radio){
-					unset($radiook);
+				if($this->radio){
+					array_push($check,"
+						$(\"input[name='".$this->name."']\").css({'outline':'1px solid #F00'});\n
+					}\n");
+						
+					
+						/*
+					array_push($check,$this->name."_ok='';\n");
+
 					foreach (preg_split("/,/", $this->radio) as $key => $value) {
-						if(strlen($_POST[$value])){
-							$radiook="1";
-						}
+						array_push($check, "if($(\"input:checked[name='".$value."']\").val()!='undefined'){\n".
+							$this->name."_ok='ok';
+						}\n");
 					}
-					if(!$radiook){
-						$mensaje.="Debes seleccionar una de las opciones del campo \"".$this->name."\"<br/>";
-					}
-				}*/
+					array_push($check,"if(".$this->name."_ok!='ok'){\n".
+							$help_div." += 'Debes seleccionar una de las opciones del campo \"".$this->alias."\"<br>';\n
+							$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+						}"
+					);*/
+				}
 				
 				//Semejante
-				/*if($this->semejante){
+				if($this->semejante){
 					$semejantes=preg_split("/,/", $this->semejante);
-					$semejante_anterior=$_POST[$semejantes[0]];
-					foreach ($semejantes as $key => $value) {
-						//echo "\$_POST[".$value."]:".$_POST[$value];
-						if($_POST[$value]!=$semejante_anterior){
-							$semejante_error="1";
-						}
-						$semejante_anterior=$_POST[$value];
-					}
-					if($semejante_error){
-						$mensaje.="Los campos \"".$this->semejante."\" no coinciden<br/>";
-					}
-				}*/
+					
+					array_push($check, $campo.".val()!=$(\"input[name='".$semejantes[0]."']\").val()){\n".
+						$help_div." += 'El campo ".$semejantes[1]." y \"".$this->alias."\" no coinciden<br>';\n
+						$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+					}\n");
+				}
 				
 				//Expr
 				/*if($this->expr){	
 					array_push($check, $campo.".val().search(/".$this->expr."/g)!=-1){mensaje+='El campo \"".$this->name."\" contiene caracteres invalidos<br/>';}\n");
-				}
+				}*/
 				
 				//Formato
 				if($this->formato){	
-					array_push($check, $campo.".val().search(/".$this->formato."/g)==-1){mensaje+='El contenido del campo \"".$this->name."\" no tiene un formato valido<br/>';}\n");
+					array_push($check, $campo.".val().search(/".$this->formato."/g)==-1){\n".
+					$help_div." += 'El contenido del campo \"".$this->alias."\" no tiene un formato valido<br>';\n
+						$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+					}\n");
 				}
-				*/
+				
 				
 				foreach($check as $c){
 					echo $c;

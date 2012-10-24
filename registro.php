@@ -1,13 +1,31 @@
 <?php
 require('config.php');
 	head("Registro - Social");
-	//echo  "<script type='text/javascript' src='valida.js'></script>";
 	require_once("validador.class.php");
-	require("estructura.php");
+	?>
+	<script>
+    $(function() {
+        $( "#datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+    </script>
+</head>
+<body>
+	<ul id="menudrop">
+		<li><a href="login.php">&lt;-- Login</a></li>
+		<li><a href="contacto.php">Contacto</a></li>
+	</ul>
+	
+	<h2 class="encabezado">Registro de usuario</h2>
+	<br>
+	<br>
+	<?php
 
 
 if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR 
-	$_POST['contrasenia'] != $_POST['contrasenia2'] OR !$_POST['email'] OR !$_POST['edad'])
+	$_POST['contrasenia'] != $_POST['contrasenia2'] OR !$_POST['email'] OR !$_POST['nacimiento'])
 	AND $_POST['registro']=='Registrarse'){
 		?>
 		<h2>
@@ -30,7 +48,7 @@ if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR
 		<?php
 	}else{
 		mysql_query("INSERT INTO usuarios (nombre, apellidos, edad, password, email)
-			values ('".$_POST['nombre']."','".$_POST['apellidos']."','".$_POST['edad']."','".sha1($_POST['contrasenia'])."','".$_POST['email']."')");
+			values ('".$_POST['nombre']."','".$_POST['apellidos']."','".$_POST['nacimiento']."','".sha1($_POST['contrasenia'])."','".$_POST['email']."')");
 		if(mysql_errno()){
 			error_mysql();
 			die();
@@ -48,35 +66,36 @@ if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR
 
 if(!$_POST['registro'] OR $registro_fallido==1){
 	?>
-	<h2>Registro de usuario</h2><br><br>
-	<div style="width: 300;border:1px solid black;">
+	<div class="marco">
 		<form name="registro" method='post' action='registro.php'>
 			Nombre: <input type='text' size='15' maxlength='20' name='Nombre' /><br />
-			Apellidos: <input type='text' size='15' maxlength='40' name='Apellidos' /><br />
-			Contrase�a: <input type='password' size='15' name='contrasenia' /><br />
-			Re-escriba la clave: <input type='password' size='15' name='contrasenia2' /><br />
-			Email: <input type='text' size='15' name='Email' /><br />
-			Edad: <input type='text' size='4' name='Edad' /><br />
+			Apellidos: <input type='text' size='25' maxlength='40' name='Apellidos' /><br />
+			Contrase&ntilde;a: <input type='password' size='15' name='contrasenia' /><br />
+			Repita la contrase&ntilde;a: <input type='password' size='15' name='contrasenia2' /><br />
+			Email: <input type='text' size='30' name='Email' /><br />
+			Fecha nacimiento: <input type='text' size='15' name='nacimiento'  id="datepicker" /><br />
 
-			<input type="radio" name="sexo" value="Hombre"/>Hombre<br />
-			<input type="radio" name="sexo" value="Mujer"/>Mujer<br />
+			<input type="radio" name="Sexo" value="Hombre"/>Hombre<br />
+			<input type="radio" name="Sexo" value="Mujer"/>Mujer<br />
 			
 			 <input type="checkbox" name="tos" value="tos_yes">Acepto los terminos de uso<br>
 			
-			<button type='button' name='registro' onclick="validador()">Registrarse</button>
-			<div id="help_div" style="display:none;position:absolute;border:1px solid red;padding:4px;background-color:red;"></div>
-		</form>
+			<button type='button' name='registro' onclick="validador('submi')">Registrarse</button>
+			</form>
 	</div>
 	<?php
 	$Validador = new Validador();
-	$Validador->SetInput(array('name' => 'Nombre', 'obligatorio' => 'yes', 'min' => '4', 'max' => '10', 'formato' => '^[a-z\d_]{4,28}$'));
-	$Validador->SetInput(array('name' => 'Apellidos', 'obligatorio' => 'yes', 'formato' => '^[a-z\d_]{4,28}$'));
-	//$Validador->SetInput(array('name' => 'Edad', 'obligatorio' => 'yes', 'min' => '4', 'max' => '10', 'formato' => '^[a-z\d_]{4,28}$'));
+	$Validador->SetInput(array('name' => 'Nombre', 'min' => '4'));
+	$Validador->SetInput(array('name' => 'Apellidos', 'obligatorio' => 'yes'));
+	$Validador->SetInput(array('name' => 'contrasenia', 'alias' => 'Contraseña', 'min' => '4'));
+	$Validador->SetInput(array('name' => 'contrasenia2', 'alias' => 'Repita la Contraseña', 'semejante' => 'contrasenia,Contraseña'));
+	$Validador->SetInput(array('name' => 'Email', 'formato' => '^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$'));
+	$Validador->SetInput(array('name' => 'nacimiento', 'alias' => 'Fecha de nacimiento','formato' => '^\d{1,2}\/\d{1,2}\/\d{2,4}$'));
 	//$Validador->SetInput(array('name' => 'contrasenia', 'obligatorio' => 'yes', 'min' => '4', 'max' => '10', 'semejante' => 'Password,Repite-password'));
 	//$Validador->SetInput(array('name' => 'Password', 'obligatorio' => 'yes', 'min' => '4', 'max' => '10', 'semejante' => 'Password,Repite-password'));
 	//$Validador->SetInput(array('name' => 'Email', 'obligatorio' => 'yes', 'max' => '30', 'formato' => '^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$'));
-	//$Validador->SetInput(array('name' => 'Sexo', 'radio' => 'Hombre,Mujer'));
-	$Validador->SetInput(array('name' => 'tos', 'obligatorio' => 'yes'));
+	$Validador->SetInput(array('name' => 'Sexo', 'radio' => 'Hombre,Mujer'));
+	//$Validador->SetInput(array('name' => 'tos', 'obligatorio' => 'yes'));
 	$Validador->GeneraValidadorJS();
 	
 	if($_POST){
