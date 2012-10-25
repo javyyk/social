@@ -11,16 +11,17 @@
 	<script type="text/javascript" src="upload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
 </head>
 <body>
+	<?php require("estructura.php"); ?>
 	<h3>Subir fotos</h3>
-	<a href="index.php">Inicio</a>
+	<div class="cuerpo_centro">
 	<?php
 	if($_POST['subir_fotos']){
 		$count=0;
 		foreach ($_POST as $name => $value) {
 			if(preg_match("/tmpname/", $name, $algohaykeponer) == 1){
 				$count++;
-				mysql_query("INSERT INTO fotos (archivo,uploader) VALUES ('../fotos/".limpia_texto($global_nombrefull)."_".$global_idusuarios."/".$value."','".$global_idusuarios."')");
-				echo "<br>".mysql_error();
+				mysql_query("INSERT INTO fotos (titulo,archivo,uploader,fecha) VALUES ('".$_POST['titulo']."','fotos/".limpia_texto($global_nombrefull)."_".$global_idusuarios."/".$value."','".$global_idusuarios."',now())");
+				error_mysql("exit");
 			}
 		}
 
@@ -32,19 +33,7 @@
 	}
 	?>
 	<form method="post" action="subir_fotos.php" enctype="multipart/form-data">
-		<b>Titulos:</b> <input type="text" name="producto" size="55" /><br />
-		<?php
-		/*
-		<b>Categoria:</b> <select name="categoria">
-		
-		$categorias=mysql_query("SELECT * FROM categorias");
-		while($row=mysql_fetch_assoc($categorias)){
-			echo "<option value='".$row['idcategorias']."'>".$row['categoria']."</option>";
-		}
-		</select><br />
-		<b>Descripcion:</b><br />
-		<textarea id="tinymce"  cols="50" rows="15" name="descripcion"></textarea><br />*/
-		?>
+		<b>Titulo(s):</b> <input type="text" name="titulo" size="55" /><br />
 		<b>Imagenes:</b><br />
 		<?php require("upload/subida.html"); ?>
 		<input type="hidden" name="subir_fotos" value="1" />

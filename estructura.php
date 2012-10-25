@@ -1,6 +1,15 @@
 <ul id="menudrop">
 	<li><a href="inicio.php">Inicio</a></li>
-	<li><a href="perfil.php">Perfil</a></li>
+	<li><a href="perfil.php">Perfil
+	
+			<?php 
+				$query=mysql_query("SELECT * FROM tablon WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+				if(mysql_num_rows($query)>0){
+					echo " (".mysql_num_rows($query).")";
+				}
+			?>
+		</a>
+	</li>
 	<li><a href="fotos.php">Fotos</a></li>
 	<li><a href="mp_entrada.php">Mensajes
 		<?php 

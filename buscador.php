@@ -29,11 +29,11 @@
 		SELECT *,
 			(
 				SELECT count(*)  
-				FROM amigos WHERE user1='".$global_idusuarios."' AND user2=idusuarios
+				FROM amigos WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR  user2='".$global_idusuarios."' AND user1=idusuarios
 				) AS amigo,
 			(
 				SELECT count(*)  
-				FROM peticiones WHERE emisor='".$global_idusuarios."' AND receptor=idusuarios
+				FROM peticiones WHERE emisor='".$global_idusuarios."' AND receptor=idusuarios OR  receptor='".$global_idusuarios."' AND emisor=idusuarios
 				) AS enviada 
 		FROM usuarios
 		WHERE idusuarios!='".$global_idusuarios."' AND 

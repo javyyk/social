@@ -1,27 +1,27 @@
 <?php
 	require("verify_login.php");
-	
-	if($_GET['principal']){
-		mysql_query("UPDATE usuarios SET idfotos_princi='".$_GET['principal']."' WHERE idusuarios='".$global_idusuarios."'");
-		header("location:index.php");
-	}
-	
-	
 	head("Fotos - Social");
 	require("estructura.php");
 ?>
 
-<div id="cuerpo" class="">
+<div class="cuerpo_centro">
 <?php
 
 	if($_GET['idfotos'] AND $_GET['uploader']){
 		$fotos=mysql_query("SELECT * from fotos WHERE uploader='".$_GET['uploader']."' AND idfotos<='".$_GET['idfotos']."' ORDER BY idfotos DESC LIMIT 2");
 	}else{
 		$fotos=mysql_query("SELECT * from fotos WHERE uploader='".$global_idusuarios."' ORDER BY idfotos DESC LIMIT 2");
+		if(mysql_num_rows($fotos)<1){
+			echo "Todavia no has subido ninguna foto, <a href='subir_fotos.php'>hazlo ahora</a>";
+			die();
+		}
 		$_GET['uploader']=$global_idusuarios;
 	}
 	$row=mysql_fetch_assoc($fotos);
-	echo "<br>ID: ".$row['idfotos']." - File: ".$row['archivo']."<br>\n";
+	
+	echo "<br>".$row['titulo']."<br>\n";
+	
+	//echo "<br>ID: ".$row['idfotos']." - File: ".$row['archivo']."<br>\n";
 	//echo mysql_num_rows($fotos);
 	echo "<img alt='' height='300' width='300' src='".$row['archivo']."'";
 	$row=mysql_fetch_assoc($fotos);
@@ -36,5 +36,6 @@
 	 
 	?>
 	/>
-	<a href="fotos.php?principal=<?php echo $row['idfotos'];?>">Principal</a>
+	<a href="post.php?foto_principal=<?php echo $row['idfotos'];?>">Principal</a>
+	<a href="post.php?foto_borrar=<?php echo $row['idfotos'];?>">Borrar foto</a>
 </div>

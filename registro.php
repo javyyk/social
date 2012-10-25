@@ -47,8 +47,8 @@ if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR
 		<br><br><br><center><b><a href='registro.php'>Volver a intentarlo</a></b><br><br>
 		<?php
 	}else{
-		mysql_query("INSERT INTO usuarios (nombre, apellidos, edad, password, email)
-			values ('".$_POST['nombre']."','".$_POST['apellidos']."','".$_POST['nacimiento']."','".sha1($_POST['contrasenia'])."','".$_POST['email']."')");
+		mysql_query("INSERT INTO usuarios (nombre, apellidos, edad, password, email,fecha_reg)
+			values ('".$_POST['nombre']."','".$_POST['apellidos']."','".$_POST['nacimiento']."','".sha1($_POST['contrasenia'])."','".$_POST['email']."',now())");
 		if(mysql_errno()){
 			error_mysql();
 			die();
@@ -97,17 +97,5 @@ if(!$_POST['registro'] OR $registro_fallido==1){
 	$Validador->SetInput(array('name' => 'Sexo', 'radio' => 'Hombre,Mujer'));
 	//$Validador->SetInput(array('name' => 'tos', 'obligatorio' => 'yes'));
 	$Validador->GeneraValidadorJS();
-	
-	if($_POST){
-		$Validador->GeneraValidadorPHP();
-		echo "<pre><b>Contenido POST:</b><br>";
-		print_r($_POST);
-		echo "</pre>";
-	}
-/*
- * Atributos: name, obligatorio, min, max,formato,caracteres no permitidos,sincronizacion de campos
- * que hacer si el validador php no acepta o si acepta
- */
-
 }
 ?>

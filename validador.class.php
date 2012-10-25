@@ -176,11 +176,10 @@ class Validador{
 				//Radio
 				if($this->radio){
 					array_push($check,"
-						$(\"[name='".$this->name."']\").css({'outline':'1px solid #F00'});\n
-					}\n");
+					\n");
 						
 					
-						/*
+						
 					array_push($check,$this->name."_ok='';\n");
 
 					foreach (preg_split("/,/", $this->radio) as $key => $value) {
@@ -190,9 +189,9 @@ class Validador{
 					}
 					array_push($check,"if(".$this->name."_ok!='ok'){\n".
 							$help_div." += 'Debes seleccionar una de las opciones del campo \"".$this->alias."\"<br>';\n
-							$(\"[name='".$this->name."']\").css({'background-color':'red'});\n
+							$(\"[name='".$this->name."']\").css({'outline':'1px solid #F00'});\n
 						}"
-					);*/
+					);
 				}
 				
 				//Semejante

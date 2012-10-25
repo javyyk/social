@@ -16,21 +16,16 @@
 
 ?>
 <div id="barra_izq" class="">
-	<h2>Datos</h2>
 	<?php
 		if($usuario['idfotos_princi']){
 			$foto=mysql_query("SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
 			$foto=mysql_fetch_assoc($foto);
-			echo "<img alt='foto principal' height='300' width='300' src='".$foto['archivo']."' />";
+			echo "<img alt='foto principal' height='200' width='200' src='".$foto['archivo']."' />";
 		}
 		echo $usuario['nombre']." ".$usuario['apellidos'];
 		echo "<br>Edad: ".$usuario['edad']."<br>";
 		echo "<a href='mp_redactar.php?receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a>"
 	?>
-</div>
-<div id="estado" class="">
-	<h2>Estado</h2>
-	<div id="estado"><?php echo $usuario['estado']; ?></div>
 </div>
 <div id="cuerpo" class="">
 	<h2>Comentarios</h2>
@@ -41,10 +36,11 @@
 		<input type="submit" value="Submit">
 	</form>
 	<?php
-	$query=mysql_query("SELECT * FROM tablon,usuarios WHERE receptor='".$usuario['idusuarios']."' AND idusuarios=emisor");
+	$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$usuario['idusuarios']."' AND idusuarios=emisor ORDER BY idtablon DESC");
 	if(mysql_num_rows($query)>0){
 		while($comentarios=mysql_fetch_assoc($query)){
-			echo "<div>".$comentarios['nombre']." dijo: ".$comentarios['comentario']."</div>";
+			echo "<div>".$comentarios['nombre']." ".$comentarios['apellidos']." ".$comentarios['fechaf']."<br>";
+			echo "Dijo: ".$comentarios['comentario']."</div><br>";
 		}
 	}else{
 		echo "<div>".$usuario['nombre']." aun no tiene comentarios en su tablon, escribe uno!</div>";

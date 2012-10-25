@@ -1,5 +1,6 @@
 <?php
 	require("verify_login.php");
+	
 	head("Perfil - Social");
 	require("estructura.php");
 ?>
@@ -8,7 +9,7 @@
 		if($usuario['idfotos_princi']){
 			$foto=mysql_query("SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
 			$foto=mysql_fetch_assoc($foto);
-			echo "<img alt='foto principal' height='300' width='300' src='".$foto['archivo']."' />";
+			echo "<img alt='foto principal' style='max-height:200px;max-width:200px;' src='".$foto['archivo']."' />";
 		}
 		echo $global_nombre." ".$global_apellidos;
 		echo "<br>Edad: ".$usuario['edad'];
@@ -19,25 +20,31 @@
 		
 		<?php
 			if($usuario['estado']){
-				echo "<textarea name='estado' cols='60' rows='2'>".$usuario['estado']."</textarea>";
+				echo "<input type='text' name='estado' size='95' value='".$usuario['estado']."' />";
 			}else{
-				echo "<textarea name='estado' cols='60' rows='2'>Pon un estado huevon</textarea>";
+				echo "<input type='text' name='estado' size='95' value='Actualiza tu estado' />";
 			}
 		?>
-		<button type="submit" form="cambio_estado" value="Submit">Cambiar</button>
+		<button type="submit" value="Submit">Cambiar</button>
 	</form>
 </div>
 
 <div id="cuerpo" class="">
 	<h2>Comentarios</h2>
 	<?php
-	$query=mysql_query("SELECT * FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor");
+	$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
 	if(mysql_num_rows($query)>0){
 		while($comentarios=mysql_fetch_assoc($query)){
-			echo "<div>".$comentarios['nombre']." dijo: ".$comentarios['comentario']."</div>";
+			$div = (($comentarios['estado']=='nuevo') ? "<div style='background-color:yellow'>" : "<div>");
+			echo $div.$comentarios['nombre']." dijo: ".$comentarios['comentario']." ".$comentarios['fechaf']."</div>";
 		}
 	}else{
 		echo "<div>Aun no tienes comentarios en tu tablon</div>";
 	}
 	?>
 </div>
+
+
+<?php
+	mysql_query("UPDATE tablon SET estado='leido' WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+?>

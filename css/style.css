@@ -10,13 +10,7 @@ body{
 	padding:5px;
 }
 
-
-
-
-
-
-
-
+/* MENU HORIZONTAL */
 #menudrop, #menudrop ul, #menudrop ul li, #menudrop ul li ul, #menudrop ul li ul li {
 	margin:0;
 	padding:0;
@@ -105,23 +99,6 @@ body{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #barra_izq{
 
 	width: 200px;
@@ -145,6 +122,20 @@ body{
 	padding:7px;
 	margin:0 0 10px;
 }
+
+div.cuerpo_centro{
+	float:left;
+	width:1010px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	margin:0 0 10px;
+}
+
+
 div.main_center{
 	text-align:center;
 }
@@ -261,4 +252,12 @@ h2.encabezado{
 	border:2px solid red;
 	padding:4px;
 	background-color:#FFDDDD;
+	vertical-align:middle;
+	border-radius: 10px;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
+}
+
+#help_div img{
+	height:20px;
+	width:20px;
 }

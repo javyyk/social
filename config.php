@@ -45,9 +45,11 @@
 	
 	//ERROR MYSQL
 	function error_mysql($p1){
-		echo "No error: ".mysql_errno()." -> ".mysql_error()."<br>";
-		if($p1=="exit"){
-			die("Script detenido por fallo PHP");
+		if(mysql_error()!=0){
+			echo "No error: ".mysql_errno()." -> ".mysql_error()."<br>";
+			if($p1=="exit"){
+				die("Script detenido por fallo PHP");
+			}
 		}
 	}
 ?>
