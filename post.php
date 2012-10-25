@@ -48,6 +48,13 @@
 			header("Location: gente.php?id=".$_POST['receptor']."&mp_enviado");
 		}
 	}
+	
+	if($_GET['mensaje_leido']!=""){
+		mysql_query("UPDATE mps SET estado='leido' WHERE idmps='".$_GET['mensaje_leido']."'");
+		if(mysql_errno()!=0){
+			error_mysql();
+		}
+	}
 	echo "<pre>";
 	print_r($_POST);
 	echo "<br>";

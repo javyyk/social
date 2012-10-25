@@ -19,7 +19,10 @@
 			header("Location: inicio.php?yasoisamigos");
 			die(); //evitamos enviar peticion
 		}
-		mysql_query("INSERT INTO peticiones VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
+		mysql_query("INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
+		if(mysql_errno()!=0){
+			error_mysql("exit");
+		}
 	}
 	if($_GET['busqueda']){//REALIZAR BUSQUEDA
 		$query=mysql_query("

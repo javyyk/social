@@ -7,7 +7,7 @@ body{
 	/*min-height:600px;*/
 	width:1023px;
 	margin: 0 auto;
-	text-align: center;
+	padding:5px;
 }
 
 
@@ -67,6 +67,7 @@ body{
 	list-style:none;
 	position:absolute;
 	left:-9999px; /* Escondemos inicialmente los submenús */
+	z-index: 9;
 }
 
 #menudrop ul li{
@@ -164,6 +165,7 @@ div.marco{
 }
 
 h1#logo{
+	text-align: center;
 	font-size:80px;
 	color: #F0F0F0;
 	text-shadow: 2px 5px 20px black;
@@ -179,7 +181,7 @@ h2.encabezado{
 }
 
 #form{
-	/*text-align:left;*/
+	text-align: center;
 	padding: 15px;
 	width:270px;
 	margin: 0px auto 0 auto;

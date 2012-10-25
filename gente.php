@@ -25,7 +25,7 @@
 		}
 		echo $usuario['nombre']." ".$usuario['apellidos'];
 		echo "<br>Edad: ".$usuario['edad']."<br>";
-		echo "<a href='mp.php?enviar=1&receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a>"
+		echo "<a href='mp_redactar.php?receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a>"
 	?>
 </div>
 <div id="estado" class="">

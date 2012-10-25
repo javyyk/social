@@ -1,3 +1,4 @@
 PENDIENTE:
-	alias para campos
+	radio
+	checkbox
 	id de formulario o multiples forms en una pagina

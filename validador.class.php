@@ -137,7 +137,7 @@ class Validador{
 					ayuda.".$this->name.".mensaje = '';
 					array_campos.push('".$this->name."'); //Para posterior validacion
 					
-					$(\"input[name='".$this->name."']\").css({'background-color':'green'}); //Reseteamos el color \n
+					$(\"[name='".$this->name."']\").css({'background-color':'green'}); //Reseteamos el color \n
 				");
 				$help_div = "ayuda.".$this->name.".mensaje";
 				
@@ -147,7 +147,7 @@ class Validador{
 				}
 				
 				//print_r($this->campos);
-				$campo="if($(\"input[name='".$this->name."']\")";
+				$campo="if($(\"[name='".$this->name."']\")";
 				$check = array();
 				
 				//Obligatorio
@@ -155,7 +155,7 @@ class Validador{
 					array_push($check,
 						$campo.".val().length<1){\n\t\t\t\t\t".
 						$help_div." += 'El campo \"".$this->alias."\" es obligatorio<br>';
-						$(\"input[name='".$this->name."']\").css({'background-color':'red'});
+						$(\"[name='".$this->name."']\").css({'background-color':'red'});
 					}\n\n");
 				}
 				
@@ -163,7 +163,7 @@ class Validador{
 				if($this->min){	
 					array_push($check, $campo.".val().length<".$this->min."){\n".
 							$help_div." += 'El campo \"".$this->alias."\" debe contener al menos ".$this->min." caracteres<br>';\n
-							$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+							$(\"[name='".$this->name."']\").css({'background-color':'red'});\n
 
 						}\n");
 				}
@@ -176,7 +176,7 @@ class Validador{
 				//Radio
 				if($this->radio){
 					array_push($check,"
-						$(\"input[name='".$this->name."']\").css({'outline':'1px solid #F00'});\n
+						$(\"[name='".$this->name."']\").css({'outline':'1px solid #F00'});\n
 					}\n");
 						
 					
@@ -190,7 +190,7 @@ class Validador{
 					}
 					array_push($check,"if(".$this->name."_ok!='ok'){\n".
 							$help_div." += 'Debes seleccionar una de las opciones del campo \"".$this->alias."\"<br>';\n
-							$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+							$(\"[name='".$this->name."']\").css({'background-color':'red'});\n
 						}"
 					);*/
 				}
@@ -199,9 +199,9 @@ class Validador{
 				if($this->semejante){
 					$semejantes=preg_split("/,/", $this->semejante);
 					
-					array_push($check, $campo.".val()!=$(\"input[name='".$semejantes[0]."']\").val()){\n".
+					array_push($check, $campo.".val()!=$(\"[name='".$semejantes[0]."']\").val()){\n".
 						$help_div." += 'El campo ".$semejantes[1]." y \"".$this->alias."\" no coinciden<br>';\n
-						$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+						$(\"[name='".$this->name."']\").css({'background-color':'red'});\n
 					}\n");
 				}
 				
@@ -214,7 +214,7 @@ class Validador{
 				if($this->formato){	
 					array_push($check, $campo.".val().search(/".$this->formato."/g)==-1){\n".
 					$help_div." += 'El contenido del campo \"".$this->alias."\" no tiene un formato valido<br>';\n
-						$(\"input[name='".$this->name."']\").css({'background-color':'red'});\n
+						$(\"[name='".$this->name."']\").css({'background-color':'red'});\n
 					}\n");
 				}
 				
@@ -242,7 +242,7 @@ class Validador{
 						
 						//Si no ha errores enviar
 						if(form_ok == 1){
-							$('#form_login').submit();
+							$('form').submit();
 						}
 					}
 				}
@@ -256,7 +256,7 @@ class Validador{
 						}
 						
 						// Al poner y quitar el raton sobre los input
-						$(\"input\").hover(
+						$(\"input,textarea\").hover(
 							function(){
 								
 								//$(this).css({'border':'1px solid #3869A0'});
@@ -279,8 +279,8 @@ class Validador{
 							}
 						);
 						
-						$(\"input\").mouseenter(function() {/* MOVIMIENTO DEL DIV*/
-							$(\"input\").mousemove(function(e){
+						$(\"input,textarea\").mouseenter(function() {/* MOVIMIENTO DEL DIV*/
+							$(\"input,textarea\").mousemove(function(e){
 								var x = e.pageX + 15;
 								var y = e.pageY - 15;
 							   								  
@@ -288,7 +288,7 @@ class Validador{
 							});	
 						});
 						
-						$('input').keyup(function(event) {
+						$('input,textarea').keyup(function(event) {
 							if(validado == 1){
 								validador();
 								help_div = eval('ayuda.' + $(this).attr('name') + '.mensaje'); /* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
