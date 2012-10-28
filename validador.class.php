@@ -168,12 +168,8 @@ class Validador{
 						}\n");
 				}
 				
-				//Max MEJOR LIMITAR LONGITUD EN HTML
-				/*if($this->max){	
-					array_push($check, $campo.".val().length>".$this->max."){mensaje+='El campo \"".$this->name."\" debe contener como maximo ".$this->max." caracteres<br/>';}\n");
-				}*/
-				
 				//Radio
+				// TODO: Arreglar validacion para radio.
 				if($this->radio){
 					array_push($check,"
 					\n");
@@ -193,6 +189,8 @@ class Validador{
 						}"
 					);
 				}
+				
+				// TODO: Añadir validacion para checkbox.
 				
 				//Semejante
 				if($this->semejante){
@@ -255,7 +253,7 @@ class Validador{
 						}
 						
 						// Al poner y quitar el raton sobre los input
-						$(\"input,textarea\").hover(
+						$(\"input.validable,textarea.validable\").hover(
 							function(){
 								
 								//$(this).css({'border':'1px solid #3869A0'});
@@ -278,8 +276,8 @@ class Validador{
 							}
 						);
 						
-						$(\"input,textarea\").mouseenter(function() {/* MOVIMIENTO DEL DIV*/
-							$(\"input,textarea\").mousemove(function(e){
+						$(\"input.validable,textarea.validable\").mouseenter(function() {/* MOVIMIENTO DEL DIV*/
+							$(\"input.validable,textarea.validable\").mousemove(function(e){
 								var x = e.pageX + 15;
 								var y = e.pageY - 15;
 							   								  
@@ -287,7 +285,7 @@ class Validador{
 							});	
 						});
 						
-						$('input,textarea').keyup(function(event) {
+						$(\"input.validable,textarea.validable\").keyup(function(event) {
 							if(validado == 1){
 								validador();
 								help_div = eval('ayuda.' + $(this).attr('name') + '.mensaje'); /* DEPENDIENDO DEL DIV SE USA UNA VARIABLE */
@@ -303,7 +301,12 @@ class Validador{
 								validador('submit');
 							}
 						});
-
+						
+						$(\"input.validable,textarea.validable\").focusout(function() {
+							if(validado == 1){
+								validador();
+							}
+						});
 					});
 			</script>
 			";

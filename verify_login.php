@@ -3,7 +3,9 @@
 	require('config.php');
 	//echo $_SESSION['idsesion']."...";
 	if(isset($_SESSION['idsesion'])) {
-		$login=mysql_query("SELECT * FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
+		$login=mysql_query("SELECT *,
+			FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad 
+			FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
 		//echo mysql_num_rows($login);
 		if(mysql_num_rows($login)!=1){
 			header("Location: logout.php?auth_error");

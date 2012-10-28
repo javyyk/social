@@ -7,7 +7,8 @@ require('config.php');
     $(function() {
         $( "#datepicker" ).datepicker({
             changeMonth: true,
-            changeYear: true
+            changeYear: true,
+            yearRange: "1940:2000"
         });
     });
     </script>
@@ -24,9 +25,8 @@ require('config.php');
 	<?php
 
 
-if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR 
-	$_POST['contrasenia'] != $_POST['contrasenia2'] OR !$_POST['email'] OR !$_POST['nacimiento'])
-	AND $_POST['registro']=='Registrarse'){
+if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR 
+	$_POST['contrasenia'] != $_POST['contrasenia2'] OR !$_POST['Email'] OR !$_POST['nacimiento']) AND $_POST['Registro']){
 		?>
 		<h2>
 			<font color="red">Debes cumplir las siguientes condiciones:</font>
@@ -38,21 +38,17 @@ if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR
 		<br><br><br><b><a href='registro.php'>Volver a intentarlo</a></b><br><br>
 		<?php
 		$registro_fallido=1;
-}elseif($_POST['registro']=='Registrarse'){
-	$existe = mysql_query("SELECT * FROM usuarios WHERE email='".$_POST['email']."'");
+}elseif($_POST['Nombre']!=""){
+	$existe = mysql_query("SELECT * FROM usuarios WHERE email='".$_POST['Email']."'");
 
 	if(mysql_num_rows($existe) !="0"){
 		?>
-		<br><center><h3><font color="red">El usuario \"".$usuario."\" ya existe</font></h3><br><br>
-		<br><br><br><center><b><a href='registro.php'>Volver a intentarlo</a></b><br><br>
+		<br><center><h3><font color="red">El email "<?php echo $_POST['Email']; ?>" ya existe</font></h3></center><br><br>
 		<?php
 	}else{
-		mysql_query("INSERT INTO usuarios (nombre, apellidos, edad, password, email,fecha_reg)
-			values ('".$_POST['nombre']."','".$_POST['apellidos']."','".$_POST['nacimiento']."','".sha1($_POST['contrasenia'])."','".$_POST['email']."',now())");
-		if(mysql_errno()){
-			error_mysql();
-			die();
-		}
+		mysql_query("INSERT INTO usuarios (nombre, apellidos, fnac, password, email,fecha_reg, sexo)
+			values ('".$_POST['Nombre']."','".$_POST['Apellidos']."',STR_TO_DATE('".$_POST['nacimiento']."','%d/%m/%Y'),'".sha1($_POST['contrasenia'])."','".$_POST['Email']."',curdate(),'".$_POST['Sexo']."')");
+		error_mysql('');
 		?>
 		<br>
 		<center>
@@ -61,6 +57,7 @@ if(	(!$_POST['nombre'] OR !$_POST['apellidos'] OR !$_POST['contrasenia'] OR
 		</center>
 		<a href=index.php><b>Entrar el sistema</b></a><br><br>		
 		<?php
+		die();
 	}	
 }
 
@@ -68,19 +65,20 @@ if(!$_POST['registro'] OR $registro_fallido==1){
 	?>
 	<div class="marco">
 		<form name="registro" method='post' action='registro.php'>
-			Nombre: <input type='text' size='15' maxlength='20' name='Nombre' /><br />
-			Apellidos: <input type='text' size='25' maxlength='40' name='Apellidos' /><br />
-			Contrase&ntilde;a: <input type='password' size='15' name='contrasenia' /><br />
-			Repita la contrase&ntilde;a: <input type='password' size='15' name='contrasenia2' /><br />
-			Email: <input type='text' size='30' name='Email' /><br />
-			Fecha nacimiento: <input type='text' size='15' name='nacimiento'  id="datepicker" /><br />
+			Nombre: <input type='text' class="validable" size='15' maxlength='20' name='Nombre' value="<?php echo $_POST['Nombre']; ?>" /><br />
+			Apellidos: <input type='text' class="validable" size='25' maxlength='40' name='Apellidos'  value="<?php echo $_POST['Apellidos']; ?>" /><br />
+			Contrase&ntilde;a: <input type='password' class="validable" size='15' name='contrasenia' /><br />
+			Repita la contrase&ntilde;a: <input type='password' class="validable" size='15' name='contrasenia2' /><br />
+			Email: <input type='text' class="validable" size='30' name='Email'  value="<?php echo $_POST['Email']; ?>" /><br />
+			Fecha nacimiento: <input type='text' class="validable" size='15' name='nacimiento'  id="datepicker"  value="<?php echo $_POST['nacimiento']; ?>" /><br />
 
-			<input type="radio" name="Sexo" value="Hombre"/>Hombre<br />
-			<input type="radio" name="Sexo" value="Mujer"/>Mujer<br />
+			<input type="radio" name="Sexo" value="H"/>Hombre<br />
+			<input type="radio" name="Sexo" value="M"/>Mujer<br />
 			
 			 <input type="checkbox" name="tos" value="tos_yes">Acepto los terminos de uso<br>
 			
-			<button type='button' name='registro' onclick="validador('submi')">Registrarse</button>
+			<input type="hidden" name="Registro" value="yes"/>
+			<button type='button' name='registro' value='Registrarse' onclick="validador('submit')">Registrarse</button>
 			</form>
 	</div>
 	<?php
@@ -90,7 +88,7 @@ if(!$_POST['registro'] OR $registro_fallido==1){
 	$Validador->SetInput(array('name' => 'contrasenia', 'alias' => 'Contraseña', 'min' => '4'));
 	$Validador->SetInput(array('name' => 'contrasenia2', 'alias' => 'Repita la Contraseña', 'semejante' => 'contrasenia,Contraseña'));
 	$Validador->SetInput(array('name' => 'Email', 'formato' => '^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$'));
-	$Validador->SetInput(array('name' => 'nacimiento', 'alias' => 'Fecha de nacimiento','formato' => '^\d{1,2}\/\d{1,2}\/\d{2,4}$'));
+	$Validador->SetInput(array('name' => 'nacimiento', 'alias' => 'Fecha de nacimiento','formato' => '^\d{1,2}\/\d{1,2}\/\d{4,4}$'));
 	//$Validador->SetInput(array('name' => 'contrasenia', 'obligatorio' => 'yes', 'min' => '4', 'max' => '10', 'semejante' => 'Password,Repite-password'));
 	//$Validador->SetInput(array('name' => 'Password', 'obligatorio' => 'yes', 'min' => '4', 'max' => '10', 'semejante' => 'Password,Repite-password'));
 	//$Validador->SetInput(array('name' => 'Email', 'obligatorio' => 'yes', 'max' => '30', 'formato' => '^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$'));

@@ -64,6 +64,12 @@
 		}
 		//header("location:fotos.php");
 	}
+	
+	
+	if($_POST['estado_online']){
+		mysql_query("UPDATE usuarios SET online=now() WHERE idusuarios='".$global_idusuarios."'");
+	}
+	
 	echo "<pre>";
 	print_r($_POST);
 	echo "<br>";

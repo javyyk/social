@@ -24,7 +24,7 @@
     });
     function ajax(url){
 		$.ajax({
-			url: url,
+			url: url
 		})/*.done(function ( data ) {
 			alert(data);
 		})*/;

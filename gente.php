@@ -7,7 +7,13 @@
 		header("Location: inicio.php?nosoisamigos");
 		die();
 	}else{
-		$query=mysql_query("SELECT * FROM usuarios WHERE idusuarios='".$_GET['id']."'");
+		$query=mysql_query("
+			SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off, 
+				CASE 
+				WHEN @tiempo<60 THEN 'conectado'
+				WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+				ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online FROM `usuarios` WHERE idusuarios='".$_GET['id']."'
+		");
 		$usuario=mysql_fetch_assoc($query);
 	}
 	head($usuario['nombre']." - Social");
@@ -24,7 +30,14 @@
 		}
 		echo $usuario['nombre']." ".$usuario['apellidos'];
 		echo "<br>Edad: ".$usuario['edad']."<br>";
-		echo "<a href='mp_redactar.php?receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a>"
+		echo "<a href='mp_redactar.php?receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a><br>";
+		if($usuario['online']=="conectado"){
+			echo "Estado: ".$usuario['online'];
+		}elseif (strlen($usuario['online'])==8) {
+			echo "Ultima visita hace: ".$usuario['online'];
+		}else{
+			echo "Ultima visita el: ".$usuario['online'];
+		}
 	?>
 </div>
 <div id="cuerpo" class="">

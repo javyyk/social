@@ -34,7 +34,7 @@ if($_POST['email']){
 		
 	//LOGIN FAIL
 	}else{
-		echo "LOGIN FAIL<br>";
+		$error=1;
 	}
 }
 	require_once("validador.class.php");
@@ -48,10 +48,15 @@ if($_POST['email']){
 	<div id="main">
 		<h1 id="logo">Social</h1>
 		<!--<img src="imagenes/social-portada.png" alt="logo">-->
+		<?php
+		if($error==1){
+			echo "<div class='error' style='margin: 0 auto;width:350px;'>El email o la contraseña son incorrectos</div><br>";
+		}
+		?>
 		<div id="form">
 			<form id='form_login' method='POST' action='login.php'>
-				Email: <input type='text' size='20' name='email'><br>
-				Clave: <input type='password' size='20' name='password'><br>
+				Email: <input type='text' class="validable" size='20' name='email'><br>
+				Clave: <input type='password' class="validable" size='20' name='password'><br>
 				<!--Recordar datos: <input name='logincookie' type='checkbox' value='true'>
 				<br>-->
 			  <button type="button" onclick="validador('submit');">Entrar</button>

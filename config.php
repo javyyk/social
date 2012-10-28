@@ -24,6 +24,7 @@
 				<script type="text/javascript" src="jscripts/jquery-1.8.2.min.js"></script>
 				<script type="text/javascript" src="jscripts/jquery-ui/jquery-ui-1.9.0.js"></script>
 				<script type="text/javascript" src="jscripts/general.js"></script>
+				<script type="text/javascript" src="jscripts/chat.js"></script>
 				<title><?php echo $title; ?></title>
 	<?php			
 	}
