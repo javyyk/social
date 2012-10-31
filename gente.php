@@ -1,6 +1,6 @@
 <?php
 	require("verify_login.php");
-	
+
 	//Comprueba amistad
 	$query=mysql_query("SELECT count(*) FROM amigos WHERE user1='".$_GET['id']."' AND user2='".$global_idusuarios."' OR user2='".$_GET['id']."' AND user1='".$global_idusuarios."'");
 	if(mysql_num_rows($query)!=1){
@@ -8,8 +8,8 @@
 		die();
 	}else{
 		$query=mysql_query("
-			SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off, 
-				CASE 
+			SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+				CASE
 				WHEN @tiempo<60 THEN 'conectado'
 				WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
 				ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online FROM `usuarios` WHERE idusuarios='".$_GET['id']."'
@@ -40,9 +40,9 @@
 		}
 	?>
 </div>
-<div id="cuerpo" class="">
+<div class="cuerpo_der" class="">
 	<h2>Comentarios</h2>
-	
+
 	<form method="POST" action="post.php">
 		<textarea name="comentario_tablon" cols="60" rows="2"></textarea>
 		<input type="hidden" name="receptor" value="<?php echo $usuario['idusuarios']; ?>" />

@@ -4,7 +4,7 @@
 	require("estructura.php");
 ?>
 
-<div class="cuerpo_centro">
+<div class="cuerpo_full">
 <?php
 
 	if($_GET['idfotos'] AND $_GET['uploader']){
@@ -18,9 +18,9 @@
 		$_GET['uploader']=$global_idusuarios;
 	}
 	$row=mysql_fetch_assoc($fotos);
-	
+
 	echo "<br>".$row['titulo']."<br>\n";
-	
+
 	//echo "<br>ID: ".$row['idfotos']." - File: ".$row['archivo']."<br>\n";
 	//echo mysql_num_rows($fotos);
 	echo "<img alt='' height='300' width='300' src='".$row['archivo']."'";
@@ -33,7 +33,7 @@
 	}
 	 mysql_data_seek($fotos,0); //foto actual
 	$row=mysql_fetch_assoc($fotos);
-	 
+
 	?>
 	/>
 	<a href="post.php?foto_principal=<?php echo $row['idfotos'];?>">Principal</a>

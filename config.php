@@ -2,7 +2,7 @@
 	//CONEXION BBDD
 	$link = mysql_connect('127.0.0.1', 'root', '');
 	mysql_select_db("social");
-	
+
 	//CABECERA
 	function head($title){
 		?>
@@ -26,9 +26,9 @@
 				<script type="text/javascript" src="jscripts/general.js"></script>
 				<script type="text/javascript" src="jscripts/chat.js"></script>
 				<title><?php echo $title; ?></title>
-	<?php			
+	<?php
 	}
-	
+
 	//LAST ID
 	function consulta_last_id($tabla,$campo){
 		$sql="SELECT IFNULL(MAX(".$campo.")+1,1) AS id FROM ".$tabla;
@@ -36,14 +36,14 @@
 		$row=mysql_fetch_assoc($result);
 		return $row['id'];
 	}
-	
+
 	//LIMPIA CADENAS
 	function limpia_texto($cadena){
 		$tofind = "����������������������������������������������������� ?�";
 		$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn___";
 		return strtr($cadena, $tofind, $replac);
 	}
-	
+
 	//ERROR MYSQL
 	function error_mysql($p1){
 		if(mysql_error()!=0){

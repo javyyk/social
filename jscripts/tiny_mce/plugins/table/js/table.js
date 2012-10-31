@@ -116,7 +116,7 @@ function insertTable() {
 		} else {
 			dom.setAttrib(elm, 'height', height, true);
 			dom.setStyle(elm, 'height', '');
- 		}
+		}
 
 		if (background != '')
 			elm.style.backgroundImage = "url('" + background + "')";
@@ -251,7 +251,7 @@ function insertTable() {
 		}
 
 		try {
-			// IE9 might fail to do this selection 
+			// IE9 might fail to do this selection
 			inst.selection.setCursorLocation(tdorth[0], 0);
 		} catch (ex) {
 			// Ignore

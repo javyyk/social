@@ -1,12 +1,12 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* editor_plugin_src.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 (function() {
 	var TreeWalker = tinymce.dom.TreeWalker;
@@ -458,7 +458,7 @@
 
 				args.content = content;
 			};
-			
+
 			editClass = " " + tinymce.trim(ed.getParam("noneditable_editable_class", "mceEditable")) + " ";
 			nonEditClass = " " + tinymce.trim(ed.getParam("noneditable_noneditable_class", "mceNonEditable")) + " ";
 

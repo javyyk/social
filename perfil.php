@@ -1,10 +1,10 @@
 <?php
 	require("verify_login.php");
-	
+
 	head("Perfil - Social");
 	require("estructura.php");
 ?>
-<div id="barra_izq" class="">
+<div class="barra_izq">
 	<?php
 		if($usuario['idfotos_princi']){
 			$foto=mysql_query("SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
@@ -15,9 +15,9 @@
 		echo "<br>Edad: ".$usuario['edad'];
 	?>
 </div>
-<div id="cuerpo">
+<div class="cuerpo_der">
 	<form method="POST" action="post.php" id="cambio_estado">
-		
+
 		<?php
 			if($usuario['estado']){
 				echo "<input type='text' name='estado' size='95' value='".$usuario['estado']."' />";
@@ -29,7 +29,7 @@
 	</form>
 </div>
 
-<div id="cuerpo" class="">
+<div class="cuerpo_der" class="">
 	<h2>Comentarios</h2>
 	<?php
 	$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");

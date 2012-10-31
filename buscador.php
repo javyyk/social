@@ -4,14 +4,14 @@
 	require("estructura.php");
 ?>
 
-<div id="cuerpo" class="">
+<div class="cuerpo_full">
 <form method="GET" action="buscador.php">
 	<input type="text" name="busqueda" value="<?php echo $_GET['busqueda']; ?>"/>
 	<button type="submit">Buscar</button>
 </form>
 <?php
 	if($_GET['agregar']){//ENVIAR PETICION AMISTAD
-		$query=mysql_query("SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");	
+		$query=mysql_query("SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");
 		if(mysql_errno()!=0){
 			error_mysql("exit");
 		}
@@ -28,18 +28,18 @@
 		$query=mysql_query("
 		SELECT *,
 			(
-				SELECT count(*)  
+				SELECT count(*)
 				FROM amigos WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR  user2='".$global_idusuarios."' AND user1=idusuarios
 				) AS amigo,
 			(
-				SELECT count(*)  
+				SELECT count(*)
 				FROM peticiones WHERE emisor='".$global_idusuarios."' AND receptor=idusuarios OR  receptor='".$global_idusuarios."' AND emisor=idusuarios
-				) AS enviada 
+				) AS enviada
 		FROM usuarios
-		WHERE idusuarios!='".$global_idusuarios."' AND 
+		WHERE idusuarios!='".$global_idusuarios."' AND
 			(nombre LIKE '%".$_GET['busqueda']."%' OR apellidos LIKE '%".$_GET['busqueda']."%')
 		");
-		
+
 		if(mysql_num_rows($query)>0){
 			while($row=mysql_fetch_assoc($query)){
 				//print_r($row);
@@ -52,7 +52,7 @@
 					echo "Amigo!";
 				}
 				echo "<br />";
-				
+
 			}
 		}
 	}

@@ -2,7 +2,7 @@
 	require("verify_login.php");
 	head("Mensajeria Privada - Social");
 	require("estructura.php");
-	
+
 	echo "<h2>Mensajeria Privada</h2>";
 	$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM mps,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idmps DESC");
 	echo "<div id='accordion'>";
@@ -13,16 +13,16 @@
 	echo "</div>";
 ?>
 
- 
+
 <script>
-    $(function() {
-        $("#accordion").accordion({
-        	active: "false",
-            collapsible: "true",
-            heightStyle: "content"
-        });
-    });
-    function ajax(url){
+$(function() {
+$("#accordion").accordion({
+	active: "false",
+collapsible: "true",
+heightStyle: "content"
+});
+});
+function ajax(url){
 		$.ajax({
 			url: url
 		})/*.done(function ( data ) {

@@ -2,7 +2,7 @@
 session_start();
 require('config.php');
 if(isset($_SESSION['idsesion'])) {
-  	header("Location: inicio.php");
+	header("Location: inicio.php");
 }
 head("Login - Social");
 
@@ -15,14 +15,15 @@ if($_POST['email']){
 		mysql_query("UPDATE usuarios SET idsesion='".$codigo_temp."' WHERE email='".$_POST['email']."'");
 		$_SESSION['idsesion']=$codigo_temp;
 		session_write_close();
-		header( "Location: inicio.php" ); 
+		header( "Location: inicio.php" );
 		//echo "LOGIN OK";
 		/*if($_POST['logincookie']==true){
 			$fecha=time()+60*60*24*30;
 		}else{
 			$fecha=0;
 		}*/
-		
+
+		// TODO: funcionalidad de URL al loguear.
 		//HAY URL?
 		/*if($_COOKIE['tienda_url']){
 			$url = $_COOKIE['forocochesurl'];
@@ -31,7 +32,7 @@ if($_POST['email']){
 		}else{
 			header( "Location: index.php?log" );
 		}*/
-		
+
 	//LOGIN FAIL
 	}else{
 		$error=1;
@@ -44,24 +45,28 @@ if($_POST['email']){
 	$Validador->GeneraValidadorJS();
 ?>
 
-	
-	<div id="main">
+
 		<h1 id="logo">Social</h1>
-		<!--<img src="imagenes/social-portada.png" alt="logo">-->
 		<?php
 		if($error==1){
-			echo "<div class='error' style='margin: 0 auto;width:350px;'>El email o la contraseña son incorrectos</div><br>";
+			?>
+			<div class="centrar">
+				<div class='error'>El email o la contraseña son incorrectos</div>
+			</div>
+			<?php
 		}
 		?>
-		<div id="form">
-			<form id='form_login' method='POST' action='login.php'>
-				Email: <input type='text' class="validable" size='20' name='email'><br>
-				Clave: <input type='password' class="validable" size='20' name='password'><br>
-				<!--Recordar datos: <input name='logincookie' type='checkbox' value='true'>
-				<br>-->
-			  <button type="button" onclick="validador('submit');">Entrar</button>
-			  <button type='button' onclick="location.href='registro.php';">Registrarse</button>
-			</form>
+		<div class="centrar">
+			<div class="marco login_form">
+				<form id='form_login' method='POST' action='login.php'>
+					Email: <input type='text' class="validable" size='20' name='email' value="<?php echo $_POST['email']; ?>"><br>
+					Clave: <input type='password' class="validable" size='20' name='password'><br>
+					<!--Recordar datos: <input name='logincookie' type='checkbox' value='true'>
+					<br>-->
+				  <button type="button" onclick="validador('submit');">Entrar</button>
+				  <button type='button' onclick="location.href='registro.php';">Registrarse</button>
+				</form>
+			</div>
 		</div>
 		<div id="creditos">
 			<div>

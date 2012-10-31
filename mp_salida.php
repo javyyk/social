@@ -2,16 +2,16 @@
 	require("verify_login.php");
 	head("Mensajeria Privada - Social");
 	require("estructura.php");
-	
+
 	echo "<h2>Mensajeria Privada</h2>";
-	
-	
-	
-	
-	$query=mysql_query("		
+
+
+
+
+	$query=mysql_query("
 		SELECT *
 		FROM amigos, usuarios
-		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios 
+		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
 	");
 	if(mysql_num_rows($query)>0){
 		echo "<h3>Enviar Mensaje</h3>";
@@ -29,12 +29,12 @@
 		</form>
 	<?php
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	if($_GET['receptor']){
 		$query=mysql_query("SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
 		$usuario=mysql_fetch_assoc($query);
@@ -47,7 +47,7 @@
 		</form>
 		<?php
 	}
-	
+
 	$query=mysql_query("SELECT * FROM mps,usuarios WHERE emisor='".$global_idusuarios."' AND idusuarios=receptor");
 	while($mps=mysql_fetch_assoc($query)){
 		echo "<div class='mp'>".$mps['nombre']." te dijo: ".$mps['mp']."</div>";

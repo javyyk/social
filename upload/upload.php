@@ -1,13 +1,13 @@
 <?php
 /**
- * upload.php
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under GPL License.
- *
- * License: http://www.plupload.com/license
- * Contributing: http://www.plupload.com/contributing
- */
+* upload.php
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under GPL License.
+*
+* License: http://www.plupload.com/license
+* Contributing: http://www.plupload.com/contributing
+*/
 
 // HTTP headers for no cache etc
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
@@ -26,7 +26,7 @@ header("Pragma: no-cache");
 	$global_apellidos=$usuario['apellidos'];
 	$global_nombrefull=$usuario['nombre']." ".$usuario['apellidos'];
 	$global_idsesion=$usuario['idsesion'];
-		
+
 // Settings
 $targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
 $targetDir = "../fotos/".limpia_texto($global_nombrefull)."_".$global_idusuarios;
@@ -67,7 +67,7 @@ $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
 if (!file_exists($targetDir))
 	mkdir($targetDir, 0, true);
 
-// Remove old temp files	
+// Remove old temp files
 if ($cleanupTargetDir && is_dir($targetDir) && ($dir = opendir($targetDir))) {
 	while (($file = readdir($dir)) !== false) {
 		$tmpfilePath = $targetDir . DIRECTORY_SEPARATOR . $file;
@@ -81,7 +81,7 @@ if ($cleanupTargetDir && is_dir($targetDir) && ($dir = opendir($targetDir))) {
 	closedir($dir);
 } else
 	die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
-	
+
 
 // Look for the content type header
 if (isset($_SERVER["HTTP_CONTENT_TYPE"]))
@@ -132,7 +132,7 @@ if (strpos($contentType, "multipart") !== false) {
 
 // Check if file has been uploaded
 if (!$chunks || $chunk == $chunks - 1) {
-	// Strip the temp .part suffix off 
+	// Strip the temp .part suffix off
 	rename("{$filePath}.part", $filePath);
 }
 

@@ -1,3 +1,5 @@
+/***************************	GENERICAS	********************/
+
 *{
 	font-family: Verdana;
 }
@@ -8,9 +10,10 @@ body{
 	width:1023px;
 	margin: 0 auto;
 	padding:5px;
+	text-rendering: optimizeLegibility;
 }
 
-/* MENU HORIZONTAL */
+/*******************************	MENU HORIZONTAL *****************/
 #menudrop, #menudrop ul, #menudrop ul li, #menudrop ul li ul, #menudrop ul li ul li {
 	margin:0;
 	padding:0;
@@ -99,61 +102,7 @@ body{
 }
 
 
-#barra_izq{
-
-	width: 200px;
-	background-color:white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow:2px 2px 3px black;
-	padding:7px;
-	float:left;
-}
-
-#cuerpo{
-	float:right;
-	width:780px;
-	background-color:white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow:2px 2px 3px black;
-	padding:7px;
-	margin:0 0 10px;
-}
-
-div.cuerpo_centro{
-	float:left;
-	width:1010px;
-	background-color:white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow:2px 2px 3px black;
-	padding:7px;
-	margin:0 0 10px;
-}
-
-
-div.main_center{
-	text-align:center;
-}
-div.marco{
-	width:780px;
-	background-color:white;
-	border-radius: 7px 7px 7px 7px;
-	border-style: solid;
-	border-width: 0px;
-	box-shadow:2px 2px 3px black;
-	padding:15px;
-	margin:0 auto 0 auto;
-}
-
-/* LOGIN */
-#main{
-	
-}
+/************ LOGIN **********************/
 
 h1#logo{
 	text-align: center;
@@ -163,16 +112,9 @@ h1#logo{
 	margin-bottom:90px;
 }
 
-h2.encabezado{
-	text-align:center;
-	font-size:36px;
-	color: #F0F0F0;
-	text-shadow: 2px 5px 20px black;
-	margin:10px;
-}
 
-#form{
-	text-align: center;
+div.login_form{
+	text-align: center !important;
 	padding: 15px;
 	width:270px;
 	margin: 0px auto 0 auto;
@@ -185,7 +127,7 @@ h2.encabezado{
 }
 
 
-#form button {
+div.login_form button {
 	background-color:#59A5E3;
 	border-radius: 5px 5px 5px 5px;
 	height: 34px;
@@ -226,7 +168,116 @@ h2.encabezado{
 }
 
 
+/************** ESTANDARD *****************/
 
+h2.encabezado{
+	text-align:center;
+	font-size:36px;
+	color: #F0F0F0;
+	text-shadow: 2px 5px 20px black;
+	margin:10px;
+}
+
+
+div.barra_izq{
+
+	width: 200px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	float:left;
+}
+
+
+
+div.barra_centro{
+	float:left;
+	width:750px;
+	border: 1px solid red;
+	padding:15px;
+}
+
+div.barra_der{
+	float:right;
+	width:780px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	margin:0 0 10px;
+}
+
+div.centrar{
+	text-align:center;
+}
+
+
+div.marco{
+	display:inline-block;
+	text-align: left;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:25px 30px 30px 30px;
+	margin:0 auto 30px auto;
+}
+
+div.marco_full{
+	text-align: left;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:25px 30px 30px 30px;
+	margin:0 auto 30px auto;
+}
+
+div.cuerpo_full{
+	float:left;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	margin:0 0 10px;
+	width: 1000px;
+}
+/*
+div.cuerpo_centro{
+	float:left;
+	width:1010px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	margin:0 0 10px;
+}*/
+
+
+div.error{
+	text-align:left;
+	display: inline-block; /*	indispensable para centrar*/
+	border:2px solid red;
+	padding:15px;
+	margin:auto auto 30px;
+	background-color:#FFDDDD;
+	vertical-align:middle;
+	border-radius: 10px;
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
+}
+
+/*
 #encabezado {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 56px;
@@ -235,7 +286,7 @@ h2.encabezado{
 	color: white;
 	text-shadow: 2px 2px 4px #000000;
 	font-style: normal;
-}
+}*/
 
 
 
@@ -244,7 +295,132 @@ h2.encabezado{
 		margin-left: 210px;
 }
 
+/*******************	CHAT	*****************/
+#chat_lista{
+	width:200px;
+	float:left;
+	font-size:12px;
+	list-style: none outside none;
+}
 
+#chat_lista ul{
+	list-style: none outside none;
+	padding:0;
+}
+
+#chat_lista li{
+	cursor: pointer;
+	display: inline-block;
+}
+#chat_lista li div{
+	display: inline-block;
+	background-image:url('../imagenes/iconos3.png');
+	height: 8px;
+	width: 8px;
+	margin: 0 4px;
+}
+
+#chat_lista li div.conectado{
+	background-position: -9px -812px;
+}
+
+#chat_lista li div.desconectado{
+	background-position: -154px -812px;
+}
+
+#chat_conversaciones{
+	border:2px solid red;
+	position: absolute;
+	bottom: 0px;
+	left:0px;
+}
+
+.chat_ventana_min{
+	display:none;
+	width:50px;
+	height:50px;
+	border:1px solid green;
+
+}
+
+.chat_ventana_min .mensajes{
+	background-image: url("../imagenes/iconos3.png");
+	background-position: -177px -211px;
+	border: 1px solid green;
+	display: none;
+	height: 10px;
+	position: relative;
+	right: -38px;
+	top: -65px;
+	width: 10px;
+}
+
+.chat_ventana{
+	display:inline-block;
+	border:1px solid black;
+	height:300px;
+	width:300px;
+	background-color: white;
+	padding: 5px;
+}
+
+.chat_ventana .boton{
+	cursor: pointer;
+	float:right;
+	display: inline-block;
+	background-image:url('../imagenes/iconos3.png');
+	height: 10px;
+	width: 10px;
+	margin: 0 4px;
+}
+.chat_ventana .mini{
+	background-position: -342px -785px;
+}
+
+.chat_ventana .max{
+	background-position: -369px -788px;
+}
+
+.chat_ventana .cerr{
+	background-position: -417px -788px;
+}
+
+.chat_ventana #mensajes{
+	overflow-x:hidden;
+	overflow-y:scroll;
+	display:inline-block;
+	border:1px solid black;
+	height:200px;
+	width:298px;
+	margin: 0 auto 0 auto;
+	word-wrap:break-word;
+}
+
+
+.chat_ventana textarea{
+	border: 1px solid black;
+	display: inline-block;
+	height: 65px;
+	resize: none;
+	width: 235px;
+}
+.chat_ventana button{
+	background-color: #59A5E3;
+	border: 0 none;
+	border-radius: 5px 5px 5px 5px;
+	color: #FFFFFF;
+	cursor: pointer;
+	float: right;
+	font-family: "Lucida Grande",Arial,Helvetica,sans-serif;
+	font-size: 14px;
+	height: 50px;
+	margin: 5px;
+	width: 50px;
+}
+
+.chat_ventana .mensaje{
+}
+/******************* ESPECIALES ****************/
 
 #help_div{
 	display:none;
@@ -260,15 +436,4 @@ h2.encabezado{
 #help_div img{
 	height:20px;
 	width:20px;
-}
-
-
-div.error{
-	text-align:center;
-	border:2px solid red;
-	padding:4px;
-	background-color:#FFDDDD;
-	vertical-align:middle;
-	border-radius: 10px;
-	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 6px 5px -5px rgba(0, 0, 0, 0.5) inset;
 }

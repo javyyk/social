@@ -1,5 +1,5 @@
 /*
-   Plupload
+Plupload
 ------------------------------------------------------------------- */
 
 .plupload_button {cursor: pointer;}
@@ -16,7 +16,7 @@ div.plupload .plupload_file {border-width: 0 0 1px 0}
 div.plupload div.plupload_header {border-width: 0 0 1px 0; position: relative;}
 
 .plupload_file .ui-icon {
-	cursor:pointer;	
+	cursor:pointer;
 }
 
 .plupload_header_content {
@@ -54,7 +54,7 @@ div.plupload div.plupload_header {border-width: 0 0 1px 0; position: relative;}
 
 .plupload .ui-sortable-helper,
 .plupload .ui-sortable .plupload_file {
-	cursor:move;	
+	cursor:move;
 }
 
 .plupload_scroll {
@@ -73,7 +73,7 @@ div.plupload div.plupload_header {border-width: 0 0 1px 0; position: relative;}
 }
 
 .plupload_file_rename {
-	width:95%;	
+	width:95%;
 }
 
 .plupload_progress {width: 60px;}
@@ -107,7 +107,7 @@ div.plupload div.plupload_header {border-width: 0 0 1px 0; position: relative;}
 .plupload_message {
 	position: absolute;
 	top: 0px;
-	left: 0px;	
+	left: 0px;
 	height: 100%;
 	width: 100%;
 }
@@ -118,28 +118,28 @@ div.plupload div.plupload_header {border-width: 0 0 1px 0; position: relative;}
 }
 
 .plupload_message strong {
-	font-weight: bold;	
+	font-weight: bold;
 }
 
 plupload_message i {
-	font-style: italic;	
+	font-style: italic;
 }
 
 .plupload_message p span.ui-icon {
 	float: left;
-	margin-right: 0.3em;	
+	margin-right: 0.3em;
 }
 
 .plupload_header_content .ui-state-error,
 .plupload_header_content .ui-state-highlight {
-	border:none;	
+	border:none;
 }
 
 .plupload_message_close {
 	position:absolute;
 	top:5px;
 	right:5px;
-	cursor:pointer;	
+	cursor:pointer;
 }
 
 .plupload .ui-sortable-placeholder {

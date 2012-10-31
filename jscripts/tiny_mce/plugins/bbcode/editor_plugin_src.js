@@ -1,12 +1,12 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* editor_plugin_src.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 (function() {
 	tinymce.create('tinymce.plugins.BBCodePlugin', {
@@ -85,7 +85,7 @@
 			rep(/&gt;/gi,">");
 			rep(/&amp;/gi,"&");
 
-			return s; 
+			return s;
 		},
 
 		// BBCode -> HTML from PunBB dialect
@@ -111,7 +111,7 @@
 			rep(/\[code\](.*?)\[\/code\]/gi,"<span class=\"codeStyle\">$1</span>&nbsp;");
 			rep(/\[quote.*?\](.*?)\[\/quote\]/gi,"<span class=\"quoteStyle\">$1</span>&nbsp;");
 
-			return s; 
+			return s;
 		}
 	});
 

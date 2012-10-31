@@ -1,12 +1,12 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2011, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* editor_plugin_src.js
+*
+* Copyright 2011, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 (function() {
 	var each = tinymce.each, Event = tinymce.dom.Event, bookmark;

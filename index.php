@@ -2,8 +2,8 @@
 session_start();
 require('config.php');
 if(isset($_SESSION['idsesion'])) {
-  	header("Location: inicio.php");
+	header("Location: inicio.php");
 } else {
-  	header("Location: login.php");
+	header("Location: login.php");
 }
 ?>

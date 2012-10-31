@@ -1,12 +1,12 @@
 /**
- * element_common.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* element_common.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 tinyMCEPopup.requireLangPack();
 
@@ -148,7 +148,7 @@ SXE.initElementDialog = function(element_name) {
 		SXE.updateElement = elm;
 	}
 
-	document.forms[0].insert.value = tinyMCEPopup.getLang(SXE.currentAction, 'Insert', true); 
+	document.forms[0].insert.value = tinyMCEPopup.getLang(SXE.currentAction, 'Insert', true);
 }
 
 SXE.insertElement = function(element_name) {

@@ -1,12 +1,12 @@
 /**
- * mctabs.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* mctabs.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 function MCTabs() {
 	this.settings = [];
@@ -46,14 +46,14 @@ MCTabs.prototype.hideTab =function(tab){
 };
 
 MCTabs.prototype.showPanel = function(panel) {
-	panel.className = 'current'; 
+	panel.className = 'current';
 	panel.setAttribute("aria-hidden", false);
 };
 
 MCTabs.prototype.hidePanel = function(panel) {
 	panel.className = 'panel';
 	panel.setAttribute("aria-hidden", true);
-}; 
+};
 
 MCTabs.prototype.getPanelForTab = function(tabElm) {
 	return tinyMCEPopup.dom.getAttrib(tabElm, "aria-controls");
@@ -96,7 +96,7 @@ MCTabs.prototype.displayTab = function(tab_id, panel_id, avoid_focus) {
 				t.hidePanel(nodes[i]);
 		}
 
-		if (!avoid_focus) { 
+		if (!avoid_focus) {
 			tabElm.focus();
 		}
 
@@ -124,7 +124,7 @@ tinyMCEPopup.onInit.add(function() {
 	each(dom.select('div.tabs'), function(tabContainerElm) {
 		var keyNav;
 
-		dom.setAttrib(tabContainerElm, "role", "tablist"); 
+		dom.setAttrib(tabContainerElm, "role", "tablist");
 
 		var items = tinyMCEPopup.dom.select('li', tabContainerElm);
 		var action = function(id) {

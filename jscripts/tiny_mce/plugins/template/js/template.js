@@ -11,8 +11,8 @@ var TemplateDialog = {
 	init : function() {
 		var ed = tinyMCEPopup.editor, tsrc, sel, x, u;
 
- 		tsrc = ed.getParam("template_templates", false);
- 		sel = document.getElementById('tpath');
+		tsrc = ed.getParam("template_templates", false);
+		sel = document.getElementById('tpath');
 
 		// Setup external template list
 		if (!tsrc && typeof(tinyMCETemplateList) != 'undefined') {
@@ -68,7 +68,7 @@ var TemplateDialog = {
 		}
 	},
 
- 	insert : function() {
+	insert : function() {
 		tinyMCEPopup.execCommand('mceInsertTemplate', false, {
 			content : this.templateHTML,
 			selection : tinyMCEPopup.editor.selection.getContent()

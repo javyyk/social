@@ -4,7 +4,7 @@
 	//echo $_SESSION['idsesion']."...";
 	if(isset($_SESSION['idsesion'])) {
 		$login=mysql_query("SELECT *,
-			FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad 
+			FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad
 			FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
 		//echo mysql_num_rows($login);
 		if(mysql_num_rows($login)!=1){

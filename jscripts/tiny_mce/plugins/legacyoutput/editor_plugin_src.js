@@ -1,18 +1,18 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- *
- * This plugin will force TinyMCE to produce deprecated legacy output such as font elements, u elements, align
- * attributes and so forth. There are a few cases where these old items might be needed for example in email applications or with Flash
- *
- * However you should NOT use this plugin if you are building some system that produces web contents such as a CMS. All these elements are
- * not apart of the newer specifications for HTML and XHTML.
- */
+* editor_plugin_src.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*
+* This plugin will force TinyMCE to produce deprecated legacy output such as font elements, u elements, align
+* attributes and so forth. There are a few cases where these old items might be needed for example in email applications or with Flash
+*
+* However you should NOT use this plugin if you are building some system that produces web contents such as a CMS. All these elements are
+* not apart of the newer specifications for HTML and XHTML.
+*/
 
 (function(tinymce) {
 	// Override inline_styles setting to force TinyMCE to produce deprecated contents

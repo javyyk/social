@@ -1,12 +1,12 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* editor_plugin_src.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 (function() {
 	var each = tinymce.each, Node = tinymce.html.Node;
@@ -74,7 +74,7 @@
 			// Parse doctype
 			elm = headerFragment.getAll('#doctype')[0];
 			if (elm)
-				data.doctype = '<!DOCTYPE' + elm.value + ">"; 
+				data.doctype = '<!DOCTYPE' + elm.value + ">";
 
 			// Parse title element
 			elm = headerFragment.getAll('title')[0];
@@ -100,7 +100,7 @@
 			elm = headerFragment.getAll('html')[0];
 			if (elm)
 				data.langcode = getAttr(elm, 'lang') || getAttr(elm, 'xml:lang');
-	
+
 			// Parse stylesheet
 			elm = headerFragment.getAll('link')[0];
 			if (elm && elm.attr('rel') == 'stylesheet')

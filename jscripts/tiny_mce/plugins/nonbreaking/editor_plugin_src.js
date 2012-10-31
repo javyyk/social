@@ -1,12 +1,12 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2009, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* editor_plugin_src.js
+*
+* Copyright 2009, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 (function() {
 	tinymce.create('tinymce.plugins.Nonbreaking', {
@@ -27,7 +27,7 @@
 				ed.onKeyDown.add(function(ed, e) {
 					if (e.keyCode == 9) {
 						e.preventDefault();
-	
+
 						ed.execCommand('mceNonBreaking');
 						ed.execCommand('mceNonBreaking');
 						ed.execCommand('mceNonBreaking');

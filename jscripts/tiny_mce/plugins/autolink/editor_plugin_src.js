@@ -1,12 +1,12 @@
 /**
- * editor_plugin_src.js
- *
- * Copyright 2011, Moxiecode Systems AB
- * Released under LGPL License.
- *
- * License: http://tinymce.moxiecode.com/license
- * Contributing: http://tinymce.moxiecode.com/contributing
- */
+* editor_plugin_src.js
+*
+* Copyright 2011, Moxiecode Systems AB
+* Released under LGPL License.
+*
+* License: http://tinymce.moxiecode.com/license
+* Contributing: http://tinymce.moxiecode.com/contributing
+*/
 
 (function() {
 	tinymce.create('tinymce.plugins.AutolinkPlugin', {
@@ -63,7 +63,7 @@
 			// hence, at minimum, five characters from the beginning of the line.
 			r = ed.selection.getRng(true).cloneRange();
 			if (r.startOffset < 5) {
-				// During testing, the caret is placed inbetween two text nodes. 
+				// During testing, the caret is placed inbetween two text nodes.
 				// The previous text node contains the URL.
 				prev = r.endContainer.previousSibling;
 				if (prev == null) {
