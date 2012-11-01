@@ -66,6 +66,12 @@
 	}
 
 
+	/*************	CHAT	*********************/
+	if($_POST['chat_estado']){
+		$_SESSION['chat_estado']=$_POST['chat_estado'];
+		die();
+	}
+	
 	if($_POST['estado_online']){
 		mysql_query("UPDATE usuarios SET online=now() WHERE idusuarios='".$global_idusuarios."'");
 	}

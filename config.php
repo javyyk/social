@@ -2,7 +2,6 @@
 	//CONEXION BBDD
 	$link = mysql_connect('127.0.0.1', 'root', '');
 	mysql_select_db("social");
-
 	//CABECERA
 	function head($title){
 		?>
@@ -24,7 +23,10 @@
 				<script type="text/javascript" src="jscripts/jquery-1.8.2.min.js"></script>
 				<script type="text/javascript" src="jscripts/jquery-ui/jquery-ui-1.9.0.js"></script>
 				<script type="text/javascript" src="jscripts/general.js"></script>
-				<script type="text/javascript" src="jscripts/chat.js"></script>
+				<?php
+					if($_SESSION['chat_estado']=="on")
+						echo "<script type='text/javascript' src='jscripts/chat.js'></script>";
+				?>
 				<title><?php echo $title; ?></title>
 	<?php
 	}
@@ -39,8 +41,8 @@
 
 	//LIMPIA CADENAS
 	function limpia_texto($cadena){
-		$tofind = "����������������������������������������������������� ?�";
-		$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn___";
+		$tofind = "ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ ";
+		$replac = "AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn-";
 		return strtr($cadena, $tofind, $replac);
 	}
 

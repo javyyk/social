@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	require('config.php');
-	//echo $_SESSION['idsesion']."...";
 	if(isset($_SESSION['idsesion'])) {
 		$login=mysql_query("SELECT *,
 			FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad

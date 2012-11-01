@@ -57,40 +57,45 @@
 
 <div class="barra_der" id="chat_lista">
 	<?php
-	//CONECTADOS
-	$result=mysql_query("
-						SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
-						CASE
-						WHEN @tiempo<60 THEN 'conectado'
-						WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
-						ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online
-						FROM amigos, usuarios
-						WHERE TIME_TO_SEC(TIMEDIFF(now(),online))<95 AND
-						(user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios)
-						ORDER BY nombre
-	");
-	echo "<ul>";
-	while ($row=mysql_fetch_assoc($result)) {
-		echo "<li onclick=\"chat_init_conv('".$row['idusuarios']."','".$row['nombre']." ".$row['apellidos']."')\"><div class='conectado'></div>".$row['nombre']." ".$row['apellidos']."</li>";
+	if($_SESSION['chat_estado']=="on"){
+		//CONECTADOS
+		$result=mysql_query("
+							SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+							CASE
+							WHEN @tiempo<60 THEN 'conectado'
+							WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+							ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online
+							FROM amigos, usuarios
+							WHERE TIME_TO_SEC(TIMEDIFF(now(),online))<95 AND
+							(user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios)
+							ORDER BY nombre
+		");
+		echo "<ul>";
+		while ($row=mysql_fetch_assoc($result)) {
+			echo "<li onclick=\"chat_init_conv('".$row['idusuarios']."','".$row['nombre']." ".$row['apellidos']."')\"><div class='conectado'></div>".$row['nombre']." ".$row['apellidos']."</li>";
+		}
+		echo "</ul>";
+	
+		//	NO CONECTADOS
+		$result=mysql_query("
+							SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+							CASE
+							WHEN @tiempo<60 THEN 'conectado'
+							WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+							ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online
+							FROM amigos, usuarios
+							WHERE TIME_TO_SEC(TIMEDIFF(now(),online))>95 AND
+							(user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios)
+							ORDER BY nombre
+		");
+		echo "<ul>";
+		while ($row=mysql_fetch_assoc($result)) {
+			echo "<li onclick=\"chat_init_conv('".$row['idusuarios']."','".$row['nombre']." ".$row['apellidos']."')\"><div class='desconectado'></div>".$row['nombre']." ".$row['apellidos']."</li>";
+		}
+		echo "</ul>";
+		echo "<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>";
+	}else{
+		echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
 	}
-	echo "</ul>";
-
-	//	NO CONECTADOS
-	$result=mysql_query("
-						SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
-						CASE
-						WHEN @tiempo<60 THEN 'conectado'
-						WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
-						ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online
-						FROM amigos, usuarios
-						WHERE TIME_TO_SEC(TIMEDIFF(now(),online))>95 AND
-						(user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios)
-						ORDER BY nombre
-	");
-	echo "<ul>";
-	while ($row=mysql_fetch_assoc($result)) {
-		echo "<li onclick=\"chat_init_conv('".$row['idusuarios']."','".$row['nombre']." ".$row['apellidos']."')\"><div class='desconectado'></div>".$row['nombre']." ".$row['apellidos']."</li>";
-	}
-	echo "</ul>";
 	?>
 </div>

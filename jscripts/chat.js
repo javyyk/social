@@ -1,8 +1,19 @@
 /////////////////////	CHAT FUNCTIONS	////////////////////
 $(document).ready(function(){
+	/*if(location.href.search(/(login.php|registro.php)/gi)!=-1){
+		return;
+	}*/
 	$("body").append("<div id='chat_conversaciones'></div>");
 	$("body").append("<div id='tmp' style='display:none;'></div>");
+	
+	timeOutId = setInterval(estado_online, 30000);
+	estado_online();
+	leer();
+	timeOutLeer = setInterval(leer, 5000);
+	
+	
 });
+
 function estado_online(){
 	$.ajax({
 	  type: "POST",
@@ -13,8 +24,6 @@ function estado_online(){
 	});
 }
 
-timeOutId = setInterval(estado_online, 30000);
-estado_online();
 
 function chat_init_conv(iduser, nombre){
 	//alert("conversa"+iduser);
@@ -28,14 +37,18 @@ function chat_init_conv(iduser, nombre){
 				"<div class='boton max'></div>"+
 				"<div class='boton mini' onclick=\"mini('"+iduser+"')\"></div>"+
 				"<div id='mensajes'></div>"+
-				"<textarea name='mensaje' rows='2'></textarea>"+
+				"<textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'"+iduser+"')\" /></textarea>"+
 				"<button type='button' onclick=\"enviar('"+iduser+"')\">Enviar</button>"+
 			"</div>");
 	}
 }
-
+function chat_press_enter(e,t,iduser) {
+  tecla = (document.all) ? e.keyCode : e.which;
+  if (tecla==13){  	enviar(iduser);  }
+}
 function enviar(iduser){
 	mensaje = $("#chat_conv_"+iduser).find("textarea").val();
+	if(mensaje.length==0) return false;
 	$("#chat_conv_"+iduser).find("textarea").val("");
 	$("#chat_conv_"+iduser).find("#mensajes").append("<div class='mensaje'>Yo: "+mensaje+'</div>');
 	$.ajax({
@@ -92,5 +105,3 @@ function max(emisor){
 	$("#chat_conv_"+emisor).css({"display":"inline-block"});
 	$("#chat_conv_"+emisor+"_min").hide();
 }
-leer();
-timeOutLeer = setInterval(leer, 5000);
