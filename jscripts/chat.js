@@ -3,13 +3,18 @@ $(document).ready(function(){
 	/*if(location.href.search(/(login.php|registro.php)/gi)!=-1){
 		return;
 	}*/
-	$("body").append("<div id='chat_conversaciones'></div>");
-	$("body").append("<div id='tmp' style='display:none;'></div>");
+	/*$("body").append("<div id='chat'></div>");
+	$("#chat").append("<div id='chat_boton'></div>");
+	$("#chat").append("<div id='chat_conv_tmp' style='display:none;'></div>");*/
 	
 	timeOutId = setInterval(estado_online, 30000);
 	estado_online();
+	
 	leer();
 	timeOutLeer = setInterval(leer, 5000);
+	
+	chat_contactos();
+	timeOutchat_contactos = setInterval(chat_contactos, 10000);
 	
 	
 });
@@ -24,12 +29,21 @@ function estado_online(){
 	});
 }
 
+function chat_contactos(){
+	$.ajax({
+	  type: "POST",
+	  url: "post.php",
+	  data: { chat_contactos: "1" }
+	}).done(function( msg ) {
+		$("#chat_contactos").html(msg);
+	});
+}
 
-function chat_init_conv(iduser, nombre){
-	//alert("conversa"+iduser);
+function chat_init_conv(iduser, nombre, img){
 	if($("#chat_conv_"+iduser).length<1){
-		$("#chat_conversaciones").append(
-			"<div id='chat_conv_"+iduser+"_min' class='chat_ventana_min' onclick=\"max('"+iduser+"')\">"+nombre+
+		$("#chat").append(
+			"<div id='chat_conv_"+iduser+"_min' class='chat_ventana_min' onclick=\"max('"+iduser+"')\">"+
+				"<img src='"+img+"' alt='"+nombre+"'/>"+
 				"<div class='mensajes'></div>"+
 			"</div>"+
 			"<div id='chat_conv_"+iduser+"' class='chat_ventana' iduser='"+iduser+"'>"+nombre+
@@ -41,7 +55,9 @@ function chat_init_conv(iduser, nombre){
 				"<button type='button' onclick=\"enviar('"+iduser+"')\">Enviar</button>"+
 			"</div>");
 	}
+	chat_toggle();
 }
+
 function chat_press_enter(e,t,iduser) {
   tecla = (document.all) ? e.keyCode : e.which;
   if (tecla==13){  	enviar(iduser);  }
@@ -68,10 +84,12 @@ function leer(){
 	  url: "post.php",
 	  data: { chat_leer: "1"}
 	}).done(function( msg ) {
-		$("#tmp").html(msg);
+		$("#chat_conv_tmp").html(msg);
 
-		$("#tmp").find("div").each(function(){
-		  	emisor=$(this).attr("emisor");
+		$("#chat_conv_tmp").find("div").each(function(){
+		  	emisor=$(this).attr("iduser");
+		  	nombre=$(this).attr("nombre");
+		  	img=$(this).attr("img");
 		  
 		  	if($("#chat_conv_"+emisor).css("display")=="none"){
 		  		//minimizada
@@ -82,11 +100,14 @@ function leer(){
 		  		$("#chat_conv_"+emisor).find("#mensajes").append("<div class='mensaje'>"+$(this).html()+'</div>');
 	  		}else{
 	  			//sin iniciar
-		  		chat_init_conv(emisor, "aa");
+		  		chat_init_conv(emisor,nombre,img);
+				chat_toggle(); //minimizar lista contactos
 		  		$("#chat_conv_"+emisor).find("#mensajes").append("<div class='mensaje'>"+$(this).html()+'</div>');
-	  			mini(emisor);
-	  			$("#chat_conv_"+emisor+"_min").find(".mensajes").css({"display":"inline-block"});
+	  			mini(emisor); //minimizar conversa
+	  			$("#chat_conv_"+emisor+"_min").find(".mensajes").css({"display":"inline-block"}); //mostrar simbolo mensajes
 	  		}
+	  		//$("#chat_conv_"+emisor).find("#mensajes").scrollTop($("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight"))
+			$("#chat_conv_"+emisor).find("#mensajes").animate({ scrollTop: $("#chat_conv_"+emisor).find("#mensajes").prop("scrollHeight")},3000);
 		});
 	});
 }

@@ -81,26 +81,92 @@
 	}
 
 	if($_POST['chat_leer']){
-		$result=mysql_query("SELECT * from chat,usuarios WHERE  idusuarios=emisor AND receptor='".$global_idusuarios."' AND chat.estado='nuevo'");
+		$result=mysql_query("SELECT *,(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo from chat,usuarios WHERE  idusuarios=emisor AND receptor='".$global_idusuarios."' AND chat.estado='nuevo'");
 
 		if(mysql_num_rows($result)>0){
 			while($row=mysql_fetch_assoc($result)){
-				echo "<div emisor='".$row['emisor']."'>".$row['nombre']." dijo: ".$row['mensaje']."</div>";
+				echo "<div iduser='".$row['emisor']."' nombre='".$row['nombre']." ".$row['apellidos']."' img='".$row['archivo']."' >".$row['nombre']." dijo: ".$row['mensaje']."</div>";
 			}
 		}
 		mysql_query("UPDATE chat SET estado='leido' WHERE receptor='".$global_idusuarios."'");
 		die();
 	}
-
-
-
-
-
-
-
-
-
-
+	
+	if($_POST['chat_contactos']){
+		if($_SESSION['chat_estado']=="on"){
+			//CONECTADOS
+			$result=mysql_query("
+								SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+								CASE
+								WHEN @tiempo<60 THEN 'conectado'
+								WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+								ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online,
+								(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo
+								FROM amigos, usuarios
+								WHERE TIME_TO_SEC(TIMEDIFF(now(),online))<95 AND
+								(user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios)
+								ORDER BY nombre
+			");
+			echo "<ul>";
+			while ($row=mysql_fetch_assoc($result)) {
+				echo "<li onclick=\"chat_init_conv('".$row['idusuarios']."','".$row['nombre']." ".$row['apellidos']."','".$row['archivo']."')\"><div class='conectado'></div>".$row['nombre']." ".$row['apellidos']."</li>";
+			}
+			echo "</ul>";
+			//	NO CONECTADOS
+			$result=mysql_query("
+								SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+								CASE
+								WHEN @tiempo<60 THEN 'conectado'
+								WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+								ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online,
+								(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo
+								FROM amigos, usuarios
+								WHERE TIME_TO_SEC(TIMEDIFF(now(),online))>95 AND
+								(user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios)
+								ORDER BY nombre
+			");
+			echo "<ul>";
+			while ($row=mysql_fetch_assoc($result)) {
+				echo "<li onclick=\"chat_init_conv('".$row['idusuarios']."','".$row['nombre']." ".$row['apellidos']."','".$row['archivo']."')\"><div class='desconectado'></div>".$row['nombre']." ".$row['apellidos']."</li>";
+			}
+			echo "</ul>";
+			echo "<p style='cursor:pointer;' onclick=\"chat_turn('off')\">Desactivar Chat</p>";
+		}else{
+			echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
+		}
+		die();
+	}
+/*
+	if($_POST['chat_conv_new']){
+		$result=mysql_query("
+								SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
+								CASE
+								WHEN @tiempo<60 THEN 'conectado'
+								WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
+								ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online,
+								(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS archivo
+								FROM amigos, usuarios
+								WHERE (user1='".$global_idusuarios."' AND user2='".$_POST['chat_conv_new']."' OR user2='".$global_idusuarios."' AND user1='".$_POST['chat_conv_new']."')
+									AND idusuarios='".$_POST['chat_conv_new']."'
+			");
+		$row=mysql_fetch_assoc($result);
+		print(
+			"<div id='chat_conv_".$row['idusuarios']."_min' class='chat_ventana_min' onclick=\"max('".$row['idusuarios']."')\">
+				&nbsp;<img src='".$row['archivo']."' alt='".$row['nombre']."' />&nbsp;
+				<div class='mensajes'></div>
+			</div>
+			<div id='chat_conv_".$row['idusuarios']."' class='chat_ventana'>
+				".$row['nombre']." ".$row['apellidos']."
+				<div class='boton cerr' onclick=\"cerrar('".$row['idusuarios']."')\"></div>
+				<div class='boton max'></div>
+				<div class='boton mini' onclick=\"mini('".$row['idusuarios']."')\"></div>
+				<div id='mensajes'></div>
+				<textarea name='mensaje' onkeypress=\"chat_press_enter(event,this,'".$row['idusuarios']."')\" /></textarea>
+				<button type='button' onclick=\"enviar('".$row['idusuarios']."')\">Enviar</button>
+			</div>");
+			die();
+	}
+*/
 	echo "<pre>";
 	if($_POST){
 		echo "POST:<br>";

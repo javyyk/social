@@ -4,7 +4,7 @@ function ajax_post(url,data){
 	  url: url,
 	  data: data
 	}).done(function( msg ) {
-	  alert( msg );
+	   msg;
 	});
 }
 
@@ -15,6 +15,14 @@ function chat_turn(modo){
 	}else{
 		ajax_post("post.php","chat_estado=off");
 		location.reload();
+	}
+}
+
+function chat_toggle(){
+	if($("#chat_contactos").css("display")=="none"){
+		$("#chat_contactos").css({"display":"inline-block"});
+	}else{
+		$("#chat_contactos").hide();
 	}
 }
 
