@@ -17,7 +17,7 @@
 
 
 
-<div class="barra_centro" class="">
+<div class="barra_centro_der" class="">
 	<div class="marco_full">
 		<h2>Lista de amigos</h2>
 		<?php
@@ -54,14 +54,4 @@
 		?>
 	</div>
 </div>
-
-<div id="chat">
-	<div id="chat_boton" onclick="chat_toggle()"></div>
-	<div id="chat_contactos">
-		<?php
-		if($_SESSION['chat_estado']!="on")
-			echo "<p style='cursor:pointer;' onclick=\"chat_turn('on')\">Activar Chat</p>";
-		?>
-	</div>
-	<div id='chat_conv_tmp' style='display:none;'></div>
-</div>
+<?php require("chat.php"); ?>

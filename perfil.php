@@ -15,33 +15,35 @@
 		echo "<br>Edad: ".$usuario['edad'];
 	?>
 </div>
-<div class="cuerpo_der">
-	<form method="POST" action="post.php" id="cambio_estado">
-
+<div class="barra_centro_der" >
+	<div class="marco_full">
+		<form method="POST" action="post.php" id="cambio_estado">
+	
+			<?php
+				if($usuario['estado']){
+					echo "<input type='text' name='estado' size='95' value='".$usuario['estado']."' />";
+				}else{
+					echo "<input type='text' name='estado' size='95' value='Actualiza tu estado' />";
+				}
+			?>
+			<button type="submit" value="Submit">Cambiar</button>
+		</form>
+	</div>
+	
+	<div class="marco_full" >
+		<h2>Comentarios</h2>
 		<?php
-			if($usuario['estado']){
-				echo "<input type='text' name='estado' size='95' value='".$usuario['estado']."' />";
-			}else{
-				echo "<input type='text' name='estado' size='95' value='Actualiza tu estado' />";
+		$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
+		if(mysql_num_rows($query)>0){
+			while($comentarios=mysql_fetch_assoc($query)){
+				$div = (($comentarios['estado']=='nuevo') ? "<div style='background-color:yellow'>" : "<div>");
+				echo $div.$comentarios['nombre']." dijo: ".$comentarios['comentario']." ".$comentarios['fechaf']."</div>";
 			}
-		?>
-		<button type="submit" value="Submit">Cambiar</button>
-	</form>
-</div>
-
-<div class="cuerpo_der" class="">
-	<h2>Comentarios</h2>
-	<?php
-	$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
-	if(mysql_num_rows($query)>0){
-		while($comentarios=mysql_fetch_assoc($query)){
-			$div = (($comentarios['estado']=='nuevo') ? "<div style='background-color:yellow'>" : "<div>");
-			echo $div.$comentarios['nombre']." dijo: ".$comentarios['comentario']." ".$comentarios['fechaf']."</div>";
+		}else{
+			echo "<div>Aun no tienes comentarios en tu tablon</div>";
 		}
-	}else{
-		echo "<div>Aun no tienes comentarios en tu tablon</div>";
-	}
-	?>
+		?>
+	</div>
 </div>
 
 

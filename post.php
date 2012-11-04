@@ -48,7 +48,8 @@
 		mysql_query("UPDATE mps SET estado='leido' WHERE idmps='".$_GET['mensaje_leido']."'");
 		error_mysql();
 	}
-
+	
+	/***************	FOTOS	*****************/
 	if($_GET['foto_principal']){
 		mysql_query("UPDATE usuarios SET idfotos_princi='".$_GET['foto_principal']."' WHERE idusuarios='".$global_idusuarios."'");
 		header("location:perfil.php");
@@ -63,6 +64,12 @@
 			mysql_query("DELETE FROM fotos WHERE uploader='".$global_idusuarios."' AND idfotos='".$_GET['foto_borrar']."'");
 		}
 		//header("location:fotos.php");
+	}
+
+	if($_POST['foto_comentario']){
+		mysql_query("INSERT INTO fotos_comentarios (fotos_idfotos,emisor,comentario,fecha) VALUES ('".$_POST['idfotos']."','".$global_idusuarios."','".$_POST['foto_comentario']."',now())");
+		header($_SERVER['referer']);
+		die();
 	}
 
 
