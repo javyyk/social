@@ -13,7 +13,6 @@ body{
 	width:997px;
 	margin: 0 auto;
 	padding:5px;
-	text-rendering: optimizeLegibility;
 }
 
 /*******************************	MENU HORIZONTAL *****************/
@@ -184,7 +183,6 @@ h2.encabezado{
 }
 
 div.barra_izq{
-
 	width: 200px;
 	background-color:white;
 	border-radius: 7px 7px 7px 7px;
@@ -193,15 +191,39 @@ div.barra_izq{
 	box-shadow:2px 2px 3px black;
 	padding:7px;
 	float:left;
+	margin:0 0 10px;
 }
-
+div.barra_izq_centro{
+	width: 700px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	float:left;
+	margin:0 0 10px;
+}
 div.barra_centro_der{
 	float:left;
 	width:750px;
 	border: 1px solid red;
 	padding:15px;
+	margin:0 0 10px;
 }
 
+div.barra_der{
+	float:right;
+	width:260px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	padding:7px;
+	margin:0 0 10px;
+}
+/*
 div.barra_der{
 	float:right;
 	width:780px;
@@ -212,13 +234,19 @@ div.barra_der{
 	box-shadow:2px 2px 3px black;
 	padding:7px;
 	margin:0 0 10px;
-}
+}*/
 
 div.barra_full{
 	float:left;
-	width:750px;
+	width:960px;
 	border: 1px solid red;
 	padding:15px;
+	background-color:white;
+	border-radius: 7px 7px 7px 7px;
+	border-style: solid;
+	border-width: 0px;
+	box-shadow:2px 2px 3px black;
+	margin:0 0 10px;
 }
 
 div.centrar{
@@ -464,8 +492,21 @@ div.error{
     vertical-align: middle;
 }
 
+/*******************	FOTOS	***************/
 
-/******************* ESPECIALES ****************/
+#foto_marco{
+	display:inline-block;
+}
+
+#etiqueta{
+	border: 1px solid red;
+    height: 50px;
+   position: absolute;
+    width: 50px;
+    z-index: 50;
+}
+
+/*******************	ESPECIALES	****************/
 
 #help_div{
 	display:none;
