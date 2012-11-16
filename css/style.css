@@ -142,6 +142,9 @@ div.login_form button {
 	cursor: pointer;
 	box-shadow:1px 1px 1px black;
 	font-weight: bold;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+	 background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
+    border-color: #097DB1 #0B6690;
 }
 
 #creditos{

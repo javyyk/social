@@ -191,6 +191,7 @@ public function setAlias($alias){
 				}
 
 				// TODO: Añadir validacion para checkbox.
+				// TODO: Añadir validacion para select.
 
 				//Semejante
 				if($this->semejante){

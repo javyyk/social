@@ -46,6 +46,8 @@
 		<li><a href="post.php?foto_principal=<?php echo $row_actual['idfotos'];?>">Principal</a></li>
 		<li><a href="post.php?foto_borrar=<?php echo $row_actual['idfotos'];?>">Borrar foto</a></li>
 	</ul>
+	<ul id="lista_etiquetados" style='margin:0;list-style: none outside none;padding:0px;'>
+	</ul>
 	<?php
 		$query=mysql_query("
 			SELECT *
@@ -60,20 +62,100 @@
 				    <label for="tags">Persona: </label>
 				    <input id="tags" name="receptor" />
 				</div>
-
-
-					<script>
+				<script>
 				    $(function() {
-				        var availableTags = [
-						<?php
-						while($row=mysql_fetch_assoc($query)){
-							echo "'".$row['nombre']." ".$row['apellidos']."',";
-						}
-						?>
+				        var amigos = [
+							<?php
+							while($row=mysql_fetch_assoc($query)){
+								echo "{value: '".$row['idusuarios']."', label: '".$row['nombre']." ".$row['apellidos']."'},";	
+							}
+							?>
 						];
+				       /*//  alert(amigos);
+				        // delete amigos[1].label;
+				         amigos[2].value="";
+				        // alert(amigos[0].label);
+				        // alert(amigos[0].value);
+				        // alert(amigos);
+      // alert(amigos.length);
+						tmp = new Array();
+						i_new=0;
+						for(i=0;i<amigos.length;i++){
+							//alert(i);
+							//alert(amigos[i].value!="");
+							//alert(amigos[i].label);
+							if(amigos[i].value.length>0){
+								alert(amigos[i].label);
+								tmp[i_new] = {};
+								tmp[i_new].label = amigos[i].label;
+								tmp[i_new].value = amigos[i].value;	
+								i_new++;
+							}						
+						}
+						
+						alert(tmp);
+						var amigos = tmp;
+						//alert(tmp[0].label);
+						*/
+						
+						
 						$( "#tags" ).autocomplete({
-							source: availableTags
-						});
+        				    minLength: 0,
+							source: amigos,
+				            focus: function( event, ui ) {
+				            	//al focus sobre un resultado
+				                $( "#tags" ).val( ui.item.label );
+				                return false;
+				            },
+				            select: function( event, ui ) {
+				                //AL PULSAR UN RESULTADO
+				                $("#lista_etiquetados").append("<li onclick=\"etiqueta_delete('"+ui.item.label+"','"+ui.item.value+"')\" value='"+ui.item.value+"'>"+ui.item.label+"</li>");
+								$( "#tags" ).val("");
+										
+								 		//alert(amigos);
+								        // delete amigos[1].label;
+								         //amigos[2].value="";
+								        // alert(amigos[0].label);
+								        // alert(amigos[0].value);
+								        // alert(amigos);
+				      // alert(amigos.length);
+										tmp = new Array();
+										i_new=0;
+										for(i=0;i<amigos.length;i++){
+											if(amigos[i].value==ui.item.value){
+								        		 amigos[i].value="";
+											}
+											//alert(i);
+											//alert(amigos[i].value!="");
+											//alert(amigos[i].label);
+											if(amigos[i].value.length>0){
+												//alert(amigos[i].label);
+												tmp[i_new] = {};
+												tmp[i_new].label = amigos[i].label;
+												tmp[i_new].value = amigos[i].value;	
+												i_new++;
+											}						
+										}
+										
+										//alert(tmp);
+										//$("#ui-id-1").find("li").remove();
+										//amigos = tmp;
+										
+						$( "#tags" ).autocomplete( "option", "source", tmp );
+										//alert(tmp[0].label);
+				                return false;
+				            }
+				        }).data( "autocomplete" )._renderItem = function( ul, item ) {
+				            return $( "<li>" )
+				                .data( "item.autocomplete", item )
+				                .append( "<a>" + item.label + "</a>" )
+				                .appendTo( ul );
+				        };
+								//$("#ui-id-1").find("a").click(function(){
+									//alert($(i.item.value).html());
+									//$("#lista_etiquetados").append("<li><a href='#'>"+$(this).text()+"</a></li>");
+								//});
+							//}
 					});
 					</script>
 				<br>
@@ -130,7 +212,7 @@
 				echo "Dijo: ".$comentarios['comentario']."</div><br>";
 			}
 		}else{
-			echo "<div>".$usuario['nombre']." aun no tiene comentarios en su tablon, escribe uno!</div>";
+			echo "<div>Todavia nadie ha comentado esta foto</div>";
 		}
 		?>
 	</div>

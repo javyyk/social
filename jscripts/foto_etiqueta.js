@@ -1,4 +1,43 @@
-
+function etiqueta_delete(label,value){
+	alert(value);
+	 $("#lista_etiquetados").find("li[value='"+value+"']").remove();
+	 tmp.push({label:label,value:value});
+								
+}
+				    $(function() {
+				    	function autocomplete_delete(value){
+								 		//alert(amigos);
+								        // delete amigos[1].label;
+								         //amigos[2].value="";
+								        // alert(amigos[0].label);
+								        // alert(amigos[0].value);
+								        // alert(amigos);
+				      // alert(amigos.length);
+										tmp = new Array();
+										i_new=0;
+										for(i=0;i<amigos.length;i++){
+											if(amigos[i].value==value){
+								        		 amigos[i].value="";
+											}
+											//alert(i);
+											//alert(amigos[i].value!="");
+											//alert(amigos[i].label);
+											if(amigos[i].value.length>0){
+												alert(amigos[i].label);
+												tmp[i_new] = {};
+												tmp[i_new].label = amigos[i].label;
+												tmp[i_new].value = amigos[i].value;	
+												i_new++;
+											}						
+										}
+										
+										//alert(tmp);
+										$("#ui-id-1").find("li").remove();
+										//amigos = tmp;
+										
+						$( "#tags" ).autocomplete( "option", "source", tmp );
+}
+});
 function editar_etiquetas(){
 	move=1;
 	//desactivamos click
