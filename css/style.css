@@ -104,8 +104,11 @@ body{
 	/*background-color:#3869A0;*/
 }
 
-
-/************ LOGIN **********************/
+/************	REGISTRO	***************/
+form[name='registro']{
+	line-height: 24px;
+}
+/************	LOGIN	**********************/
 
 h1#logo{
 	text-align: center;
@@ -510,7 +513,26 @@ div.error{
 }
 
 /*******************	ESPECIALES	****************/
+.input_error{
+	background-color:#FFDDDD;
+	border:	1px solid red;
+}
 
+.input_ok{
+	background-color:#60D160;
+	border:	1px solid green;
+}
+
+.check_error{
+	outline:1px solid red;
+	margin-right:15px !important;
+background: url(img/check_02.png) 0px -16px no-repeat;
+	
+}
+
+.check_ok{
+	outline:1px solid green;
+}
 #help_div{
 	display:none;
 	position:absolute;
