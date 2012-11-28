@@ -5,6 +5,7 @@ if(isset($_SESSION['idsesion'])) {
 	header("Location: inicio.php");
 }
 head("Login - Social");
+echo "<script type='text/javascript' src='jscripts/valida_login.php'></script>";
 
 if($_POST['email']){
 	$login=mysql_query("SELECT * FROM usuarios WHERE email='".$_POST['email']."' AND password='".sha1($_POST['password'])."'");
@@ -38,11 +39,6 @@ if($_POST['email']){
 		$error=1;
 	}
 }
-	require_once("validador.class.php");
-	$Validador = new Validador();
-	$Validador->SetInput(array('name' => 'email', 'formato' => '^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$'));
-	$Validador->SetInput(array('name' => 'password', 'min' => '4'));
-	$Validador->GeneraValidadorJS();
 ?>
 
 
