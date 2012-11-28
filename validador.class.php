@@ -128,7 +128,7 @@ class Validador{
 	public function GeneraValidadorJS(){
 
 		print "
-				<script type='text/javascript'>
+				//<script type='text/javascript'>
 				var ayuda = {};	//Declaro objeto global
 				var validado = 0; //
 				array_campos = new Array(); //Lista de campos validables
@@ -352,17 +352,7 @@ class Validador{
 							}});
 						
 					});
-			</script>
 			";
-
-
-			/*$('#mensaje').html(mensaje);
-					if(mensaje==''){
-						$('#form').submit();
-					}
-				mensaje='';
-				*/
-
 	}
 
 
