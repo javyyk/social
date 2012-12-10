@@ -135,7 +135,9 @@ class Validador{
 
 				//FUNCION VALIDADOR
 				function validador(option){
-
+					//texto del error general
+					$('#valida_error').html('El formulario contiene campos rellenados err&oacute;neamente.<br>Situe el raton sobre un campo rojo para ver mas detalles');
+					
 					//Limpiamos la lista de campos para evitar duplicidades
 					for(i=0;i<=array_campos.length;i++){
 						array_campos.pop();
@@ -252,8 +254,7 @@ class Validador{
 			}
 		}
 		print "
-					// Se ha pulsado un boton, no la validacion auto
-					if(option == 'submit'){
+		
 						//Comprobamos que no haya errores en los inputs
 						form_ok = 1;
 						for(i=0;i<array_campos.length;i++){
@@ -263,12 +264,25 @@ class Validador{
 								form_ok = 0;
 							}
 						}
-
+						
+					// Se ha pulsado un boton, no la validacion auto
+					if(option == 'submit'){
 						//Si no ha errores enviar
 						if(form_ok == 1){
+							$('#valida_error').hide();
 							$('form').submit();
+						}else{
+							$('#valida_error').show();
+						}
+					}else{
+						
+						if(form_ok == 1){
+							$('#valida_error').hide();
+						}else{
+							$('#valida_error').show();
 						}
 					}
+
 				}
 				//Fin funcion Validador()
 

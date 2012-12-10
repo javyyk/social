@@ -30,6 +30,7 @@ if($_POST){
 ?>
 	<div class="centrar">
 		<div class="marco">
+			<div id="valida_error"></div>
 			<form name="registro" method='post' action='registro.php'>
 				Nombre: <input type='text' class="validable" size='15' maxlength='20' name='Nombre' value="<?php echo $_POST['Nombre']; ?>" /><br />
 				Apellidos: <input type='text' class="validable" size='25' maxlength='40' name='Apellidos'  value="<?php echo $_POST['Apellidos']; ?>" /><br />
