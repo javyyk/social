@@ -63,6 +63,7 @@
 				    <input id="tags" name="receptor" />
 				</div>
 				<script>
+					var idfoto=<?php echo $row_actual['idfotos'];?>;
 				    $(function() {
 				        var amigos = [
 							<?php
@@ -70,34 +71,7 @@
 								echo "{value: '".$row['idusuarios']."', label: '".$row['nombre']." ".$row['apellidos']."'},";	
 							}
 							?>
-						];
-				       /*//  alert(amigos);
-				        // delete amigos[1].label;
-				         amigos[2].value="";
-				        // alert(amigos[0].label);
-				        // alert(amigos[0].value);
-				        // alert(amigos);
-      // alert(amigos.length);
-						tmp = new Array();
-						i_new=0;
-						for(i=0;i<amigos.length;i++){
-							//alert(i);
-							//alert(amigos[i].value!="");
-							//alert(amigos[i].label);
-							if(amigos[i].value.length>0){
-								alert(amigos[i].label);
-								tmp[i_new] = {};
-								tmp[i_new].label = amigos[i].label;
-								tmp[i_new].value = amigos[i].value;	
-								i_new++;
-							}						
-						}
-						
-						alert(tmp);
-						var amigos = tmp;
-						//alert(tmp[0].label);
-						*/
-						
+						];	//es inutil, adelante sera reemplazada						
 						
 						$( "#tags" ).autocomplete({
         				    minLength: 0,
@@ -107,43 +81,38 @@
 				                $( "#tags" ).val( ui.item.label );
 				                return false;
 				            },
+				            create: function( event, ui ) {
+				            	//creamos la lista de amigos de nuevo
+								
+				            	lista_amigos = new Array();
+				            	lista_etiquetados = [];
+								for(i=0;i<amigos.length;i++){
+										lista_amigos[i] = {};
+										lista_amigos[i].value = amigos[i].value;	//id
+										lista_amigos[i].label = amigos[i].label;	//nombre y apellidos
+								}										
+								$( "#tags" ).autocomplete( "option", "source", lista_amigos );	//usamos la lista nueva de amigos
+								 return false;
+				            },
 				            select: function( event, ui ) {
 				                //AL PULSAR UN RESULTADO
-				                $("#lista_etiquetados").append("<li onclick=\"etiqueta_delete('"+ui.item.label+"','"+ui.item.value+"')\" value='"+ui.item.value+"'>"+ui.item.label+"</li>");
+				               	//lo añadimos a los etiquetados
+				                lista_etiquetados.push({value: ui.item.value, label: ui.item.label, x: xori, y: yori});
+				            	//  alert(JSON.stringify(lista_etiquetados)); //[{"label":"Alejandro Martinez Tornero","value":"4"},{"label":"Marta Perera Alfonso","value":"5"},{"label":"Gregorio Gomez Gonzalez","value":"2"}]
+				                $("#lista_etiquetados").append("<li onclick=\"etiqueta_delete('"+ui.item.label+"','"+ui.item.value+"')\">"+ui.item.label+"</li>");
 								$( "#tags" ).val("");
-										
-								 		//alert(amigos);
-								        // delete amigos[1].label;
-								         //amigos[2].value="";
-								        // alert(amigos[0].label);
-								        // alert(amigos[0].value);
-								        // alert(amigos);
-				      // alert(amigos.length);
-										tmp = new Array();
-										i_new=0;
-										for(i=0;i<amigos.length;i++){
-											if(amigos[i].value==ui.item.value){
-								        		 amigos[i].value="";
-											}
-											//alert(i);
-											//alert(amigos[i].value!="");
-											//alert(amigos[i].label);
-											if(amigos[i].value.length>0){
-												//alert(amigos[i].label);
-												tmp[i_new] = {};
-												tmp[i_new].label = amigos[i].label;
-												tmp[i_new].value = amigos[i].value;	
-												i_new++;
-											}						
-										}
-										
-										//alert(tmp);
-										//$("#ui-id-1").find("li").remove();
-										//amigos = tmp;
-										
-						$( "#tags" ).autocomplete( "option", "source", tmp );
-										//alert(tmp[0].label);
-				                return false;
+								
+								// buscamos el nombre del amigo seleccionado
+								for(i=0;i<lista_amigos.length;i++){
+									if(lista_amigos[i].label==ui.item.label){
+										lista_amigos.splice(i, 1); // y lo quitamos del array
+										break;
+									}
+								}
+								
+								//efectos de raton y divs
+								amigo_etiquetado(ui.item.value);
+								return false;
 				            }
 				        }).data( "autocomplete" )._renderItem = function( ul, item ) {
 				            return $( "<li>" )
@@ -151,15 +120,10 @@
 				                .append( "<a>" + item.label + "</a>" )
 				                .appendTo( ul );
 				        };
-								//$("#ui-id-1").find("a").click(function(){
-									//alert($(i.item.value).html());
-									//$("#lista_etiquetados").append("<li><a href='#'>"+$(this).text()+"</a></li>");
-								//});
-							//}
 					});
 					</script>
 				<br>
-			  	<button type="button" onclick="validador('submit');">Enviar</button>
+			  	<button type="button" onclick="post(lista_etiquetados);">Enviar</button>
 			</form>
 		<?php
 		}

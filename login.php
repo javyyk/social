@@ -42,16 +42,13 @@ if($_POST['email']){
 ?>
 
 
+		<script>$(document).ready(function(){  $("input").eq(0).focus();  })</script>
 		<h1 id="logo">Social</h1>
-		<?php
-		if($error==1){
-			?>
-			<div class="centrar">
-				<div class='error'>El email o la contraseña son incorrectos</div>
-			</div>
-			<?php
-		}
-		?>
+		<?php	if($error==1){	?>
+				<div class="centrar">
+					<div class='error'>El email o la contraseña son incorrectos</div>
+				</div>
+		<?php	}	?>
 		<div class="centrar">
 			<div class="marco login_form">
 				<form id='form_login' method='POST' action='login.php'>
@@ -61,7 +58,7 @@ if($_POST['email']){
 					<br>-->
 				  <button type="button" onclick="validador('submit');">Entrar</button>
 				  <button type='button' onclick="location.href='registro.php';">Registrarse</button>
-				</form>
+				  </form>
 			</div>
 		</div>
 		<div id="creditos">

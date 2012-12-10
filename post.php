@@ -72,8 +72,37 @@
 		die();
 	}
 
-
-	/*************	CHAT	*********************/
+	/************	FOTOS	*********************/
+	if($_POST['foto_etiquetado']){
+		mysql_query("DELETE FROM fotos_has_usuarios WHERE fotos_idfotos='".$_POST['idfoto']."'");
+		
+		preg_match_all("/[0-9]{1,}/",$_POST['etiquetas'], $salida, PREG_PATTERN_ORDER);
+		$i2=0;
+		for($i=0;$i<count($salida[0]);$i++){
+			if($i2==0){
+				$id=$salida[0][$i];
+				echo "ID: ".$salida[0][$i]." - ";
+			}elseif($i2==1){
+				echo "X: ".$salida[0][$i]." - ";
+				$x=$salida[0][$i];
+			}elseif($i2==2){
+				echo "Y: ".$salida[0][$i]."<br>";
+				$y=$salida[0][$i];
+				mysql_query("INSERT INTO fotos_has_usuarios (fotos_idfotos, usuarios_idusuarios, x, y) VALUES ('".$_POST['idfoto']."','".$id."','".$x."','".$y."')");
+				echo mysql_error();
+				$i2=-1;
+			}
+			$i2++;
+		}
+		die();
+		/*
+	    [foto_etiquetado] => 1
+	    [idfoto] => 17
+	    [etiquetas] => 4,240,67,5,139,164 //userid,x,y
+		*/
+	}
+	
+	/************	CHAT	*********************/
 	if($_POST['chat_estado']){
 		$_SESSION['chat_estado']=$_POST['chat_estado'];
 		die();

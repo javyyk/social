@@ -4,7 +4,7 @@ function ajax_post(url,data){
 	  url: url,
 	  data: data
 	}).done(function( msg ) {
-	   msg;
+	   alert(msg);
 	});
 }
 
