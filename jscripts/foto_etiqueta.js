@@ -1,6 +1,8 @@
 //Definimos variables globales
 var click;
 var move;
+var x_centrado;
+var y_centrado;
 
 function etiqueta_delete(label,value){
 	//lo borramos del panel etiquetado
@@ -63,18 +65,18 @@ function editar_etiquetas(){
 				var p = $("#foto").position();
 				//$("p:last").text( "left: " + position.left + ", top: " + position.top );
 	
-				var x = e.pageX - this.offsetLeft;
-				var y = e.pageY - this.offsetTop;
-				xori = x;
-				yori = y;
+				x = e.pageX - this.offsetLeft;
+				y = e.pageY - this.offsetTop;
+				//xori = x;
+				//yori = y;
 			}
-			$("#coors1").text("x: "+x+" y: "+y);
-            	h=$("#etiqueta").css("height").match(/[0-9]{1,}/gi)[0]/2;
-            	w=$("#etiqueta").css("width").match(/[0-9]{1,}/gi)[0]/2;
-			var y = y + p.top - h;
-			var x = x + p.left - w;
-			$("#etiqueta").css({"top":y,"left":x});
-			$("#coors2").text("x: "+x+" y: "+y);
+            h=$("#etiqueta").css("height").match(/[0-9]{1,}/gi)[0]/2;
+            w=$("#etiqueta").css("width").match(/[0-9]{1,}/gi)[0]/2;
+			y_centrado = y + p.top - h + "px";
+			x_centrado = x + p.left - w + "px";
+			$("#coors1").text("DIV x: "+x+" y: "+y);
+			$("#coors2").text("DIV CENTRADO x: "+x_centrado+" y: "+y_centrado);
+			$("#etiqueta").css({"top":y_centrado,"left":x_centrado});
 			//$("#coors2").text("( e.clientX, e.clientY ) : " + clientCoords);
 		});
 		
@@ -98,9 +100,9 @@ function editar_etiquetas(){
 }
 
 function amigo_etiquetado(id){
-	y=$("#etiqueta").css("top");
-	x=$("#etiqueta").css("left");		
-	$("#foto_marco").append("<div etiqueta='"+id+"' class='etiquetado' style='left:"+x+";top:"+y+";'></div>");
+	//y=$("#etiqueta").css("top");
+	//x=$("#etiqueta").css("left");		
+	$("#foto_marco").append("<div etiqueta='"+id+"' class='etiquetado' style='left:"+x_centrado+";top:"+y_centrado+";'></div>");
 	$("form input").hide();
 	$("body").focus();
 	move=1;

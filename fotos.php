@@ -4,7 +4,7 @@
 	echo "<script type='text/javascript' src='jscripts/foto_etiqueta.js'></script>";
 	require("estructura.php");
 ?>
-<div class="barra_izq_centro">
+<div class="barra_izq_centro" style="height: 600px !important;">
 	<div id='coors1'>	
 	</div>
 	<div id='coors2'>
@@ -35,12 +35,28 @@
 			location.href='<?php echo "?uploader=".$_GET['uploader']."&amp;idfotos=".$row_sig['idfotos']; ?>'"
 			<?php
 		}
+		echo "/>";
+		$result = mysql_query("SELECT nombre,apellidos,idusuarios,x,y FROM fotos LEFT JOIN fotos_has_usuarios ON fotos_idfotos=idfotos INNER JOIN usuarios ON idusuarios=usuarios_idusuarios WHERE fotos.idfotos='".$row_actual['idfotos']."'");
+		while($p = mysql_fetch_assoc($result)){
+			echo "<div class='etiquetado' style='left:".$p['x']."px;top:".$p['y']."px;' etiqueta='".$p['idusuarios']."'></div>";
+		}
 	
 		?>
-		/>
+		
 	</div>
 </div>
+
+
+
+
 <div class="barra_der">
+	Personas:
+	<?php
+	mysql_data_seek($result, 0);
+	while($personas = mysql_fetch_assoc($result)){
+		echo $personas['nombre']. " ".$personas['apellidos']."<br>";
+	}
+	?>
 	<ul style='margin:0;list-style: none outside none;padding:0px;'>
 		<li><a href="#" onclick="editar_etiquetas()">Editar Etiquetas</a></li>
 		<li><a href="post.php?foto_principal=<?php echo $row_actual['idfotos'];?>">Principal</a></li>
@@ -97,7 +113,7 @@
 				            select: function( event, ui ) {
 				                //AL PULSAR UN RESULTADO
 				               	//lo añadimos a los etiquetados
-				                lista_etiquetados.push({value: ui.item.value, label: ui.item.label, x: xori, y: yori});
+				                lista_etiquetados.push({value: ui.item.value, label: ui.item.label, x: x_centrado, y: y_centrado});
 				            	//  alert(JSON.stringify(lista_etiquetados)); //[{"label":"Alejandro Martinez Tornero","value":"4"},{"label":"Marta Perera Alfonso","value":"5"},{"label":"Gregorio Gomez Gonzalez","value":"2"}]
 				                $("#lista_etiquetados").append("<li onclick=\"etiqueta_delete('"+ui.item.label+"','"+ui.item.value+"')\">"+ui.item.label+"</li>");
 								$( "#tags" ).val("");

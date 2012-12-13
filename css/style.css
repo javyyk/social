@@ -4,7 +4,7 @@
 	font-family: Verdana;
 	font-weight: bold;
 	color: #333333;
-    font-size: 11px;
+    font-size: 14px;
 }
 
 body{
@@ -106,7 +106,7 @@ body{
 
 /************	REGISTRO	***************/
 form[name='registro']{
-	line-height: 24px;
+	line-height: 28px;
 }
 /************	LOGIN	**********************/
 
@@ -207,6 +207,7 @@ div.barra_izq_centro{
 	float:left;
 	margin:0 0 10px;
 }
+
 div.barra_centro_der{
 	float:left;
 	width:750px;
@@ -499,6 +500,7 @@ div.error{
 
 #foto_marco{
 	display:inline-block;
+	position: absolute;
 }
 
 #etiqueta{
@@ -517,7 +519,8 @@ div.error{
     z-index: 50;
 }
 
-/*******************	ESPECIALES	****************/
+/*******************	VALIDACION	****************/
+
 .input_error{
 	background-color:#FFDDDD;
 	border:	1px solid red;
@@ -528,15 +531,18 @@ div.error{
 	border:	1px solid green;
 }
 
-.check_error{
-	outline:1px solid red;
-	margin-right:15px !important;
-background: url(img/check_02.png) 0px -16px no-repeat;
-	
+input[type=checkbox]{
+	margin-right:5px !important;
 }
 
-.check_ok{
-	outline:1px solid green;
+.checkbox_error{
+	margin-right: 10px !important;
+	outline:2px solid red;
+}
+
+.checkbox_ok{
+	margin-right: 10px !important;
+	outline:2px solid green;
 }
 #help_div{
 	display:none;
@@ -561,6 +567,36 @@ background: url(img/check_02.png) 0px -16px no-repeat;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 1px 1px 1px;
     margin: 10px 10px 15px;
-    padding: 4px;
+    padding: 10px;
     vertical-align: middle;
 }
+
+/****	INPUT RADIO		****/
+.radio_error{
+	border:2px solid red;
+	border-radius: 20px;
+}
+
+.radio_ok{
+	border:2px solid green;
+	border-radius: 20px;
+}
+
+label.label_radio{
+	margin-right: 5px;
+}
+input[type=radio]{
+	display: none;
+}
+
+input[type=radio] + label{ 
+	display: inline-block;
+	width: 16px; 
+	height: 16px;
+	background: url(input-radio.png) 0px 0px no-repeat;
+}
+input[type=radio]:checked + label 	{
+	background: url(input-radio.png) 0px -16px no-repeat;
+}
+
+
