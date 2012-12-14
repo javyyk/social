@@ -3,20 +3,16 @@ var click;
 var move;
 var x_centrado;
 var y_centrado;
+var etiqueta_editar;
 
-function etiqueta_delete(label,value){
+function etiqueta_borrar(label,value){
+	if(etiqueta_editar!=1) return false;
 	//lo borramos del panel etiquetado
 	 $("#lista_etiquetados").find("li").each(function(){
 	 	if($(this).text()==label){
 	 		$(this).remove();
 	 	}
 	 });
-	 
-	/*n = new Array();	//creamos un array temporal
-	n = label;	//nombre y apellidos para usar indexOf
-	n.label = label;	//nombre y apellidos
-	n.value = value;	//id
-	lista_amigos.push(n);	//lo añadimos al buscador*/
 	
 	lista_amigos.push({value: value, label: label});
 	
@@ -27,14 +23,10 @@ function etiqueta_delete(label,value){
 			break;
 		}
 	}
-	//alert(JSON.stringify(lista_etiquetados));
 }
 
 function post(lista_etiquetados){
-	//alert(idfoto);
 	string_envio="";
-	//alert(JSON.stringify(lista_etiquetados));
-	//alert(lista_etiquetados.length);
 	for(i=0;i<lista_etiquetados.length;i++){
 		string_envio+=lista_etiquetados[i].value+",";
 		string_envio+=lista_etiquetados[i].x+",";
@@ -42,14 +34,18 @@ function post(lista_etiquetados){
 	}
 	string_envio=string_envio.substring(0,string_envio.length-1);
 	ajax_post("post.php","foto_etiquetado=1&idfoto="+idfoto+"&etiquetas="+string_envio);
+	location.reload();
 }
-function editar_etiquetas(){
+function etiqueta_editar(){
+	etiqueta_editar=1;
+	$("form button").show();
+	//TODO: cambiar visual lista etuiquetados
 	move=1;
 	onclick=$("#foto").attr("onclick");	//desactivamos click
 	$("#foto").removeAttr("onclick");
 	
 	$("#foto_marco").mouseenter(function(e){
-		metediv();
+		etiqueta_crear();
 		$("#foto_marco").mousemove(function(e){
 			if(move==1){
 				fl=this.offsetLeft;
@@ -64,20 +60,22 @@ function editar_etiquetas(){
 				//alert(e.pageX);
 				var p = $("#foto").position();
 				//$("p:last").text( "left: " + position.left + ", top: " + position.top );
-	
+				
+				//Coordenadas de la etuiqueta
 				x = e.pageX - this.offsetLeft;
 				y = e.pageY - this.offsetTop;
-				//xori = x;
-				//yori = y;
 			}
+			
+			//Coordenadas de la etuiqueta centrada al raton
             h=$("#etiqueta").css("height").match(/[0-9]{1,}/gi)[0]/2;
             w=$("#etiqueta").css("width").match(/[0-9]{1,}/gi)[0]/2;
 			y_centrado = y + p.top - h + "px";
 			x_centrado = x + p.left - w + "px";
+			$("#etiqueta").css({"top":y_centrado,"left":x_centrado});
+			
+			
 			$("#coors1").text("DIV x: "+x+" y: "+y);
 			$("#coors2").text("DIV CENTRADO x: "+x_centrado+" y: "+y_centrado);
-			$("#etiqueta").css({"top":y_centrado,"left":x_centrado});
-			//$("#coors2").text("( e.clientX, e.clientY ) : " + clientCoords);
 		});
 		
 		$("#etiqueta").click(function(e){
@@ -91,7 +89,7 @@ function editar_etiquetas(){
 			if(move==0 && click==1){
 				move=1;
 				click=0;
-				$("form,form input").show();
+				$("form input,label").show();
 				$("form #tags").focus();
 			}
 		});
@@ -99,16 +97,14 @@ function editar_etiquetas(){
 	});
 }
 
-function amigo_etiquetado(id){
-	//y=$("#etiqueta").css("top");
-	//x=$("#etiqueta").css("left");		
+function etiqueta_fijar(id){	
 	$("#foto_marco").append("<div etiqueta='"+id+"' class='etiquetado' style='left:"+x_centrado+";top:"+y_centrado+";'></div>");
 	$("form input").hide();
 	$("body").focus();
 	move=1;
 	click=0;
 }
-function metediv(){
+function etiqueta_crear(){
 	if($("#etiqueta").length<1){
 		$("#foto_marco").append("<div id='etiqueta'></div>");
        	

@@ -1,4 +1,0 @@
-PENDIENTE:
-	radio
-	checkbox
-	id de formulario o multiples forms en una pagina

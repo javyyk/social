@@ -2,6 +2,7 @@
 	require("verify_login.php");
 	head("Fotos - Social");
 	echo "<script type='text/javascript' src='jscripts/foto_etiqueta.js'></script>";
+	echo "<script type='text/javascript' src='jscripts/foto_visualizador.js'></script>";
 	require("estructura.php");
 ?>
 <div class="barra_izq_centro" style="height: 600px !important;">
@@ -50,19 +51,19 @@
 
 
 <div class="barra_der">
-	Personas:
-	<?php
-	mysql_data_seek($result, 0);
-	while($personas = mysql_fetch_assoc($result)){
-		echo $personas['nombre']. " ".$personas['apellidos']."<br>";
-	}
-	?>
 	<ul style='margin:0;list-style: none outside none;padding:0px;'>
-		<li><a href="#" onclick="editar_etiquetas()">Editar Etiquetas</a></li>
+		<li><a href="#" onclick="etiqueta_editar()">Editar Etiquetas</a></li>
 		<li><a href="post.php?foto_principal=<?php echo $row_actual['idfotos'];?>">Principal</a></li>
 		<li><a href="post.php?foto_borrar=<?php echo $row_actual['idfotos'];?>">Borrar foto</a></li>
 	</ul>
+	Personas:<br>
 	<ul id="lista_etiquetados" style='margin:0;list-style: none outside none;padding:0px;'>
+		<?php
+			mysql_data_seek($result, 0);
+			while($personas = mysql_fetch_assoc($result)){
+				echo "<li onclick=\"etiqueta_borrar('".$personas['nombre']." ".$personas['apellidos']."','".$personas['idusuarios']."')\">".$personas['nombre']. " ".$personas['apellidos']."</li>";
+			}
+		?>
 	</ul>
 	<?php
 		$query=mysql_query("
@@ -73,12 +74,25 @@
 
 		if(mysql_num_rows($query)>0){
 			?>
-			<form method='POST' action='post.php' style="display:none;">
+			<form method='POST' action='post.php'">
 				<div class="ui-widget">
-				    <label for="tags">Persona: </label>
-				    <input id="tags" name="receptor" />
+				    <label for="tags" style="display: none;">Persona: </label>
+				    <input id="tags" name="receptor"  style="display: none;"/>
 				</div>
 				<script>
+				    //Declarando variables
+				    lista_amigos = new Array();
+				    lista_etiquetados = [
+					    <?php
+							mysql_data_seek($result, 0);
+							$i_temp=0;
+							while($personas = mysql_fetch_assoc($result)){
+								if($i_temp!=0) echo ",";
+								echo "{value: ".$personas['idusuarios'].", label: '".$personas['nombre']." ".$personas['apellidos']."', x: ".$personas['x'].", y: ".$personas['y']."}";
+								$i_temp++;
+							}
+						?>
+					];
 					var idfoto=<?php echo $row_actual['idfotos'];?>;
 				    $(function() {
 				        var amigos = [
@@ -100,22 +114,21 @@
 				            create: function( event, ui ) {
 				            	//creamos la lista de amigos de nuevo
 								
-				            	lista_amigos = new Array();
-				            	lista_etiquetados = [];
+				            	//lista_amigos = new Array();
 								for(i=0;i<amigos.length;i++){
 										lista_amigos[i] = {};
 										lista_amigos[i].value = amigos[i].value;	//id
 										lista_amigos[i].label = amigos[i].label;	//nombre y apellidos
 								}										
 								$( "#tags" ).autocomplete( "option", "source", lista_amigos );	//usamos la lista nueva de amigos
-								 return false;
+								amigos_actualizar();
+								return false;
 				            },
 				            select: function( event, ui ) {
 				                //AL PULSAR UN RESULTADO
 				               	//lo añadimos a los etiquetados
 				                lista_etiquetados.push({value: ui.item.value, label: ui.item.label, x: x_centrado, y: y_centrado});
-				            	//  alert(JSON.stringify(lista_etiquetados)); //[{"label":"Alejandro Martinez Tornero","value":"4"},{"label":"Marta Perera Alfonso","value":"5"},{"label":"Gregorio Gomez Gonzalez","value":"2"}]
-				                $("#lista_etiquetados").append("<li onclick=\"etiqueta_delete('"+ui.item.label+"','"+ui.item.value+"')\">"+ui.item.label+"</li>");
+				            	$("#lista_etiquetados").append("<li onclick=\"etiqueta_borrar('"+ui.item.label+"','"+ui.item.value+"')\">"+ui.item.label+"</li>");
 								$( "#tags" ).val("");
 								
 								// buscamos el nombre del amigo seleccionado
@@ -127,7 +140,7 @@
 								}
 								
 								//efectos de raton y divs
-								amigo_etiquetado(ui.item.value);
+								etiqueta_fijar(ui.item.value);
 								return false;
 				            }
 				        }).data( "autocomplete" )._renderItem = function( ul, item ) {
@@ -139,7 +152,7 @@
 					});
 					</script>
 				<br>
-			  	<button type="button" onclick="post(lista_etiquetados);">Enviar</button>
+			  	<button type="button" onclick="post(lista_etiquetados);" style="display: none !important;">Enviar</button>
 			</form>
 		<?php
 		}

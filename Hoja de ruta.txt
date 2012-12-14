@@ -1,0 +1,16 @@
+Registro de usuario
+Login de usuario
+Inicio con novedades
+Perfil con comentarios de otros
+Mensajeria privada (Escribir, Entrada, Enviados)
+Fotos
+	Visualizacion fotos
+		Etiquetas fotos
+		Comentarios
+	Subida fotos
+Panel de control
+	Ips de acceso
+	Cambio de datos (Contraseña, nombre, correo, localidad)
+
+Chat
+Logout

@@ -128,7 +128,6 @@ class Validador{
 	public function GeneraValidadorJS(){
 
 		print "
-				//<script type='text/javascript'>
 				var ayuda = {};	//Declaro objeto global
 				var validado = 0; //
 				array_campos = new Array(); //Lista de campos validables
@@ -156,7 +155,6 @@ class Validador{
 					ayuda.".$this->name.".mensaje = '';
 					array_campos.push('".$this->name."'); //Para posterior validacion
 
-					//$(\"[name='".$this->name."']\").css({'background-color':'green'}); //Reseteamos el color \n
 				");
 				$help_div = "ayuda.".$this->name.".mensaje";
 
@@ -190,8 +188,8 @@ class Validador{
 				if($this->radio){
 					array_push($check,"if(!$(\"input[name='".$this->name."']\").is(':checked')){;\n".
 						$help_div." += 'Debes seleccionar una de las casillas de \"".$this->alias."\"<br>';\n
-						valid_error=1;}
-					");
+						valid_error=1;
+					}");
 				}
 
 				// CHECKBOX
@@ -213,7 +211,7 @@ class Validador{
 				if($this->semejante){
 					$semejantes=preg_split("/,/", $this->semejante);
 
-					array_push($check, $campo.".val()!=$(\"[name='".$semejantes[0]."']\").val()){\n".
+					array_push($check, $campo.".val()!=$(\"[name='".$semejantes[0]."']\").val() || $(\"input[name='".$this->name."']\").val().length<1){\n".
 						$help_div." += 'El campo ".$semejantes[1]." y \"".$this->alias."\" no coinciden<br>';\n
 						valid_error=1;
 					}\n");
@@ -228,13 +226,21 @@ class Validador{
 				}
 				
 				// MANEJO CLASSES
-				if($this->radio OR $this->checkbox){
+				if($this->checkbox){
 					array_push($check, "if(valid_error==1){\n
-							$(\"[name='".$this->name."']\").addClass('check_error');
-							$(\"[name='".$this->name."']\").removeClass('check_ok');
+							$(\"[name='".$this->name."']\").addClass('checkbox_error');
+							$(\"[name='".$this->name."']\").removeClass('checkbox_ok');
 						}else{
-							$(\"[name='".$this->name."']\").removeClass('check_error');
-							$(\"[name='".$this->name."']\").addClass('check_ok');}
+							$(\"[name='".$this->name."']\").removeClass('checkbox_error');
+							$(\"[name='".$this->name."']\").addClass('checkbox_ok');}
+					");
+				}elseif($this->radio){
+					array_push($check, "if(valid_error==1){\n
+							$(\"label.label_".$this->name."\").addClass('radio_error');
+							$(\"label.label_".$this->name."\").removeClass('radio_ok');
+						}else{
+							$(\"label.label_".$this->name."\").removeClass('radio_error');
+							$(\"label.label_".$this->name."\").addClass('radio_ok');}
 					");
 				}else{
 					array_push($check, "if(valid_error==1){\n
@@ -275,7 +281,6 @@ class Validador{
 							$('#valida_error').show();
 						}
 					}else{
-						
 						if(form_ok == 1){
 							$('#valida_error').hide();
 						}else{

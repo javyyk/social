@@ -9,7 +9,6 @@
 	$Validador->SetInput(array('name' => 'Email', 'formato' => '^[^0-9][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[@][a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,4}$'));
 	$Validador->SetInput(array('name' => 'nacimiento', 'alias' => 'Fecha de nacimiento','formato' => '^\d{1,2}\/\d{1,2}\/\d{4,4}$'));
 	$Validador->SetInput(array('name' => 'Sexo', 'radio' => 'yes'));
-	$Validador->SetInput(array('name' => 'Edad', 'radio' => 'yes'));
 	$Validador->SetInput(array('name' => 'tos', 'alias' => 'Terminos de Uso', 'checkbox' => 'yes'));
 	$Validador->SetInput(array('name' => 'Provincia', 'select' => 0));
 	$Validador->GeneraValidadorJS();

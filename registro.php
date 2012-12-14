@@ -41,14 +41,10 @@ if($_POST){
 				Fecha nacimiento: <input type='text' class="validable" size='15' name='nacimiento'  id="datepicker"  value="<?php echo $_POST['nacimiento']; ?>" /><br />
 				
 				Sexo: 
-				<input type="radio" class="validable" name="Sexo" value="H"/>Hombre
-				<input type="radio" class="validable" name="Sexo" value="M"/>Mujer<br />
+				<input type="radio" class="validable" name="Sexo" value="H" id="sexo_hombre"/><label for="sexo_hombre" class="label_radio label_Sexo"></label><label for="sexo_hombre">Hombre</label>
+				<input type="radio" class="validable" name="Sexo" value="M" id="sexo_mujer"/><label for="sexo_mujer" class="label_radio label_Sexo"></label><label for="sexo_mujer">Mujer</label><br />
 				
-				Edad:
-				<input type="radio" class="validable" name="Edad" value="Mayor"/>Mayor
-				<input type="radio" class="validable" name="Edad" value="Menor"/>Menor<br />
-
-				 <input type="checkbox" class="validable" name="tos" value="tos_yes">Acepto los terminos de uso<br>
+				<input type="checkbox" class="validable" name="tos" id="checkbox_tos" value="tos_yes"><label for="checkbox_tos">Acepto los terminos de uso</label><br>
 
 				Provincia: <select name="Provincia" class="validable"><?php require("select_provincias.html"); ?></select><br>
 				<input type="hidden" name="Registro" value="yes"/>
