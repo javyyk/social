@@ -72,9 +72,15 @@
 		die();
 	}
 
+	/************	ALBUM	*********************/
+	if($_POST['album']){
+		mysql_query("INSERT INTO albums (usuarios_idusuarios, album) VALUES ('".$global_idusuarios."','".$_POST['album']."')");
+		die();
+	}
+	
 	/************	FOTOS	*********************/
 	if($_POST['foto_etiquetado']){
-		mysql_query("DELETE FROM fotos_has_usuarios WHERE fotos_idfotos='".$_POST['idfoto']."'");
+		mysql_query("DELETE FROM etiquetas WHERE fotos_idfotos='".$_POST['idfoto']."'");
 		
 		preg_match_all("/[0-9]{1,}/",$_POST['etiquetas'], $salida, PREG_PATTERN_ORDER);
 		$i2=0;
@@ -88,7 +94,7 @@
 			}elseif($i2==2){
 				echo "Y: ".$salida[0][$i]."<br>";
 				$y=$salida[0][$i];
-				mysql_query("INSERT INTO fotos_has_usuarios (fotos_idfotos, usuarios_idusuarios, x, y) VALUES ('".$_POST['idfoto']."','".$id."','".$x."','".$y."')");
+				mysql_query("INSERT INTO etiquetas (fotos_idfotos, usuarios_idusuarios, x, y) VALUES ('".$_POST['idfoto']."','".$id."','".$x."','".$y."')");
 				echo mysql_error();
 				$i2=-1;
 			}
