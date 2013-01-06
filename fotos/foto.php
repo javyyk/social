@@ -37,6 +37,23 @@
 				echo "<div class='etiquetado' style='left:".$p['x']."px;top:".$p['y']."px;' id='etiqueta_".$p['idusuarios']."'></div>";
 			}
 	
+	}else{
+		if($_GET['iduser']==$global_idusuarios){
+			if($_GET['album']=='subidas'){
+				echo "No has subido ninguna foto";
+			}
+			if($_GET['album']=='etiquetadas'){
+				echo "No estas etiquetado en ninguna foto";
+			}
+		}else{
+			if($_GET['album']=='subidas'){
+				echo $global_nombre." no ha subido ninguna foto";
+			}
+			if($_GET['album']=='etiquetadas'){
+				echo $global_nombre." no esta etiquetado en ninguna foto";
+			}
+		}
+		
 	}
 	//echo "<br>ID: ".$row['idfotos']." - File: ".$row['archivo']."<br>\n";
 	//echo mysql_num_rows($fotos);

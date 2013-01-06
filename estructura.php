@@ -10,14 +10,31 @@
 			?>
 		</a>
 	</li>
-	<li><a href="fotos.php">Fotos</a></li>
-	<li><a href="mp_entrada.php">Mensajes
-		<?php
-		$query=mysql_query("SELECT * FROM mps WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
-		if(mysql_num_rows($query)>0){
-			echo " (".mysql_num_rows($query).")";
-		}
-		?>
+	<li>
+		<a href="albums.php">Albums</a>
+		<ul>
+			<li><a href="fotos.php?album=etiquetadas">Etiquetadas</a></li>
+			<li><a href="fotos.php?album=subidas">Subidas</a></li>
+			<li><a href="fotos.php?album=perfil">Perfil</a></li>
+			<?php
+			$result=mysql_query("SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."'");
+			if(mysql_num_rows($result)>0){
+				while($row=mysql_fetch_assoc($result)){
+					echo "<li><a href='fotos.php?album=".$row['idalbums']."'>".$row['album']."</a></li>";
+				}
+			}
+			?>
+		</ul>
+	</li>
+	<li>
+		<a href="mp_entrada.php">
+			Mensajes
+			<?php
+			$query=mysql_query("SELECT * FROM mps WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+			if(mysql_num_rows($query)>0){
+				echo " (".mysql_num_rows($query).")";
+			}
+			?>
 		</a>
 		<ul>
 			<li><a href="mp_entrada.php">Mensajes Recibidos</a></li>

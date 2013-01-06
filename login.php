@@ -67,5 +67,4 @@ if($_POST['email']){
 				<p>Social Inc.&#8482;</p>
 			</div>
 		</div>
-	</div>
 </body>

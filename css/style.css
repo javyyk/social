@@ -133,19 +133,7 @@ div.login_form{
 }
 
 
-div.login_form button {
-	background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
-    border-radius: 5px 5px 5px 5px;
-    border-width: 0;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 34px;
-    margin: 5px;
-    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
-    width: 100px;
-}
+
 
 #creditos{
 	z-index:-1;
@@ -335,6 +323,19 @@ div.error{
 		margin-left: 210px;
 }
 
+button {
+	background: linear-gradient(#1098D3, #077CB1) repeat scroll 0 0 transparent;
+    border-radius: 5px 5px 5px 5px;
+    border-width: 0;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 34px;
+    margin: 5px;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.35);
+    width: 100px;
+}
 /*******************	CHAT	*****************/
 
 #chat{
@@ -496,6 +497,17 @@ div.error{
     vertical-align: middle;
 }
 
+/*******************	ALBUMS	***************/
+div.album{
+    border: 1px solid gray;
+    border-radius: 7px 7px 7px 7px;
+    box-shadow: 2px 2px;
+    display: inline-block;
+    height: 150px;
+    margin: 10px;
+    padding: 7px;
+    width: 250px;
+}
 /*******************	FOTOS	***************/
 
 #foto_marco{
@@ -512,11 +524,22 @@ div.error{
 }
 
 .etiquetado{
-	border: 1px solid green;
+    background-color: white;
+    border: 3px solid #3869A0;
     height: 50px;
-   position: absolute;
+    opacity: 0.6;
+    position: absolute;
     width: 50px;
     z-index: 50;
+}
+
+#lista_etiquetados li div{
+    background: url("icons1.png") repeat scroll -34px -194px transparent;
+    cursor: pointer;
+    display: none;
+    height: 12px;
+    margin-left: 5px;
+    width: 12px;
 }
 
 /*******************	VALIDACION	****************/
@@ -598,5 +621,3 @@ input[type=radio] + label{
 input[type=radio]:checked + label 	{
 	background: url(input-radio.png) 0px -16px no-repeat;
 }
-
-

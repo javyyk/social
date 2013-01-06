@@ -13,7 +13,7 @@
 		foreach ($_POST as $name => $value) {
 			if(preg_match("/tmpname/", $name, $algohaykeponer) == 1){
 				$count++;
-				mysql_query("INSERT INTO fotos (titulo,archivo,uploader,fecha) VALUES ('".$_POST['titulo']."','fotos/".limpia_texto($global_nombrefull)."_".$global_idusuarios."/".$value."','".$global_idusuarios."',now())");
+				mysql_query("INSERT INTO fotos (titulo,archivo,uploader,fecha) VALUES ('".$_POST['titulo']."','user_fotos/".$global_idusuarios."-".limpia_texto($global_nombrefull)."/".$value."','".$global_idusuarios."',now())");
 				error_mysql("exit");
 			}
 		}

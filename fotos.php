@@ -4,16 +4,28 @@
 	echo "<script type='text/javascript' src='fotos/foto_etiqueta.js'></script>";
 	echo "<script type='text/javascript' src='fotos/foto_visualizador.js'></script>";
 	require("estructura.php");
-		if(!$_GET['user']){
-		$_GET['user']=$global_idusuarios;
+	
+	if(!$_GET['iduser']){
+		$_GET['iduser']=$global_idusuarios;
 		$uploader=1;
 	}
 	
+	if(!$_GET['idalbum']){
+		$_GET['idalbum']="subidas";
+	}
 	if(!$_GET['idfotos']){
 		$_GET['idfotos']="999999999";
 	}
 	
-	if($_GET['album']=='subidas'){
+	if($_GET['idalbum']=='subidas'){
+		$fotos=mysql_query("SELECT * FROM fotos WHERE uploader='".$_GET['iduser']."' AND idfotos<='".$_GET['idfotos']."' ORDER BY idfotos DESC LIMIT 2");
+	}
+	
+	if($_GET['idalbum']=='etiquetadas'){
+		$fotos=mysql_query("SELECT * FROM fotos, etiquetas WHERE usuarios_idusuarios = '".$_GET['iduser']."' AND idfotos = fotos_idfotos AND idfotos<='".$_GET['idfotos']."' ORDER BY idfotos DESC LIMIT 2");
+	}
+	
+	/*if($_GET['album']=='subidas'){
 		$permiso_foto="dueño";
 		$fotos=mysql_query("SELECT * FROM fotos WHERE uploader='".$_GET['user']."' AND idfotos<='".$_GET['idfotos']."' ORDER BY idfotos DESC LIMIT 2");
 	}elseif($_GET['album']=='etiquetadas'){
@@ -35,7 +47,7 @@
 		
 	}else{
 		die("Error 1075");
-	}
+	}*/
 	require("fotos/foto.php");
 	require("fotos/barra.php");
 	require("fotos/comentarios.php");

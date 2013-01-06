@@ -41,6 +41,7 @@
 	?>
 </div>
 <div class="cuerpo_der" class="">
+	<a href="albums.php?iduser=<?php echo $usuario['idusuarios']; ?>">Albums de <?php echo $usuario['nombre']; ?><a/>
 	<h2>Comentarios</h2>
 
 	<form method="POST" action="post.php">
