@@ -7,13 +7,15 @@
 	Personas:<br>
 	<ul id="lista_etiquetados" style='margin:0;list-style: none outside none;padding:0px;'>
 		<?php
-			if(mysql_num_rows($etiquetados)>0){
-				mysql_data_seek($etiquetados, 0);
-				while($personas = mysql_fetch_assoc($etiquetados)){
-					echo "<li >".$personas['nombre']. " ".$personas['apellidos']."<div onclick=\"etiqueta_borrar('".$personas['nombre']." ".$personas['apellidos']."','".$personas['idusuarios']."')\"></div></li>";
+			if(mysql_num_rows($fotos)){
+				if(mysql_num_rows($etiquetados)>0){
+					mysql_data_seek($etiquetados, 0);
+					while($personas = mysql_fetch_assoc($etiquetados)){
+						echo "<li class='etiqueta_".$personas['idusuarios']."'>".$personas['nombre']. " ".$personas['apellidos']."<div onclick=\"etiqueta_borrar('".$personas['nombre']." ".$personas['apellidos']."','".$personas['idusuarios']."')\"></div></li>";
+					}
+				}else{
+					echo "No hay nadie etiquetado todavia";
 				}
-			}else{
-				echo "No hay nadie etiquetado todavia";
 			}
 		?>
 	</ul>
@@ -30,13 +32,15 @@
 				    lista_amigos = new Array();
 				    lista_etiquetados = [
 					    <?php
-					    	if(mysql_num_rows($etiquetados)>0){
-						    	mysql_data_seek($etiquetados, 0);
-								$i_temp=0;
-								while($personas = mysql_fetch_assoc($etiquetados)){
-									if($i_temp!=0) echo ",";
-									echo "{value: ".$personas['idusuarios'].", label: '".$personas['nombre']." ".$personas['apellidos']."', x: ".$personas['x'].", y: ".$personas['y']."}";
-									$i_temp++;
+							if(mysql_num_rows($fotos)){
+						    	if(mysql_num_rows($etiquetados)>0){
+							    	mysql_data_seek($etiquetados, 0);
+									$i_temp=0;
+									while($personas = mysql_fetch_assoc($etiquetados)){
+										if($i_temp!=0) echo ",";
+										echo "{value: ".$personas['idusuarios'].", label: '".$personas['nombre']." ".$personas['apellidos']."', x: ".$personas['x'].", y: ".$personas['y']."}";
+										$i_temp++;
+									}
 								}
 							}
 						?>
@@ -52,7 +56,7 @@
 								}
 							?>
 						];
-
+						
 					</script>
 				<br>
 			  	<button type="button" onclick="post(lista_etiquetados);" style="display: none !important;">Enviar</button>

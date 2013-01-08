@@ -1,17 +1,15 @@
 $(document).ready(function(){
-	$("div.etiquetado,#lista_etiquetados li").hover(
+	$("#lista_etiquetados li").hover(
 	  function () {
-	  	for ( i = 0; i < lista_etiquetados.length; i++) {
-			if (lista_etiquetados[i].value == id) {
-				lista_amigos.splice(i, 1);
-				// y lo quitamos del array
-				break;
-			}
-		}
+		etiqueta_id = $(this).attr("class").match(/etiqueta_[0-9]{1,}/gim)[0];
+		$("#lista_etiquetados li."+etiqueta_id).addClass("etiqueta_seleccionada");
+		$("#foto_marco div."+etiqueta_id).addClass("etiqueta_seleccionada");
 	  }, 
 	  function () {
-	   // TODO:dejar como antes
+		etiqueta_id = $(this).attr("class").match(/etiqueta_[0-9]{1,}/gim)[0];
+		$("#lista_etiquetados li."+etiqueta_id).removeClass("etiqueta_seleccionada");
+		$("#foto_marco div."+etiqueta_id).removeClass("etiqueta_seleccionada");
 	  }
 	);
-	
+	//div.etiquetado
 });

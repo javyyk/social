@@ -107,7 +107,7 @@ function etiqueta_editar() {
 }
 
 function etiqueta_fijar(id) {
-	$("#foto_marco").append("<div class='etiquetado' id='etiqueta_"+id+"' style='left:" + x_centrado + ";top:" + y_centrado + ";'></div>");
+	$("#foto_marco").append("<div class='etiquetado etiqueta_"+id+"' id='etiqueta_"+id+"' style='left:" + x_centrado + ";top:" + y_centrado + ";'></div>");
 	$("form input").hide();
 	$("body").focus();
 	move = 1;
@@ -162,7 +162,7 @@ $(function() {
 			//AL PULSAR UN RESULTADO
 			//lo añadimos a los etiquetados
 			lista_etiquetados.push({value : ui.item.value,label : ui.item.label,x : x_centrado,y : y_centrado});
-			$("#lista_etiquetados").append("<li>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
+			$("#lista_etiquetados").append("<li class='etiqueta_"+id+"'>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
 			$("#tags").val("");
 
 			// buscamos el nombre del amigo seleccionado

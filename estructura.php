@@ -13,14 +13,14 @@
 	<li>
 		<a href="albums.php">Albums</a>
 		<ul>
-			<li><a href="fotos.php?album=etiquetadas">Etiquetadas</a></li>
-			<li><a href="fotos.php?album=subidas">Subidas</a></li>
-			<li><a href="fotos.php?album=perfil">Perfil</a></li>
+			<li><a href="fotos.php?idalbum=etiquetadas">Etiquetadas</a></li>
+			<li><a href="fotos.php?idalbum=subidas">Subidas</a></li>
+			<li><a href="fotos.php?idalbum=perfil">Perfil</a></li>
 			<?php
 			$result=mysql_query("SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."'");
 			if(mysql_num_rows($result)>0){
 				while($row=mysql_fetch_assoc($result)){
-					echo "<li><a href='fotos.php?album=".$row['idalbums']."'>".$row['album']."</a></li>";
+					echo "<li><a href='fotos.php?idalbum=".$row['idalbums']."'>".$row['album']."</a></li>";
 				}
 			}
 			?>
