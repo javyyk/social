@@ -106,8 +106,8 @@ function etiqueta_editar() {
 	});
 }
 
-function etiqueta_fijar(id) {
-	$("#foto_marco").append("<div class='etiquetado etiqueta_"+id+"' id='etiqueta_"+id+"' style='left:" + x_centrado + ";top:" + y_centrado + ";'></div>");
+function etiqueta_fijar(id,name) {
+	$("#foto_marco").append("<div class='etiquetado etiqueta_"+id+"' id='etiqueta_"+id+"' style='left:" + x_centrado + ";top:" + y_centrado + ";'><div class='etiqueta_nombre'>"+name+"</div></div>");
 	$("form input").hide();
 	$("body").focus();
 	move = 1;
@@ -175,7 +175,7 @@ $(function() {
 			}
 
 			//efectos de raton y divs
-			etiqueta_fijar(ui.item.value);
+			etiqueta_fijar(ui.item.value,ui.item.label);
 			return false;
 		}
 	}).data("autocomplete")._renderItem = function(ul, item) {

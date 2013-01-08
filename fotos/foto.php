@@ -31,7 +31,9 @@
 			echo "/>";
 			$etiquetados = mysql_query("SELECT nombre,apellidos,idusuarios,x,y FROM fotos LEFT JOIN etiquetas ON fotos_idfotos=idfotos INNER JOIN usuarios ON idusuarios=usuarios_idusuarios WHERE fotos.idfotos='".$row_actual['idfotos']."'");
 			while($p = mysql_fetch_assoc($etiquetados)){
-				echo "<div class='etiquetado etiqueta_".$p['idusuarios']."' style='left:".$p['x']."px;top:".$p['y']."px;' id='etiqueta_".$p['idusuarios']."'></div>";
+				echo "<div class='etiquetado etiqueta_".$p['idusuarios']."' style='left:".$p['x']."px;top:".$p['y']."px;' id='etiqueta_".$p['idusuarios']."'>
+					<div class='etiqueta_nombre'>".$p['nombre']." ".$p['apellidos']."</div>
+				</div>";
 			}
 	
 	}else{

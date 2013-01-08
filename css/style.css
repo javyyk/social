@@ -517,7 +517,7 @@ div.album{
 }
 
 #etiqueta{
-	border: 1px solid red;
+	border: 3px solid red;
     height: 50px;
    position: absolute;
     width: 50px;
@@ -532,6 +532,17 @@ div.album{
     position: absolute;
     width: 50px;
     z-index: 50;
+}
+
+.etiqueta_nombre{
+    background-color: black;
+    border-radius: 5px;
+    bottom: -55px;
+    color: white;
+    position: relative;
+    visibility: hidden;
+    display: -moz-box;
+    padding: 5px;
 }
 
 #lista_etiquetados li div{
