@@ -1,16 +1,17 @@
 Registro de usuario
+	Envio de email
+	Validacion mediante email
 Login de usuario
 Inicio con novedades
 Perfil con comentarios de otros
 Mensajeria privada (Escribir, Entrada, Enviados)
-Fotos
+Albums
 	Visualizacion fotos
 		Etiquetas fotos
 		Comentarios
 	Subida fotos
 Panel de control
 	Ips de acceso
-	Cambio de datos (Contraseña, nombre, correo, localidad)
-
+	Cambio de datos (Contraseï¿½a, nombre, correo, localidad)
 Chat
 Logout
