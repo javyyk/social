@@ -15,19 +15,59 @@ body{
 	padding:5px;
 }
 
-#ajax_cargando{
-   background-color: black;
+#ajax_cargando_padre{
     color: white;
-    left: 35%;
-    margin: 0 auto;
-    min-height: 100px;
     position: fixed;
     text-align: center;
-    top: 20%;
-    width: 400px;
+    width: 996px;
+}
+
+#ajax_cargando{
+    background-color: white;
+    border: 3px solid #3869A0;
+    border-radius: 8px 8px 8px 8px;
+    color: black;
+    margin: 70px auto;
+    padding: 20px;
+    text-align: center;
+    width: 600px;
     z-index: 2147483647;
 }
 
+#ajax_cargando img{
+    display: inline-block;
+    height: 100px;
+    vertical-align: middle;
+    width: 100px;
+}
+
+#ajax_cargando .texto{
+	color:inherit;
+    display: inline-block;
+    vertical-align: middle;
+    width: 500px;
+}
+
+#ajax_cargando div a{
+	cursor: pointer;
+    color: red !important;
+    text-decoration: underline;
+}
+
+#ajax_cargando div a:hover{
+    color: white !important;
+}
+.ajax_ok{
+	background-color:#60D160 !important;
+	border:	2px solid green !important;
+    color: green !important;
+}
+
+.ajax_fail{
+	background-color:#FFDDDD !important;
+	border:	2px solid red !important;
+    color: red !important;
+}
 /*******************************	MENU HORIZONTAL *****************/
 #menudrop, #menudrop ul, #menudrop ul li, #menudrop ul li ul, #menudrop ul li ul li {
 	margin:0;

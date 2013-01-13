@@ -83,11 +83,11 @@
 		//Formulario creacion de albumes
 		?>
 		<div style='float:left;display: inline-block;margin-left: 35px;'>
-			<form method="post" action="post.php">
+			
 				Crea un album personalizado<hr>
-				Nombre del album: <input type="text" name="album" />
-				<button>Crear album</button>
-			</form></div>
+				Nombre del album: <input type="text" name="album" id='album_id'/>
+				<button onclick="ajax_post('post.php','album='+$('#album_id').val(),'true')">Crear album</button>
+			</div>
 </div>
 
 		

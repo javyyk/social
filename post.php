@@ -74,7 +74,12 @@
 
 	/************	ALBUM	*********************/
 	if($_POST['album']){
-		mysql_query("INSERT INTO albums (usuarios_idusuarios, album) VALUES ('".$global_idusuarios."','".$_POST['album']."')");
+		$result=mysql_query("SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."' AND album='".$_POST['album']."'");
+		if(mysql_num_rows($result)>0){
+			echo "Ya existe un album con el mismo nombre.";
+		}else{
+			mysql_query("INSERT INTO albums (usuarios_idusuarios, album) VALUES ('".$global_idusuarios."','".$_POST['album']."')");
+		}
 		die();
 	}
 	
@@ -209,7 +214,7 @@
 			die();
 	}
 */
-	echo "<pre>";
+	/*echo "<pre>";
 	if($_POST){
 		echo "POST:<br>";
 		print_r($_POST);
@@ -220,5 +225,6 @@
 		echo "GET:<br>";
 		print_r($_GET);
 	}
-	echo "</pre>";
+	echo "</pre>";*/
+	echo "ERROR";
 ?>
