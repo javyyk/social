@@ -17,9 +17,9 @@
 			<div id='coors2'></div>
 		<?php
 		$row_actual=mysql_fetch_assoc($fotos);
-		echo "<br>".$row_actual['titulo']."<br>\n";
+		echo "<div id='foto_titulo'>".$row_actual['titulo']."</div>\n";
 				
-		echo "<div id='foto_marco'>";
+		echo "<div id='foto_marco_padre'><div id='foto_marco_medio'><div id='foto_marco'>";
 			echo "<img id='foto' alt='' height='300' width='300' src='".$row_actual['archivo']."'";
 				if(mysql_num_rows($fotos)>1){
 					$row_sig=mysql_fetch_assoc($fotos);
@@ -65,4 +65,6 @@
 		?>
 		
 	</div>
+</div>
+</div>
 </div>

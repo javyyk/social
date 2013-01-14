@@ -19,10 +19,10 @@
 	
 	if($_GET['idalbum']=='subidas'){
 		$fotos=mysql_query("SELECT * FROM fotos WHERE uploader='".$_GET['iduser']."' AND idfotos<='".$_GET['idfotos']."' ORDER BY idfotos DESC LIMIT 2");
-	}
-	
-	if($_GET['idalbum']=='etiquetadas'){
+	}elseif($_GET['idalbum']=='etiquetadas'){
 		$fotos=mysql_query("SELECT * FROM fotos, etiquetas WHERE usuarios_idusuarios = '".$_GET['iduser']."' AND idfotos = fotos_idfotos AND idfotos<='".$_GET['idfotos']."' ORDER BY idfotos DESC LIMIT 2");
+	}else{
+		$fotos=mysql_query("SELECT * FROM fotos LEFT JOIN etiquetas ON idfotos = fotos_idfotos WHERE albums_idalbums = '".$_GET['idalbum']."' AND idfotos <= '999999999' ORDER BY idfotos DESC LIMIT 2");
 	}
 	
 	/*if($_GET['album']=='subidas'){

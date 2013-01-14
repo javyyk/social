@@ -2,6 +2,34 @@
 	<ul style='margin:0;list-style: none outside none;padding:0px;'>
 		<li><a href="#" onclick="etiqueta_editar()">Editar Etiquetas</a></li>
 		<li><a href="post.php?foto_principal=<?php echo $row_actual['idfotos'];?>">Principal</a></li>
+		<?php
+		$albums = mysql_query("SELECT * FROM `albums` WHERE usuarios_idusuarios='".$_GET['iduser']."'");
+		if (mysql_num_rows($albums) > 0) {
+			echo "<select id=''><option value='0'>Ninguno</option>";
+			while ($row = mysql_fetch_assoc($albums)) {
+				/*print("<div class='album'>
+						<div class='album_titulo'>
+							<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=" . $row['idalbums'] . "'>". $row['album'] . "</a>
+							<div class='album_renombrar' onclick=\"album_renombrar('".$row['idalbums']."','".$row['album']."')\"></div>
+							<div class='album_borrar' onclick=\"album_borrar('".$row['idalbums']."','".$row['album']."')\"></div>
+						</div>");*/
+				echo "<option value='".$row['idalbums']."'";
+				if($_GET['idalbum']==$row['idalbums']) echo " selected";
+				echo ">".$row['album']."</option>";
+			}
+		}else{
+			
+		}
+		?>
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		<li><a href="post.php?foto_borrar=<?php echo $row_actual['idfotos'];?>">Borrar foto</a></li>
 	</ul>
 	Personas:<br>

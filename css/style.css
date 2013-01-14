@@ -604,8 +604,18 @@ div.album_borrar{
 }
 /*******************	FOTOS	***************/
 
+#foto_marco_padre{
+    text-align: center;
+}
+
+#foto_marco_medio{
+    display: inline-block;
+    height: 300px;
+    margin: 0 auto;
+    width: 300px;
+}
+
 #foto_marco{
-	display:inline-block;
 	position: absolute;
 }
 
