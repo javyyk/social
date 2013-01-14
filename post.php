@@ -83,6 +83,22 @@
 		die();
 	}
 	
+	if($_POST['album_renombrar']){
+		mysql_query("UPDATE albums SET album='".$_POST['album_renombrar']."' WHERE idalbums='".$_POST['album_id']."' AND usuarios_idusuarios='".$global_idusuarios."'");
+		die();
+	}
+
+	if($_POST['album_borrar']){
+		//$result=mysql_query("SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."' AND album='".$_POST['album']."'");
+		/*if(mysql_num_rows($result)>0){
+			echo "Ya existe un album con el mismo nombre.";
+		}else{
+			mysql_query("INSERT INTO albums (usuarios_idusuarios, album) VALUES ('".$global_idusuarios."','".$_POST['album']."')");
+		}*/
+		mysql_query("DELETE FROM albums WHERE idalbums='".$_POST['album_borrar']."' AND usuarios_idusuarios='".$global_idusuarios."'");
+		die();
+	}
+	
 	/************	FOTOS	*********************/
 	if($_POST['foto_etiquetado']){
 		mysql_query("DELETE FROM etiquetas WHERE fotos_idfotos='".$_POST['idfoto']."'");
