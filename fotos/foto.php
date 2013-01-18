@@ -20,7 +20,7 @@
 		echo "<div id='foto_titulo'>".$row_actual['titulo']."</div>\n";
 				
 		echo "<div id='foto_marco_padre'><div id='foto_marco_medio'><div id='foto_marco'>";
-			echo "<img id='foto' alt='' height='300' width='300' src='".$row_actual['archivo']."'";
+			echo "<img id='foto' style='max-width:700px;max-height:600px;'alt='".$row_actual['titulo']."' src='".$row_actual['archivo']."'";
 				if(mysql_num_rows($fotos)>1){
 					$row_sig=mysql_fetch_assoc($fotos);
 					?>
@@ -44,16 +44,18 @@
 		if($_GET['iduser']==$global_idusuarios){
 			if($_GET['idalbum']=='subidas'){
 				echo "No has subido ninguna foto";
-			}
-			if($_GET['idalbum']=='etiquetadas'){
+			}elseif($_GET['idalbum']=='etiquetadas'){
 				echo "No estas etiquetado en ninguna foto";
+			}else{
+				echo "Este album todavia no contiene ninguna fotografia";
 			}
 		}else{
 			if($_GET['idalbum']=='subidas'){
 				echo $global_nombre." no ha subido ninguna foto";
-			}
-			if($_GET['idalbum']=='etiquetadas'){
+			}elseif($_GET['idalbum']=='etiquetadas'){
 				echo $global_nombre." no esta etiquetado en ninguna foto";
+			}else{
+				echo "Este album todavia no contiene ninguna fotografia";
 			}
 		}
 		echo "</div></div>";

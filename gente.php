@@ -1,64 +1,92 @@
 <?php
 	require("verify_login.php");
-
-	//Comprueba amistad
-	$query=mysql_query("SELECT count(*) FROM amigos WHERE user1='".$_GET['id']."' AND user2='".$global_idusuarios."' OR user2='".$_GET['id']."' AND user1='".$global_idusuarios."'");
-	if(mysql_num_rows($query)!=1){
-		header("Location: inicio.php?nosoisamigos");
-		die();
-	}else{
-		$query=mysql_query("
-			SELECT *,(@tiempo:=TIME_TO_SEC(TIMEDIFF(now(),online))) AS segundos_off,
-				CASE
-				WHEN @tiempo<60 THEN 'conectado'
-				WHEN @tiempo<86000 THEN TIME_FORMAT(TIMEDIFF(now(),online), '%H:%i:%s')
-				ELSE DATE_FORMAT(online, '%d/%m/%Y %H:%i') END AS online FROM `usuarios` WHERE idusuarios='".$_GET['id']."'
-		");
-		$usuario=mysql_fetch_assoc($query);
-	}
-	head($usuario['nombre']." - Social");
+	head("Buscador - Social");
 	require("estructura.php");
-
-
 ?>
-<div id="barra_izq" class="">
-	<?php
-		if($usuario['idfotos_princi']){
-			$foto=mysql_query("SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
-			$foto=mysql_fetch_assoc($foto);
-			echo "<img alt='foto principal' height='200' width='200' src='".$foto['archivo']."' />";
-		}
-		echo $usuario['nombre']." ".$usuario['apellidos'];
-		echo "<br>Edad: ".$usuario['edad']."<br>";
-		echo "<a href='mp_redactar.php?receptor=".$usuario['idusuarios']."'>Enviar mensaje privado</a><br>";
-		if($usuario['online']=="conectado"){
-			echo "Estado: ".$usuario['online'];
-		}elseif (strlen($usuario['online'])==8) {
-			echo "Ultima visita hace: ".$usuario['online'];
-		}else{
-			echo "Ultima visita el: ".$usuario['online'];
-		}
-	?>
-</div>
-<div class="cuerpo_der" class="">
-	<a href="albums.php?iduser=<?php echo $usuario['idusuarios']; ?>">Albums de <?php echo $usuario['nombre']; ?><a/>
-	<h2>Comentarios</h2>
 
-	<form method="POST" action="post.php">
-		<textarea name="comentario_tablon" cols="60" rows="2"></textarea>
-		<input type="hidden" name="receptor" value="<?php echo $usuario['idusuarios']; ?>" />
-		<input type="submit" value="Submit">
-	</form>
-	<?php
-	$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$usuario['idusuarios']."' AND idusuarios=emisor ORDER BY idtablon DESC");
+<div style="float: left;width: 600px;">
+<?php
+	$query=mysql_query("
+		SELECT *
+		FROM amigos, usuarios
+		LEFT JOIN fotos
+		ON idfotos=idfotos_princi
+		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
+	");
 	if(mysql_num_rows($query)>0){
-		while($comentarios=mysql_fetch_assoc($query)){
-			echo "<div>".$comentarios['nombre']." ".$comentarios['apellidos']." ".$comentarios['fechaf']."<br>";
-			echo "Dijo: ".$comentarios['comentario']."</div><br>";
+		while($row=mysql_fetch_assoc($query)){
+			echo "<div class='barra_izq_centro' style='width: 600px;'>";
+				echo "<img alt='foto principal' height='200' width='200' src='".$row['archivo']."' />";
+				echo "<a href='gente.php?id=".$row['idusuarios']."'>".$row['nombre']." ".$row['apellidos']."</a><br>";
+			echo "</div>";
 		}
 	}else{
-		echo "<div>".$usuario['nombre']." aun no tiene comentarios en su tablon, escribe uno!</div>";
+		?>
+		<div class="barra_izq_centro" style="width: 590px;">No tienes amigos =(</div>
+		<?php
 	}
-	?>
-</div>
+echo "</div>";
 
+
+
+
+
+
+
+
+	if($_GET['agregar']){//ENVIAR PETICION AMISTAD
+		$query=mysql_query("SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");
+		if(mysql_errno()!=0){
+			error_mysql("exit");
+		}
+		if(mysql_num_rows($query)>0){
+			header("Location: inicio.php?yasoisamigos");
+			die(); //evitamos enviar peticion
+		}
+		mysql_query("INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
+		if(mysql_errno()!=0){
+			error_mysql("exit");
+		}
+	}
+	if($_GET['busqueda']){//REALIZAR BUSQUEDA
+		$query=mysql_query("
+		SELECT *,
+			(
+				SELECT count(*)
+				FROM amigos WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR  user2='".$global_idusuarios."' AND user1=idusuarios
+				) AS amigo,
+			(
+				SELECT count(*)
+				FROM peticiones WHERE emisor='".$global_idusuarios."' AND receptor=idusuarios OR  receptor='".$global_idusuarios."' AND emisor=idusuarios
+				) AS enviada
+		FROM usuarios
+		WHERE idusuarios!='".$global_idusuarios."' AND
+			(nombre LIKE '%".$_GET['busqueda']."%' OR apellidos LIKE '%".$_GET['busqueda']."%')
+		");
+
+		if(mysql_num_rows($query)>0){
+			while($row=mysql_fetch_assoc($query)){
+				//print_r($row);
+				echo $row['nombre']." ".$row['apellidos']." -> ";
+				if($row['amigo']==0 AND $row['enviada']==0){
+					echo "<a href='buscador.php?busqueda=".$_GET['busqueda']."&agregar=".$row['idusuarios']."'>Agregar</a>";
+				}elseif($row['amigo']==0 AND $row['enviada']==1){
+					echo "Peticion enviada";
+				}elseif($row['amigo']==1){
+					echo "Amigo!";
+				}
+				echo "<br />";
+
+			}
+		}
+	}
+?>
+</div>
+<div class="barra_der" style="width: 360px;">
+	Buscador de personas
+	<hr>
+	<form method="GET" action="buscador.php">
+		Nombre: <input type="text" name="busqueda" value="<?php echo $_GET['busqueda']; ?>"/><br>
+		<button type="submit">Buscar</button>
+	</form>
+</div>

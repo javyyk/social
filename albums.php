@@ -1,6 +1,6 @@
 <?php
 require ("verify_login.php");
-head("Buscador - Social");
+head("Albums - Social");
 require ("estructura.php");
 ?>
 <div class="barra_full">
@@ -26,7 +26,7 @@ require ("estructura.php");
 		$bottom = 0;
 		$left = 0;
 		while ($row = mysql_fetch_assoc($fotos)) {
-			echo "<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=subidas'><img class='album_cubierta' style='bottom:" . $bottom . "px;left:" . $left . "px;max-width:" . $width . "px;max-height:" . $height . "px;' alt='cubierta album' src='" . $row['archivo'] . "' /><br></a>";
+			echo "<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=subidas'><img class='album_cubierta' style='bottom:" . $bottom . "px;left:" . $left . "px;max-width:" . $width . "px;max-height:" . $height . "px;' alt='cubierta album' src='" . $row['archivo'] . "' /><br></a><br>";
 
 			$bottom = $bottom + 90;
 			$left = $left + 90;
@@ -38,12 +38,12 @@ require ("estructura.php");
 
 	//Etiquetadas
 	echo "<div class='album'><div class='album_titulo'><a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=etiquetadas'>Fotos etiquetadas</a></div>";
-	$fotos = mysql_query("SELECT * FROM fotos, etiquetas WHERE usuarios_idusuarios = '" . $_GET['iduser'] . "' AND idfotos = fotos_idfotos ORDER BY idfotos LIMIT 3");
+	$fotos = mysql_query("SELECT * FROM fotos, etiquetas WHERE usuarios_idusuarios = '" . $_GET['iduser'] . "' AND idfotos = fotos_idfotos ORDER BY idfotos DESC LIMIT 3");
 	if (mysql_num_rows($fotos)) {
 		$bottom = 0;
 		$left = 0;
 		while ($row = mysql_fetch_assoc($fotos)) {
-			echo "<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=etiquetadas'><img class='album_cubierta' style='bottom:" . $bottom . "px;left:" . $left . "px;max-width:" . $width . "px;max-height:" . $height . "px;' alt='cubierta album' src='" . $row['archivo'] . "' /></a>";
+			echo "<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=etiquetadas'><img class='album_cubierta' style='bottom:" . $bottom . "px;left:" . $left . "px;max-width:" . $width . "px;max-height:" . $height . "px;' alt='cubierta album' src='" . $row['archivo'] . "' /></a><br>";
 			$bottom = $bottom + 90;
 			$left = $left + 90;
 		}
@@ -68,8 +68,8 @@ require ("estructura.php");
 			if (mysql_num_rows($fotos)) {
 				$bottom = 0;
 				$left = 0;
-				while ($row = mysql_fetch_assoc($fotos)) {
-					echo "<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=" . $row['idalbums'] . "'><img class='album_cubierta' style='bottom:" . $bottom . "px;left:" . $left . "px;max-width:" . $width . "px;max-height:" . $height . "px;' alt='cubierta album' src='" . $row['archivo'] . "' /></a>";
+				while ($row2 = mysql_fetch_assoc($fotos)) {
+					echo "<a href='fotos.php?iduser=" . $_GET['iduser'] . "&idalbum=" . $row['idalbums'] . "'><img class='album_cubierta' style='bottom:" . $bottom . "px;left:" . $left . "px;max-width:" . $width . "px;max-height:" . $height . "px;' alt='cubierta album' src='" . $row2['archivo'] . "' /></a><br>";
 					$bottom = $bottom + 90;
 					$left = $left + 90;
 				}

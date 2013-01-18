@@ -16,10 +16,10 @@ function ajax_post(url, data, reload) {
 			$("#ajax_cargando_padre").fadeIn(function() {
 				setTimeout(function() {
 					$("#ajax_cargando").fadeOut("slow");
-				}, 2000);
+				}, 1000);
 			});
 			if (reload =='true') {
-				window.setTimeout((function (){window.location.reload();}), 2000);
+				window.setTimeout((function (){window.location.reload();}), 1000);
 			}
 		}else if(msg == "ERROR") {
 			ajax_post_fail();

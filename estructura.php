@@ -42,7 +42,7 @@
 			<li><a href="mp_redactar.php">Escribir Mensajes</a></li>
 		</ul>
 	</li>
-	<li><a href="buscador.php">Buscador</a></li>
+	<li><a href="gente.php">Gente</a></li>
 	<li><a href="subir_fotos.php">Subir fotos</a></li>
 	<li style="float:right;margin-right:10px;"><a href="logout.php">Salir</a></li>
 	<li style="float:right;"><a href=".php">Ajustes</a></li>

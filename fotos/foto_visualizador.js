@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	//alert($("#foto").width());
+	$("#foto_marco_medio").width($("#foto").width());
 	$("#lista_etiquetados li,#foto_marco div.etiquetado").hover(
 	  function () {
 		etiqueta_id = $(this).attr("class").match(/etiqueta_[0-9]{1,}/gim)[0];
