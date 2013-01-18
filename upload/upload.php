@@ -28,7 +28,7 @@ header("Pragma: no-cache");
 	$global_idsesion=$usuario['idsesion'];
 
 // Settings
-$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
+//$targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
 $targetDir = "../user_fotos/".$global_idusuarios."-".limpia_texto($global_nombrefull);
 
 $cleanupTargetDir = true; // Remove old files

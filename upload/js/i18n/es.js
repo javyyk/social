@@ -5,12 +5,12 @@ plupload.addI18n({
 	'Filename' : 'Nombre de archivo',
 	'Status' : 'Estado',
 	'Size' : 'Tama&ntilde;o',
-	'Add files' : 'Agregue archivos',
+	'Add files' : 'Elegir fotos',
 	'Stop current upload' : 'Detener subida actual',
 	'Start uploading queue' : 'Iniciar subida de cola',
 	'Uploaded %d/%d files': 'Subidos %d/%d archivos',
 	'N/A' : 'No disponible',
-	'Drag files here.' : 'Arrastre archivos aqu&iacute;',
+	'Drag files here.' : 'Pulse \"Elegir fotos\" o arrastre las fotos aqu&iacute;',
 	'File extension error.': 'Error de extensi&oacute;n de archivo.',
 	'File size error.': 'Error de tama&ntilde;o de archivo.',
 	'Init error.': 'Error de inicializaci&oacute;n.',
@@ -19,7 +19,7 @@ plupload.addI18n({
 	'Generic error.': 'Error gen&eacute;rico.',
 	'IO error.': 'Error de entrada/salida.',
 	'Stop Upload': 'Detener Subida.',
-	'Add Files': 'Agregar Archivos',
+	'Add Files': 'Elegir fotos',
 	'Start Upload': 'Comenzar Subida.',
 	'%d files queued': '%d archivos en cola.'
 });
