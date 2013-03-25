@@ -2,9 +2,9 @@
 
 * {
 	font-family: Verdana;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	color: #333333;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 body {
@@ -20,6 +20,7 @@ body {
 	position: fixed;
 	text-align: center;
 	width: 996px;
+	z-index: 2147483647;
 }
 
 #ajax_cargando {
@@ -61,12 +62,48 @@ body {
 	background-color: #60D160 !important;
 	border: 2px solid green !important;
 	color: green !important;
+	z-index: 2147483647;
 }
 
 .ajax_fail {
 	background-color: #FFDDDD !important;
 	border: 2px solid red !important;
 	color: red !important;
+	z-index: 2147483647;
+}
+
+.flecha_back_top {
+	display: inline-block;
+	background: url("flechas_small.png") repeat scroll -117px 0 transparent;
+	cursor: pointer;
+	height: 36px;
+	margin-left: 5px;
+	width: 39px;
+}
+
+.flecha_back {
+	display: inline-block;
+	background: url("flechas_small.png") repeat scroll 39px -46px transparent;
+	cursor: pointer;
+	height: 36px;
+	margin-left: 5px;
+	width: 35px;
+}
+.flecha_next {
+	display: inline-block;
+	background: url("flechas_small.png") repeat scroll -39px -45px transparent;
+	cursor: pointer;
+	height: 36px;
+	margin-left: 5px;
+	width: 36px;
+}
+.flecha_next_top {
+	display: inline-block;
+	background: url("flechas_small.png") repeat scroll -38px 0 transparent;
+	cursor: pointer;
+	height: 36px;
+	margin-left: 5px;
+	width: 39px;
 }
 /*******************************	MENU HORIZONTAL *****************/
 #menudrop, #menudrop ul, #menudrop ul li, #menudrop ul li ul, #menudrop ul li ul li {
@@ -254,7 +291,7 @@ div.barra_centro_der {
 
 div.barra_der {
 	float: right;
-	width: 260px;
+	width: 245px;
 	background-color: white;
 	border-radius: 7px 7px 7px 7px;
 	border-style: solid;
@@ -596,10 +633,37 @@ div.album_borrar {
 	visibility: hidden;
 	width: 18px;
 }
+
+/***************	ALBUM contenido		********/
+a.album_contenido {
+	display: inline-block;
+	margin: 10px;
+}
+
+a.album_contenido > img.album_contenido {
+	max-height: 150px;
+	max-width: 300px;
+}
+
+div#barra_navegacion {
+	text-align: center;
+}
+
+div#barra_navegacion > a {
+	margin-left: 5px;
+}
 /*******************	FOTOS	***************/
 
-#foto_titulo{
+#foto_titulo {
 	width: 200px;
+}
+
+#foto_titulo > .edicion {
+	display: none;
+}
+
+#foto_album > .edicion {
+	display: none;
 }
 #foto_marco_padre {
 	text-align: center;
@@ -661,30 +725,40 @@ li.etiqueta_seleccionada {
 div.etiqueta_seleccionada {
 	border-color: red;
 }
-.foto_comentario {
-	margin: 10px;
-	padding: 5px;
+.foto_comentario {padding: 10px 0;
+	border-bottom: 1px solid #E5E5E5;
+}
+.foto_comentario > img {
+	max-width: 50px;
+	max-height: 50px;
+	vertical-align: top;
+	margin-right: 5px;
+}
+
+.foto_comentario > div {
+	display: inline-block;    max-width: 900px;
 }
 
 .foto_come_titu {
-	border-bottom: 1px solid blue;
+	display: inline-block;
+}
+
+.foto_come_titu > a{
+	color: #36679F;
+	font-size: 10px;
+	vertical-align: top;
 }
 
 .foto_come_fecha {
-	display: inline;
+	vertical-align: top;
+	display: inline-block;
 	font-size: 10px;
 	font-weight: normal !important;
 	margin-left: 20px;
 }
 
 .foto_come_men {
-	background-color: blue;
-	border: 1px solid black;
-	display: inline-block;
-	border-radius: 10px 10px 10px 10px;
-	color: white;
-	margin-top: 7px;
-	padding: 5px;
+	font-size: 13px;
 }
 /*******************	VALIDACION	****************/
 

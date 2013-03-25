@@ -15,10 +15,10 @@ require ("upload/subida.html");
 			foreach ($_POST as $name => $value) {
 				if (preg_match("/tmpname/", $name, $algohaykeponer) == 1) {
 					$count++;
-					if($_POST['idalbum']!=("NULL" OR null))
-						$_POST['idalbum'] = "'".$_POST['idalbum']."'";
+					if($_POST['idalbums']!=("NULL" OR null))
+						$_POST['idalbums'] = "'".$_POST['idalbums']."'";
 					
-					mysql_query("INSERT INTO fotos (titulo,archivo,uploader,fecha,albums_idalbums) VALUES ('" . $_POST['titulo'] . "','user_fotos/" . $global_idusuarios . "-" . limpia_texto($global_nombrefull) . "/" . $value . "','" . $global_idusuarios . "',now()," . $_POST['idalbum'] . ");");
+					mysqli_query($link,"INSERT INTO fotos (titulo,archivo,uploader,fecha,albums_idalbums) VALUES ('" . $_POST['titulo'] . "','user_fotos/" . $global_idusuarios . "-" . limpia_texto($global_nombrefull) . "/" . $value . "','" . $global_idusuarios . "',now()," . $_POST['idalbums'] . ");");
 					error_mysql("exit");
 				}
 			}
@@ -36,10 +36,10 @@ require ("upload/subida.html");
 			<br />
 			<b>Album:</b>
 			<?php
-			$albums = mysql_query("SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $global_idusuarios . "'");
-			if (mysql_num_rows($albums) > 0) {
-				echo "<select name='idalbum'><option value='NULL'>Ninguno</option>";
-				while ($row = mysql_fetch_assoc($albums)) {
+			$albums = mysqli_query($link,"SELECT * FROM `albums` WHERE usuarios_idusuarios='" . $global_idusuarios . "'");
+			if (mysqli_num_rows($albums) > 0) {
+				echo "<select name='idalbums'><option value='NULL'>Ninguno</option>";
+				while ($row = mysqli_fetch_assoc($albums)) {
 					echo "<option value='" . $row['idalbums'] . "'>" . $row['album'] . "</option>";
 				}
 			} else {

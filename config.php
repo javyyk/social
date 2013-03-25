@@ -1,7 +1,13 @@
 <?php
 	//CONEXION BBDD
-	$link = mysql_connect('127.0.0.1', 'root', '');
-	mysql_select_db("social");
+	$link = mysqli_connect('127.0.0.1', 'root', '');
+	if (!$link) 
+    	die("Error al conectar con el MySQL");
+
+	$mysqli_db = mysqli_select_db($link, "social");
+	if (!$mysqli_db)
+    	die("Error al seleccionar la base de datos");
+	
 	//CABECERA
 	function head($title){
 		?>
@@ -34,8 +40,8 @@
 	//LAST ID
 	function consulta_last_id($tabla,$campo){
 		$sql="SELECT IFNULL(MAX(".$campo.")+1,1) AS id FROM ".$tabla;
-		$result=mysql_query($sql);
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($link,$sql);
+		$row=mysqli_fetch_assoc($result);
 		return $row['id'];
 	}
 
@@ -54,8 +60,8 @@
 
 	//ERROR MYSQL
 	function error_mysql($p1){
-		if(mysql_error()!=0){
-			echo "No error: ".mysql_errno()." -> ".mysql_error()."<br>";
+		if(mysqli_error($link)!=0){
+			echo "No error: ".mysqli_errno()." -> ".mysqli_error($link)."<br>";
 			if($p1=="exit"){
 				die("Script detenido por fallo PHP");
 			}

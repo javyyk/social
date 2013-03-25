@@ -8,15 +8,15 @@
 
 
 
-	$query=mysql_query("
+	$query=mysqli_query($link,"
 		SELECT *
 		FROM amigos, usuarios
 		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
 	");
-	if(mysql_num_rows($query)>0){
+	if(mysqli_num_rows($query)>0){
 		echo "<h3>Enviar Mensaje</h3>";
 		echo "Destinatario: <select name='receptor'>";
-		while($row=mysql_fetch_assoc($query)){
+		while($row=mysqli_fetch_assoc($query)){
 			echo "<option value='".$row['idusuarios']."'>".$row['nombre']." ".$row['apellidos']."</option>";
 			//echo $row['nombre']." ".$row['apellidos']." <a href='gente.php?id=".$row['idusuarios']."'>Ver perfil</a><br>";
 		}
@@ -36,8 +36,8 @@
 
 
 	if($_GET['receptor']){
-		$query=mysql_query("SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
-		$usuario=mysql_fetch_assoc($query);
+		$query=mysqli_query($link,"SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
+		$usuario=mysqli_fetch_assoc($query);
 		?>
 		Enviar mensaje a <?php echo $usuario['nombre']; ?></h2>
 		<form method="POST" action="post.php">
@@ -48,8 +48,8 @@
 		<?php
 	}
 
-	$query=mysql_query("SELECT * FROM mps,usuarios WHERE emisor='".$global_idusuarios."' AND idusuarios=receptor");
-	while($mps=mysql_fetch_assoc($query)){
+	$query=mysqli_query($link,"SELECT * FROM mps,usuarios WHERE emisor='".$global_idusuarios."' AND idusuarios=receptor");
+	while($mps=mysqli_fetch_assoc($query)){
 		echo "<div class='mp'>".$mps['nombre']." te dijo: ".$mps['mp']."</div>";
 	}
 ?>

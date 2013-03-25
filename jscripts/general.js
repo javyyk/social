@@ -1,4 +1,4 @@
-function ajax_post(url, data, reload) {
+function ajax_post(url, data, reload, nextUrl, retrieve) {
 	$.ajax({
 		type : "POST",
 		url : url,
@@ -18,13 +18,20 @@ function ajax_post(url, data, reload) {
 					$("#ajax_cargando").fadeOut("slow");
 				}, 1000);
 			});
-			if (reload =='true') {
+			if (reload ==true) {
 				window.setTimeout((function (){window.location.reload();}), 1000);
+			}
+			if (nextUrl) {
+				window.setTimeout((function (){window.location=nextUrl;}), 1000);
 			}
 		}else if(msg == "ERROR") {
 			ajax_post_fail();
 		}else if (msg != "ERROR") {
-			ajax_post_fail(msg);
+			if(retrieve == true){
+				return msg;
+			}else{
+				ajax_post_fail(msg);
+			}
 		}
 	});
 }

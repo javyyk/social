@@ -1,27 +1,49 @@
 <?php
-	if(mysql_num_rows($fotos)){
+	if(mysqli_num_rows($fotos)){
 		?>
 		<div class="barra_full">
-			<h2>Comentarios</h2>
-				<textarea name="foto_comentario" cols="60" rows="2" id="foto_comentario_mens"></textarea>
-				<input type="hidden" name="idfotos" value="<?php echo $row_actual['idfotos']; ?>" />
-				<button onclick="enviar_comentario()">Enviar comentario</button>
-
+			<textarea name="foto_comentario" id="foto_comentario_mens" cols="60" rows="2" placeholder="Escribe aqu&iacute; tu comentario" style="max-width: 826px;vertical-align: top;"></textarea>
+			<button onclick="enviar_comentario()">Comentar</button>
+			<div id="comentarios"></div>
+			<script>
+				$(window).load(function(){
+					msg = ajax_post("post.php", "foto_leer_comentarios=1&idfoto="+idfoto+"&page=0", false, false, true);
+					alert(idfoto);
+				});
+			</script>
 			<?php
-			$query=mysql_query("
-				SELECT nombre, apellidos, comentario,
+			$query=mysqli_query($link,"
+				SELECT idusuarios, nombre, apellidos, comentario,
 				 DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fecha,
 				(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS img_princi
-				 FROM fotos_comentarios, usuarios WHERE fotos_idfotos='".$row_actual['idfotos']."' AND emisor=idusuarios ORDER BY fecha DESC");
-			if(mysql_num_rows($query)>0){
-				while($comentarios=mysql_fetch_assoc($query)){
+				 FROM fotos_comentarios, usuarios WHERE fotos_idfotos='".$row_fotos['idfotos']."' AND emisor=idusuarios ORDER BY fecha DESC");
+			if(mysqli_num_rows($query)>0){
+				echo "<div style='background-color: #E5E5E5;height: 1px;width: 947px;margin-top:10px;'></div>";
+				while($comentarios=mysqli_fetch_assoc($query)){
+					echo "<div class='foto_comentario'>";
+						echo "<img src='".$comentarios['img_princi']."'>";
+						echo "<div>";
+							echo "<div>";
+								echo "<div class='foto_come_titu'><a href='gente.php?id=".$comentarios['idusuarios']."'>".$comentarios['nombre']." ".$comentarios['apellidos']."</a></div>";
+								echo "<div class='foto_come_fecha'>".$comentarios['fecha']."</div>";
+							echo "</div>";
+							echo "<div class='foto_come_men'>".$comentarios['comentario']."</div>";
+						echo "</div>";
+					echo "</div>";
+				}
+				
+				
+				
+				
+				
+				/*while($comentarios=mysqli_fetch_assoc($query)){
 					echo "<div class='foto_comentario'>";
 						echo "<div class='foto_come_titu'>".$comentarios['nombre']." ".$comentarios['apellidos'];
 							echo "<div class='foto_come_fecha'>".$comentarios['fecha']."</div>";
 						echo "</div>";
 						echo "<div class='foto_come_men'>".$comentarios['comentario']."</div>";
 					echo "</div>";
-				}
+				}*/
 			}else{
 				echo "<div>Todavia nadie ha comentado esta foto</div>";
 			}
@@ -30,27 +52,3 @@
 	<?php
 	}
 ?>
-
-<script>
-	function enviar_comentario(){
-		//crear div
-		$("body").append("<div id='ajax_cargando'></div>");
-		
-		comentario = $("#foto_comentario_mens").val();
-		ajax_post2('post.php',comentario);
-	}
-	function ajax_post2(url,data){
-		$.ajax({
-		  type: "POST",
-		  url: url,
-		  data: data
-		}).done(function(){
-			alert("success"); 
-			
-		}).fail(function(){
-			alert("error");
-			
-		}).always(function(msg) { alert("complete"+msg);
-		});
-	}
-</script>

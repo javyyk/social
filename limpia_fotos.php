@@ -9,5 +9,5 @@ while ($archivo = readdir($directorio)){
 }
 closedir($directorio);
 include 'config.php';
-mysql_query("DELETE FROM fotos WHERE uploader='1'");
+mysqli_query($link,"DELETE FROM fotos WHERE uploader='1'");
 ?>

@@ -2,14 +2,14 @@
 	session_start();
 	require('config.php');
 	if(isset($_SESSION['idsesion'])) {
-		$login=mysql_query("SELECT *,
+		$login=mysqli_query($link,"SELECT *,
 			FLOOR(DATEDIFF(CURDATE(),fnac)/365) AS edad
 			FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
-		//echo mysql_num_rows($login);
-		if(mysql_num_rows($login)!=1){
+		//echo mysqli_num_rows($login);
+		if(mysqli_num_rows($login)!=1){
 			header("Location: logout.php?auth_error");
 		}
-		$usuario=mysql_fetch_assoc($login);
+		$usuario=mysqli_fetch_assoc($login);
 		$global_idusuarios=$usuario['idusuarios'];
 		$global_nombre=$usuario['nombre'];
 		$global_apellidos=$usuario['apellidos'];

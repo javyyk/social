@@ -3,9 +3,9 @@
 	<li><a href="perfil.php">Perfil
 
 			<?php
-				$query=mysql_query("SELECT * FROM tablon WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
-				if(mysql_num_rows($query)>0){
-					echo " (".mysql_num_rows($query).")";
+				$query=mysqli_query($link,"SELECT * FROM tablon WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+				if(mysqli_num_rows($query)>0){
+					echo " (".mysqli_num_rows($query).")";
 				}
 			?>
 		</a>
@@ -13,14 +13,13 @@
 	<li>
 		<a href="albums.php">Albums</a>
 		<ul>
-			<li><a href="fotos.php?idalbum=etiquetadas">Etiquetadas</a></li>
-			<li><a href="fotos.php?idalbum=subidas">Subidas</a></li>
-			<li><a href="fotos.php?idalbum=perfil">Perfil</a></li>
+			<li><a href="album.php?idalbum=subidas&amp;iduser=<?php echo $global_idusuarios; ?>">Subidas</a></li>
+			<li><a href="album.php?idalbum=etiquetadas&amp;iduser=<?php echo $global_idusuarios; ?>">Etiquetadas</a></li>
 			<?php
-			$result=mysql_query("SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."'");
-			if(mysql_num_rows($result)>0){
-				while($row=mysql_fetch_assoc($result)){
-					echo "<li><a href='fotos.php?idalbum=".$row['idalbums']."'>".$row['album']."</a></li>";
+			$result=mysqli_query($link,"SELECT * FROM albums WHERE usuarios_idusuarios='".$global_idusuarios."'");
+			if(mysqli_num_rows($result)>0){
+				while($row=mysqli_fetch_assoc($result)){
+					echo "<li><a href='album.php?idalbum=".$row['idalbums']."&amp;iduser=".$global_idusuarios."'>".$row['album']."</a></li>";
 				}
 			}
 			?>
@@ -30,9 +29,9 @@
 		<a href="mp_entrada.php">
 			Mensajes
 			<?php
-			$query=mysql_query("SELECT * FROM mps WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
-			if(mysql_num_rows($query)>0){
-				echo " (".mysql_num_rows($query).")";
+			$query=mysqli_query($link,"SELECT * FROM mps WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+			if(mysqli_num_rows($query)>0){
+				echo " (".mysqli_num_rows($query).")";
 			}
 			?>
 		</a>

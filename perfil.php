@@ -7,8 +7,8 @@
 <div class="barra_izq">
 	<?php
 		if($usuario['idfotos_princi']){
-			$foto=mysql_query("SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
-			$foto=mysql_fetch_assoc($foto);
+			$foto=mysqli_query($link,"SELECT * from fotos WHERE idfotos='".$usuario['idfotos_princi']."'");
+			$foto=mysqli_fetch_assoc($foto);
 			echo "<img alt='foto principal' style='max-height:200px;max-width:200px;' src='".$foto['archivo']."' />";
 		}
 		echo $global_nombre." ".$global_apellidos;
@@ -33,9 +33,9 @@
 	<div class="marco_full" >
 		<h2>Comentarios</h2>
 		<?php
-		$query=mysql_query("SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
-		if(mysql_num_rows($query)>0){
-			while($comentarios=mysql_fetch_assoc($query)){
+		$query=mysqli_query($link,"SELECT *, DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fechaf FROM tablon,usuarios WHERE receptor='".$global_idusuarios."' AND idusuarios=emisor ORDER BY idtablon DESC");
+		if(mysqli_num_rows($query)>0){
+			while($comentarios=mysqli_fetch_assoc($query)){
 				$div = (($comentarios['estado']=='nuevo') ? "<div style='background-color:yellow'>" : "<div>");
 				echo $div.$comentarios['nombre']." dijo: ".$comentarios['comentario']." ".$comentarios['fechaf']."</div>";
 			}
@@ -48,5 +48,5 @@
 
 
 <?php
-	mysql_query("UPDATE tablon SET estado='leido' WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
+	mysqli_query($link,"UPDATE tablon SET estado='leido' WHERE receptor='".$global_idusuarios."' AND estado='nuevo'");
 ?>

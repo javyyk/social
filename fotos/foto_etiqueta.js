@@ -4,6 +4,7 @@ var move;
 var x_centrado;
 var y_centrado;
 var etiqueta_editar;
+//var idfotos;
 
 function etiqueta_borrar(label, value) {
 	if (etiqueta_editar != 1)
@@ -15,7 +16,10 @@ function etiqueta_borrar(label, value) {
 		}
 	});
 
-	lista_amigos.push({value : value,label : label});
+	lista_amigos.push({
+		value : value,
+		label : label
+	});
 
 	// buscamos el nombre del amigo seleccionado
 	for ( i = 0; i < lista_etiquetados.length; i++) {
@@ -25,11 +29,11 @@ function etiqueta_borrar(label, value) {
 			break;
 		}
 	}
-	$("#etiqueta_"+value).remove();
-	
+	$("#etiqueta_" + value).remove();
+
 }
 
-function post(lista_etiquetados) {
+function fotos_post() {
 	string_envio = "";
 	for ( i = 0; i < lista_etiquetados.length; i++) {
 		string_envio += lista_etiquetados[i].value + ",";
@@ -37,12 +41,31 @@ function post(lista_etiquetados) {
 		string_envio += lista_etiquetados[i].y + ",";
 	}
 	string_envio = string_envio.substring(0, string_envio.length - 1);
-	ajax_post("post.php", "foto_etiquetado=1&idfoto=" + idfoto + "&etiquetas=" + string_envio);
-	location.reload();
+
+	titulo = $("input[name='foto_titulo']").val();
+	album = $("select[name='foto_album']").val();
+	
+	//Si hay cambio de album a la siguiente foto
+	if (idalbum != album && idalbum != "0" && album != "NULL") {
+		if (tecla_siguiente) {
+			nextUrl = "fotos.php" + tecla_siguiente;
+			recarga = false;
+		} else {
+			nextUrl = "album.php?iduser=" + iduser + "&idalbum=" + idalbum;
+			recarga = false;
+		}
+	} else {
+		nextUrl = false;
+		recarga = true;
+	}
+	ajax_post("post.php", "foto_edicion=1&idfotos=" + idfoto + "&etiquetas=" + string_envio + "&titulo=" + titulo + "&idalbum=" + album, recarga, nextUrl);
 }
 
 function etiqueta_editar() {
-	$("#lista_etiquetados li div").css("display","inline-block");
+	//Ocultamos cuadros originales y mostramos inputs para edicion
+	$(".barra_der,#foto_titulo").find(".edicion").css("display", "inline-block");
+	$(".barra_der,#foto_titulo").find(".original").css("display", "none");
+	$("#lista_etiquetados li div").css("display", "inline-block");
 	etiqueta_editar = 1;
 	$("form button").show();
 	//TODO: cambiar visual lista etuiquetados
@@ -71,27 +94,27 @@ function etiqueta_editar() {
 				//Coordenadas de la etuiqueta
 				x = e.pageX - this.offsetLeft;
 				y = e.pageY - this.offsetTop;
-			
 
-			//Coordenadas de la etuiqueta centrada al raton
-			h = $("#etiqueta").css("height").match(/[0-9]{1,}/gi)[0] / 2;
-			w = $("#etiqueta").css("width").match(/[0-9]{1,}/gi)[0] / 2;
-			y_centrado = y + p.top - h + "px";
-			x_centrado = x + p.left - w + "px";
-			$("#etiqueta").css({
-				"top" : y_centrado,
-				"left" : x_centrado
-			});
-}
-			$("#coors1").text("DIV x: " + x + " y: " + y);
-			$("#coors2").text("DIV CENTRADO x: " + x_centrado + " y: " + y_centrado);
+				//Coordenadas de la etuiqueta centrada al raton
+				h = $("#etiqueta").css("height").match(/[0-9]{1,}/gi)[0] / 2;
+				w = $("#etiqueta").css("width").match(/[0-9]{1,}/gi)[0] / 2;
+				y_centrado = y + p.top - h + "px";
+				x_centrado = x + p.left - w + "px";
+				$("#etiqueta").css({
+					"top" : y_centrado,
+					"left" : x_centrado
+				});
+			}
+			//$("#coors1").text("DIV x: " + x + " y: " + y);
+			//$("#coors2").text("DIV CENTRADO x: " + x_centrado + " y: " + y_centrado);
 		});
 
 		$("#etiqueta").click(function(e) {
 			move = 0;
 			click = 1;
-			$("form,form input").show();
-			$("form #tags").focus();
+			$(".ui-widget").find("*").show();
+			$(".ui-autocomplete-input").focus();
+
 		});
 
 		$("#foto").click(function(e) {//si click=1 y pincha fuera de la etiqueta desparaliza etiqueta
@@ -106,9 +129,9 @@ function etiqueta_editar() {
 	});
 }
 
-function etiqueta_fijar(id,name) {
-	$("#foto_marco").append("<div class='etiquetado etiqueta_"+id+"' id='etiqueta_"+id+"' style='left:" + x_centrado + ";top:" + y_centrado + ";'><div class='etiqueta_nombre'>"+name+"</div></div>");
-	$("form input").hide();
+function etiqueta_fijar(id, name) {
+	$("#foto_marco").append("<div class='etiquetado etiqueta_" + id + "' id='etiqueta_" + id + "' style='left:" + x_centrado + ";top:" + y_centrado + ";'><div class='etiqueta_nombre'>" + name + "</div></div>");
+	$("#tags").hide();
 	$("body").focus();
 	move = 1;
 	click = 0;
@@ -161,8 +184,13 @@ $(function() {
 		select : function(event, ui) {
 			//AL PULSAR UN RESULTADO
 			//lo añadimos a los etiquetados
-			lista_etiquetados.push({value : ui.item.value,label : ui.item.label,x : x_centrado,y : y_centrado});
-			$("#lista_etiquetados").append("<li class='etiqueta_"+id+"'>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
+			lista_etiquetados.push({
+				value : ui.item.value,
+				label : ui.item.label,
+				x : x_centrado,
+				y : y_centrado
+			});
+			$("#lista_etiquetados").append("<li class='etiqueta_" + ui.item.value + "'>" + ui.item.label + "<div onclick=\"etiqueta_borrar('" + ui.item.label + "','" + ui.item.value + "')\" style='display:inline-block;'></div></li>");
 			$("#tags").val("");
 
 			// buscamos el nombre del amigo seleccionado
@@ -175,10 +203,10 @@ $(function() {
 			}
 
 			//efectos de raton y divs
-			etiqueta_fijar(ui.item.value,ui.item.label);
+			etiqueta_fijar(ui.item.value, ui.item.label);
 			return false;
 		}
 	}).data("autocomplete")._renderItem = function(ul, item) {
 		return $("<li>").data("item.autocomplete", item).append("<a>" + item.label + "</a>").appendTo(ul);
 	};
-}); 
+});

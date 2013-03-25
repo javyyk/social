@@ -6,15 +6,15 @@
 
 <div style="float: left;width: 600px;">
 <?php
-	$query=mysql_query("
+	$query=mysqli_query($link,"
 		SELECT *
 		FROM amigos, usuarios
 		LEFT JOIN fotos
 		ON idfotos=idfotos_princi
 		WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
 	");
-	if(mysql_num_rows($query)>0){
-		while($row=mysql_fetch_assoc($query)){
+	if(mysqli_num_rows($query)>0){
+		while($row=mysqli_fetch_assoc($query)){
 			echo "<div class='barra_izq_centro' style='width: 600px;'>";
 				echo "<img alt='foto principal' height='200' width='200' src='".$row['archivo']."' />";
 				echo "<a href='gente.php?id=".$row['idusuarios']."'>".$row['nombre']." ".$row['apellidos']."</a><br>";
@@ -35,21 +35,21 @@ echo "</div>";
 
 
 	if($_GET['agregar']){//ENVIAR PETICION AMISTAD
-		$query=mysql_query("SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");
-		if(mysql_errno()!=0){
+		$query=mysqli_query($link,"SELECT * FROM amigos WHERE user1='".$_GET['agregar']."' AND user2='".$global_idusuarios."' OR user1='".$global_idusuarios."' AND user2='".$_GET['agregar']."'");
+		if(mysqli_errno()!=0){
 			error_mysql("exit");
 		}
-		if(mysql_num_rows($query)>0){
+		if(mysqli_num_rows($query)>0){
 			header("Location: inicio.php?yasoisamigos");
 			die(); //evitamos enviar peticion
 		}
-		mysql_query("INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
-		if(mysql_errno()!=0){
+		mysqli_query($link,"INSERT INTO peticiones (emisor, receptor) VALUES ('".$global_idusuarios."','".$_GET['agregar']."')");
+		if(mysqli_errno()!=0){
 			error_mysql("exit");
 		}
 	}
 	if($_GET['busqueda']){//REALIZAR BUSQUEDA
-		$query=mysql_query("
+		$query=mysqli_query($link,"
 		SELECT *,
 			(
 				SELECT count(*)
@@ -64,8 +64,8 @@ echo "</div>";
 			(nombre LIKE '%".$_GET['busqueda']."%' OR apellidos LIKE '%".$_GET['busqueda']."%')
 		");
 
-		if(mysql_num_rows($query)>0){
-			while($row=mysql_fetch_assoc($query)){
+		if(mysqli_num_rows($query)>0){
+			while($row=mysqli_fetch_assoc($query)){
 				//print_r($row);
 				echo $row['nombre']." ".$row['apellidos']." -> ";
 				if($row['amigo']==0 AND $row['enviada']==0){

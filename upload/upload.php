@@ -19,8 +19,8 @@ header("Pragma: no-cache");
 	//Obtenemos los datos del usuario
 	session_start();
 	require('../config.php');
-	$login=mysql_query("SELECT * FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
-	$usuario=mysql_fetch_assoc($login);
+	$login=mysqli_query($link,"SELECT * FROM usuarios WHERE idsesion='".$_SESSION['idsesion']."'");
+	$usuario=mysqli_fetch_assoc($login);
 	$global_idusuarios=$usuario['idusuarios'];
 	$global_nombre=$usuario['nombre'];
 	$global_apellidos=$usuario['apellidos'];

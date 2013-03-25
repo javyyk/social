@@ -14,8 +14,8 @@
 
 
 	if($_GET['receptor']){
-		$query=mysql_query("SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
-		$usuario=mysql_fetch_assoc($query);
+		$query=mysqli_query($link,"SELECT * FROM usuarios WHERE idusuarios='".$_GET['receptor']."'");
+		$usuario=mysqli_fetch_assoc($query);
 		?>
 		Destinatario: <?php echo $usuario['nombre']; ?> </h2>
 
@@ -27,13 +27,13 @@
 		</form>
 		<?php
 	}else{
-		$query=mysql_query("
+		$query=mysqli_query($link,"
 			SELECT *
 			FROM amigos, usuarios
 			WHERE user1='".$global_idusuarios."' AND user2=idusuarios OR user2='".$global_idusuarios."' AND user1=idusuarios
 		");
 
-		if(mysql_num_rows($query)>0){
+		if(mysqli_num_rows($query)>0){
 			?>
 			<style>
 			.ui-autocomplete {
@@ -61,7 +61,7 @@
 				    $(function() {
 				        var availableTags = [
 						<?php
-						while($row=mysql_fetch_assoc($query)){
+						while($row=mysqli_fetch_assoc($query)){
 							echo "'".$row['nombre']." ".$row['apellidos']."',";
 						}
 						?>

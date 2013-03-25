@@ -8,12 +8,12 @@ head("Login - Social");
 echo "<script type='text/javascript' src='jscripts/valida_login.php'></script>";
 
 if($_POST['email']){
-	$login=mysql_query("SELECT * FROM usuarios WHERE email='".$_POST['email']."' AND password='".sha1($_POST['password'])."'");
+	$login=mysqli_query($link,"SELECT * FROM usuarios WHERE email='".$_POST['email']."' AND password='".sha1($_POST['password'])."'");
 
 	//LOGIN OK
-	if(mysql_num_rows($login)==1){
+	if(mysqli_num_rows($login)==1){
 		$codigo_temp=rand(0, 99999999999);
-		mysql_query("UPDATE usuarios SET idsesion='".$codigo_temp."' WHERE email='".$_POST['email']."'");
+		mysqli_query($link,"UPDATE usuarios SET idsesion='".$codigo_temp."' WHERE email='".$_POST['email']."'");
 		$_SESSION['idsesion']=$codigo_temp;
 		session_write_close();
 		header( "Location: inicio.php" );

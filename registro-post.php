@@ -11,9 +11,9 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR
 		</div>
 		<?php
 }else{
-	$existe = mysql_query("SELECT * FROM usuarios WHERE email='".$_POST['Email']."'");
+	$existe = mysqli_query($link,"SELECT * FROM usuarios WHERE email='".$_POST['Email']."'");
 
-	if(mysql_num_rows($existe) !="0"){
+	if(mysqli_num_rows($existe) !="0"){
 		?>
 		<div class="centrar">
 			<div class="error">
@@ -24,7 +24,7 @@ if(	(!$_POST['Nombre'] OR !$_POST['Apellidos'] OR !$_POST['contrasenia'] OR
 		</div>
 		<?php
 	}else{
-		mysql_query("INSERT INTO usuarios (nombre, apellidos, fnac, password, email,fecha_reg, sexo)
+		mysqli_query($link,"INSERT INTO usuarios (nombre, apellidos, fnac, password, email,fecha_reg, sexo)
 			values ('".$_POST['Nombre']."','".$_POST['Apellidos']."',STR_TO_DATE('".$_POST['nacimiento']."','%d/%m/%Y'),'".sha1($_POST['contrasenia'])."','".$_POST['Email']."',curdate(),'".$_POST['Sexo']."')");
 		error_mysql('exit');
 		?>
