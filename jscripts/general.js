@@ -1,16 +1,37 @@
-function ajax_post(url, data, reload, nextUrl, retrieve) {
-	$.ajax({
+function ajax_post(p) {
+
+	if (!p.url)
+		p.url = "post.php";
+	if (!p.async)
+		p.async = true;
+	if (!p.visible)
+		p.visible = true;
+		
+	var ajax = $.ajax({
 		type : "POST",
-		url : url,
-		data : data,
-		cache : false
-	}).always(function(msg) {
+		url : p.url,
+		data : p.data,
+		cache : false,
+		async : false
+	});
+	var promise = ajax.done(function(msg) {
+		//alert(msg);
+		return msg;
+	});
+
+	var promise = ajax.always(function(msg) {
 		$("#ajax_cargando_padre").remove();
-		$("body").append("<div id='ajax_cargando_padre'><div id='ajax_cargando'><img src='imagenes/loading.gif'><div class='texto'>Procesando petici&oacute;n, por favor espere.</div></div></div>");
-	}).fail(function(msg) {
+		if(p.visible == true){
+			$("body").append("<div id='ajax_cargando_padre'><div id='ajax_cargando'><img src='imagenes/loading.gif'><div class='texto'>Procesando petici&oacute;n, por favor espere.</div></div></div>");
+		}
+	});
+
+	var promise = ajax.fail(function(msg) {
 		ajax_post_fail();
-	}).done(function(msg) {
-		if (msg.length == 0) {
+	});
+
+	var promise = ajax.done(function(msg) {
+		if (msg.length == 0 && !p.retrieve) {
 			$("#ajax_cargando").addClass("ajax_ok");
 			$("#ajax_cargando").html("<img src='imagenes/ok.png'><div class='texto'>Acci&oacute;n completada con &eacute;xito.</div>");
 			$("#ajax_cargando_padre").fadeIn(function() {
@@ -18,29 +39,36 @@ function ajax_post(url, data, reload, nextUrl, retrieve) {
 					$("#ajax_cargando").fadeOut("slow");
 				}, 1000);
 			});
-			if (reload ==true) {
-				window.setTimeout((function (){window.location.reload();}), 1000);
-			}
-			if (nextUrl) {
-				window.setTimeout((function (){window.location=nextUrl;}), 1000);
-			}
-		}else if(msg == "ERROR") {
+			if (p.reload)
+				window.setTimeout((function() {
+					window.location.reload();
+				}), 1000);
+
+			if (p.nextUrl)
+				window.setTimeout((function() {
+					window.location = nextUrl;
+				}), 1000);
+
+		} else if (msg == "ERROR") {
 			ajax_post_fail();
-		}else if (msg != "ERROR") {
-			if(retrieve == true){
+		} else if (msg != "ERROR") {
+			if (p.retrieve == true) {
+				$("#ajax_cargando_padre").remove();
 				return msg;
-			}else{
+			} else {
 				ajax_post_fail(msg);
 			}
 		}
 	});
+	return ajax.responseText;
+	//return ajax;
 }
 
 function ajax_post_fail(msg) {
-	if(msg){
+	if (msg) {
 		$("#ajax_cargando").addClass("ajax_fail");
-		$("#ajax_cargando").html("<img src='imagenes/advertencia.png'><div class='texto'>Ha ocurrido un error:<br><br>"+msg+"<br><br><a onclick='ajax_post_aceptar()'>Aceptar</a></div>");
-	}else{
+		$("#ajax_cargando").html("<img src='imagenes/advertencia.png'><div class='texto'>Ha ocurrido un error:<br><br>" + msg + "<br><br><a onclick='ajax_post_aceptar()'>Aceptar</a></div>");
+	} else {
 		$("#ajax_cargando").addClass("ajax_fail");
 		$("#ajax_cargando").html("<img src='imagenes/advertencia.png'><div class='texto'>Ha ocurrido un error, int&eacute;ntalo de nuevo o ponte en contacto con nosotros.<br><br><a onclick='ajax_post_aceptar()'>Aceptar</a></div>");
 	}
@@ -96,4 +124,4 @@ $(document).ready(function() {
 			});
 		}
 	});
-}); 
+});

@@ -1,12 +1,21 @@
 function enviar_comentario() {
 	comentario = $("[name='foto_comentario']").val();
-	if(comentario){
-		ajax_post('post.php',"foto_comentario="+comentario+"&idfotos="+idfoto, true);
+	if (comentario) {
+		ajax_post({
+			data : "foto_comentario=" + comentario + "&idfotos=" + idfoto,
+			reload : true,
+		});
 	}
 }
 
+function foto_principal(){
+	ajax_post({
+			data : "foto_principal="+idfoto
+		});
+}
+
 //Una vez se cargan todos los archivos
-$(window).load(function(){
+$(window).load(function() {
 	//Redimensiona el ancho y alto del div del fondo para centrar la imagen
 	$("#foto_marco_medio").width($("#foto").width());
 	$(".barra_izq_centro").eq(0).height($("#foto").height() + 100 + "px");
@@ -17,7 +26,7 @@ $(document).ready(function() {
 	//Teclas navegacion rapida
 	$("body").keypress(function(event) {
 		//Evitamos problemas con la edicion de comentarios
-		if(document.activeElement!="[object HTMLBodyElement]"){
+		if (document.activeElement != "[object HTMLBodyElement]") {
 			return;
 		}
 		if (event.keyCode == 40) {
@@ -34,7 +43,6 @@ $(document).ready(function() {
 			//location.href = tecla_ultima;
 		}
 	});
-
 
 	$("#lista_etiquetados li,#foto_marco div.etiquetado").hover(function() {
 		etiqueta_id = $(this).attr("class").match(/etiqueta_[0-9]{1,}/gim)[0];

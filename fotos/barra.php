@@ -34,7 +34,7 @@
 			<a href="#" onclick="etiqueta_editar()">Editar</a>
 		</li>
 		<li>
-			<a href="post.php?foto_principal=<?php echo $row_fotos['idfotos']; ?>">Principal</a>
+			<a href="#" onclick="foto_principal()">Principal</a>
 		</li>
 		<li>
 			<a href="post.php?foto_borrar=<?php echo $row_fotos['idfotos']; ?>">Borrar foto</a>

@@ -1,2 +1,4 @@
-.settings
 .*
+.settings
+.*user_fotos
+user_fotos/*

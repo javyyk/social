@@ -107,9 +107,9 @@ if ($_POST['foto_edicion']) {
 }
 
 
-if ($_GET['foto_principal']) {
-	mysqli_query($link,"UPDATE usuarios SET idfotos_princi='" . $_GET['foto_principal'] . "' WHERE idusuarios='" . $global_idusuarios . "'");
-	header("location:perfil.php");
+if ($_POST['foto_principal']) {
+	mysqli_query($link,"UPDATE usuarios SET idfotos_princi='" . $_POST['foto_principal'] . "' WHERE idusuarios='" . $global_idusuarios . "'");
+	die();
 }
 
 if ($_GET['foto_borrar']) {
@@ -130,8 +130,28 @@ if ($_POST['foto_comentario']) {
 }
 
 if ($_POST['foto_leer_comentarios']) {
-	mysqli_query($link,"INSERT INTO fotos_comentarios (fotos_idfotos,emisor,comentario,fecha) VALUES ('" . $_POST['idfotos'] . "','" . $global_idusuarios . "','" . $_POST['foto_comentario'] . "',now())");
-	header($_SERVER['referer']);
+	$result = mysqli_query($link,"
+				SELECT idusuarios, nombre, apellidos, comentario,
+				 DATE_FORMAT(fecha, '%d/%m/%Y %H:%i') AS fecha,
+				(SELECT archivo FROM fotos WHERE idfotos=idfotos_princi) AS img_princi
+				 FROM fotos_comentarios, usuarios WHERE fotos_idfotos='" . $_POST['idfoto'] . "' AND emisor=idusuarios ORDER BY fecha DESC");
+	if (mysqli_num_rows($result) > 0) {
+		while($row = mysqli_fetch_assoc($result)){
+			print "<div class='foto_comentario'> 
+				 <img src='{$row['img_princi']}'> 
+				 <div> 
+				 <div> 
+				 <div class='foto_come_titu'><a href='gente.php?id={$row['idusuarios']}'>{$row['nombre']} {$row['apellidos']}</a></div> 
+				 <div class='foto_come_fecha'>{$row['fecha']}</div> 
+				 </div> 
+				 <div class='foto_come_men'>{$row['comentario']}</div> 
+				 </div> 
+				 </div>";
+		}
+		
+	}else{
+		echo "<div>Todavia nadie ha comentado esta foto</div>";
+	}
 	die();
 }
 
