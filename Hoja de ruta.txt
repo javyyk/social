@@ -1,17 +1,20 @@
 Registro de usuario
-	Envio de email
-	Validacion mediante email
+	Nivel de seguridad de contraseña
+	Envio de email para validacion
 Login de usuario
 Inicio con novedades
-Perfil con comentarios de otros
-Mensajeria privada (Escribir, Entrada, Enviados)
+Perfil con comentarios y publicaciones
+Mensajeria privada (Escribir, Entrada, Salida)
 Albums
 	Visualizacion fotos
 		Etiquetas fotos
-		Comentarios
+		Comentarios & editar y borrar
 	Subida fotos
 Panel de control
 	Ips de acceso
 	Cambio de datos (Contrase�a, nombre, correo, localidad)
 Chat
 Logout
+
+
+Aplicacion web para movil mediante jqueri
