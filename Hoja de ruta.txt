@@ -17,4 +17,17 @@ Chat
 Logout
 
 
-Aplicacion web para movil mediante jqueri
+Aplicacion web para movil mediante jquery
+
+
+
+NOVEDADES:
+	Campos estandard tabla: ID, fecha, tipo evento
+	Campos especiales: 
+		Aceptada peticion de amistad - propietario, visitante (doble insert con alternacion de valores)
+		Cambio foto principal - idupropietarioser, imagen
+		Cambio estado - propietario, texto
+		Publicaciones - propietario, texto
+		Comentarios en el tablon - propietario, visitante, texto
+		Subida fotos - propietario, imagenes
+		Etiquetacion de fotos - propietario, imagenes 

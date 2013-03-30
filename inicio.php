@@ -1,4 +1,5 @@
 <?php
+	$tiempo_inicio = microtime(true);
 	require("verify_login.php");
 	head("Inicio - Social");
 	require("estructura.php");
@@ -52,6 +53,17 @@
 				}
 			}
 		?>
+		
+		
+		<?php
+			require ("inc/sucesos.php");
+		?>
 	</div>
 </div>
-<?php require("chat.php"); ?>
+<?php
+	require("chat.php"); 
+	$tiempo_fin = microtime(true);
+	echo "<br>Tiempo de ejecución redondeado: " . round($tiempo_fin - $tiempo_inicio, 4)."<br>";
+?>
+Sin novedades: 0.02 max<br>
+Con consulta principal: 0.02 max

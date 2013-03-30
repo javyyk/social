@@ -109,6 +109,9 @@ if ($_POST['foto_edicion']) {
 
 if ($_POST['foto_principal']) {
 	mysqli_query($link,"UPDATE usuarios SET idfotos_princi='" . $_POST['foto_principal'] . "' WHERE idusuarios='" . $global_idusuarios . "'");
+	//echo mysqli_error($link);
+	mysqli_query($link,"INSERT INTO sucesos (fecha, tipo, propietario, datos) VALUES (now(),'foto','{$global_idusuarios}','{$_POST['foto_principal']}')");
+	//echo mysqli_error($link);
 	die();
 }
 
