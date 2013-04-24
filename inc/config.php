@@ -65,6 +65,7 @@ function limpia_texto($string) {
 
 //ERROR MYSQL
 function error_mysql($p1) {
+	global $link;
 	if (mysqli_errno($link)) {
 		echo "No error: " . mysqli_errno($link) . " -> " . mysqli_error($link) . "<br>";
 		if ($p1 == "exit") {
