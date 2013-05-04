@@ -8,5 +8,6 @@ $mysqli_db = mysqli_select_db($link, "social");
 if (!$mysqli_db)
 	die("Error al seleccionar la base de datos");
 
-require("inc/functions.php");
+// $ruta se usa para meter ../ cuando la peticion procede de ficheros en subdirectorios
+require($ruta."inc/functions.php");
 ?>
