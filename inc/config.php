@@ -8,6 +8,13 @@ $mysqli_db = mysqli_select_db($link, "social");
 if (!$mysqli_db)
 	die("Error al seleccionar la base de datos");
 
+
+// Configuracion idioma de PHP para fechas
+//setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+
+// Configuracion idioma de MySql para fechas
+mysqli_query($link, "SET lc_time_names = 'es_ES'");
+
 // $ruta se usa para meter ../ cuando la peticion procede de ficheros en subdirectorios
 require($ruta."inc/functions.php");
 ?>
