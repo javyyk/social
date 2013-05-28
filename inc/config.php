@@ -1,10 +1,23 @@
 <?php
+//Definir constantes
+define("Sitio", "Social");
+define("Sitio_Largo", "Social Networks");
+define("Sitio_direccion", "127.0.0.1/social/");
+
+define("MySQL_IP", "127.0.0.1");
+define("MySQL_USER", "root");
+define("MySQL_PASS", "");
+define("MySQL_BD", "social");
+
+define("Email_Address", "javi.and.friends@gmail.com");
+
+
 //CONEXION BBDD
-$link = mysqli_connect('127.0.0.1', 'root', '');
+$link = mysqli_connect(MySQL_IP, MySQL_USER, MySQL_PASS);
 if (!$link)
 	die("Error al conectar con el MySQL");
 
-$mysqli_db = mysqli_select_db($link, "social");
+$mysqli_db = mysqli_select_db($link, MySQL_BD);
 if (!$mysqli_db)
 	die("Error al seleccionar la base de datos");
 
