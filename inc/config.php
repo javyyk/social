@@ -2,7 +2,7 @@
 //Definir constantes
 define("Sitio", "Social");
 define("Sitio_Largo", "Social Networks");
-define("Sitio_direccion", "127.0.0.1/social/");
+define("Sitio_direccion", "127.0.0.1/social");
 
 define("MySQL_IP", "127.0.0.1");
 define("MySQL_USER", "root");
