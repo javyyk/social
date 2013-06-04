@@ -29,8 +29,8 @@ $q_querys = mysqli_query($link, "SHOW SESSION STATUS LIKE 'Questions'");
 $r_querys = mysqli_fetch_array($q_querys);
 define("START_QUERIES", $r_querys['Value']);
 
-// Configuracion idioma de PHP para fechas
-//setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
+// Configuracion idioma de PHP para fechas (usar con strftime)
+setlocale(LC_ALL,"es_ES@euro","es_ES","esp");
 
 // Configuracion idioma de MySql para fechas
 mysqli_query($link, "SET lc_time_names = 'es_ES'");
