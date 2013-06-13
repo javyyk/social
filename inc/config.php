@@ -1,15 +1,30 @@
 <?php
-//Definir constantes
+//CONSTANTES DE CONFIGURACION GLOBALES
+
+//Titulo corto del sitio
 define("Sitio", "Social");
+
+//Titulo largo del sitio
 define("Sitio_Largo", "Social Networks");
+
+//Direccion de la web
 define("Sitio_direccion", "127.0.0.1/social");
 
+//IP del servidor MySQL
 define("MySQL_IP", "127.0.0.1");
+
+//Usuario del servidor MySQL
 define("MySQL_USER", "root");
+
+//Contraseña del servidor MySQL
 define("MySQL_PASS", "");
+
+//Base de datos del servidor MySQL
 define("MySQL_BD", "social");
 
+//Email que se usara como emisor de los correos
 define("Email_Address", "javi.and.friends@gmail.com");
+
 
 
 //CONEXION BBDD
